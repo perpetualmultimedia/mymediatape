@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Group name:</strong>
+  <%= @band.group_name %>
+</p>
+
+<p>
+  <strong>Genre:</strong>
+  <%= @band.genre %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @band.city %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @band.state %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @band.user %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @band.description %>
+</p>
+
+<p>
+  <strong>Website:</strong>
+  <%= @band.website %>
+</p>
+
+<%= link_to 'Edit', edit_band_path(@band) %> |
+<%= link_to 'Back', bands_path %>

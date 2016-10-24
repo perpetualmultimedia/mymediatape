@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  group_name: MyString
+  genre: MyString
+  city: MyString
+  state: MyString
+  user_id: 
+  description: MyString
+  website: MyString
+
+two:
+  group_name: MyString
+  genre: MyString
+  city: MyString
+  state: MyString
+  user_id: 
+  description: MyString
+  website: MyString
