@@ -60,6 +60,13 @@ class SongsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  def set_song_id
+    set_song
+    session[:song_id] = @song.id
+    session[:album_id] = @song.album_id
+    session[:band_id] = @song.album.band_id
+    redirect_to :back
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -69,6 +76,6 @@ class SongsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def song_params
-      params.require(:song).permit(:title, :track_number, :description, :collection_id)
+      params.require(:song).permit(:title, :track_number, :description, :album_id)
     end
 end

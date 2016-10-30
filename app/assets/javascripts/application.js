@@ -16,3 +16,7 @@
 //= require_tree .
 //= require jquery
 //= require bootstrap-sprockets
+//=require jquery.pjax
+$(function() {
+  $(document).pjax('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])', '[data-pjax-container]')
+});

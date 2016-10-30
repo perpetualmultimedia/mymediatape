@@ -10,11 +10,14 @@ class BandsController < ApplicationController
   # GET /bands/1
   # GET /bands/1.json
   def show
+    @user = current_user
+    @album = @band.albums
   end
 
   # GET /bands/new
   def new
     @band = Band.new
+    @band.members.build
   end
 
   # GET /bands/1/edit
@@ -24,7 +27,8 @@ class BandsController < ApplicationController
   # POST /bands
   # POST /bands.json
   def create
-    @band = Band.new(band_params)
+    @band = current_user.bands.build(band_params)
+
 
     respond_to do |format|
       if @band.save
@@ -60,7 +64,6 @@ class BandsController < ApplicationController
       format.json { head :no_content }
     end
   end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_band
@@ -69,6 +72,6 @@ class BandsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def band_params
-      params.require(:band).permit(:group_name, :genre, :city, :state, :user_id, :description, :website)
+      params.require(:band).permit(:group_name, :band_avatar, :genre, :city, :state, :user_id, :description, :website, members_attributes: [:first_name, :last_name, :email, :band_id, :id, :_destroy])
     end
 end

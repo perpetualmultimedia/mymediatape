@@ -1,14 +1,225 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Mymediatape</title>
+  <title>My Media Tape</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-<div class="container">
-<%= yield %>
+<script>
+$(document).ready(function(){
+
+  // Local copy of jQuery selectors, for performance.
+  var my_jPlayer = $("#jquery_jplayer"),
+    my_trackName = $("#jp_container .track-name"),
+    my_playState = $("#jp_container .play-state"),
+    my_extraPlayInfo = $("#jp_container .extra-play-info");
+
+  // Some options
+  var opt_play_first = false, // If true, will attempt to auto-play the default track on page loads. No effect on mobile devices, like iOS.
+    opt_auto_play = true, // If true, when a track is selected, it will auto-play.
+    opt_text_playing = "Now playing", // Text when playing
+    opt_text_selected = "Track selected"; // Text when not playing
+
+  // A flag to capture the first track
+  var first_track = true;
+
+  // Change the time format
+  $.jPlayer.timeFormat.padMin = false;
+  $.jPlayer.timeFormat.padSec = false;
+  $.jPlayer.timeFormat.sepMin = " min ";
+  $.jPlayer.timeFormat.sepSec = " sec";
+
+  // Initialize the play state text
+  my_playState.text(opt_text_selected);
+
+  // Instance jPlayer
+  my_jPlayer.jPlayer({
+    ready: function () {
+      $("#jp_container .track-default").click();
+    },
+    timeupdate: function(event) {
+      my_extraPlayInfo.text(parseInt(event.jPlayer.status.currentPercentAbsolute, 10) + "%");
+    },
+    play: function(event) {
+      my_playState.text(opt_text_playing);
+    },
+    pause: function(event) {
+      my_playState.text(opt_text_selected);
+    },
+    ended: function(event) {
+      my_playState.text(opt_text_selected);
+    },
+    swfPath: "../../dist/jplayer",
+    cssSelectorAncestor: "#jp_container",
+    supplied: "mp3",
+    wmode: "window"
+  });
+
+  // Create click handlers for the different tracks
+  $("#jp_container .track").click(function(e) {
+    my_trackName.text($(this).text());
+    my_jPlayer.jPlayer("setMedia", {
+      mp3: $(this).attr("href")
+    });
+    if((opt_play_first && first_track) || (opt_auto_play && !first_track)) {
+      my_jPlayer.jPlayer("play");
+    }
+    first_track = false;
+    $(this).blur();
+    return false;
+  });
+
+});
+//]]>
+</script>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">My Media Tape</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><%= link_to "Home", root_path %></li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+
+           <li class="divider-vertical"></li>
+            <% if user_signed_in? %>
+	            <li class="dropdown">
+	              <a class="dropdown-toggle" href="" data-toggle="dropdown"> <% if user_signed_in? %> <%= image_tag current_user.avatar.url(:thumb), style: "height:20px; padding-right:6px; border-radius:10px;" %> <%= " #{current_user.first_name}" %> <%= " #{ current_user.last_name}" %><% end %> <span class="badge"></span> <strong class="caret"></strong></a>
+	              <div class="dropdown-menu" style=" padding:15px; padding-bottom: 10px;">
+	                <ul class=" nav-pills nav-stacked nav-drop">
+	                  	<li role="presentation" ><%= link_to "Home", root_path %></li>
+						</li>
+						<hr>
+						<% if current_user.bands.any? %>
+							<% current_user.bands.each do |band|%>
+								<li role="presentation">
+									<%= link_to band do %>
+										<%= band.group_name %>
+									<% end %>
+								</li>
+							<% end %>
+						<% end %>
+	                </ul>
+	                <br/>
+	                <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "btn btn-large btn-block btn-primary" %>
+	              </div>
+	            </li>
+            <% else %>
+	            <li>
+		            <%= link_to "Sign Up", new_user_registration_path %>
+		        </li>
+		        <li>
+		            <%= link_to "Sign In", :user_session %>
+		        </li>
+            <% end %>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<div class="container" style="margin-bottom: 100px;" data-pjax-container>
+  <%= yield %>
+</div>
+
+<div class="media-player" >
+<% current_song = Song.find_by_id(session[:song_id]) %>
+<% current_album = Album.find_by_id(session[:album_id]) %>
+<% current_band = Band.find_by_id(session[:band_id]) %>
+  <div class="audio-info">
+    <div class="audio-art">
+      <%= image_tag current_song.album.album_art.url(:medium), class: "album-art", style: " object-fit:cover;" %>
+    </div>
+    <div class="audio-desc">
+
+      <span class="artist"> <%= current_song.title %></span><br/>
+      <span class="song"> <%= current_band.group_name %></span><br/>
+      <span class="album"><%= current_album.name %></span><br/>
+    </div>
+  </div>
+
+  <div class="audio-playback">
+    <%= audio_tag(current_song.audio_file.url, id: "audio", crossorigin: "anonymous", controls: false) %>
+
+    <div class="btn-group audio-controls" role="group" aria-label="...">
+      <button type="button" class="btn btn-default" id="play"><i class="fa fa-play"></i>
+      </button>
+      <button type="button" class="btn btn-default" id="pause"><i class="fa fa-pause"></i>
+      </button>
+    </div>
+    <div id='progressOut'>
+         <div id='progressIn'>
+         </div>
+    </div>
+    <div id='time'>00:00</div>
+  </div> 
+<script>
+//Define the player 
+var player = document.getElementById('audio');
+audio.play();
+//play when play is clicked
+$('#play').click(function(){
+player.play()
+})
+
+//pause when pause clicked
+$('#pause').click(function(){
+player.pause()
+})
+
+
+
+//UPDATE PROGRESS BAR
+function updateProgress() {
+   var progress = $("#progressIn");
+   var value = 0;
+
+   //If duration = infinity set value to 100
+
+   if(player.duration == 'Infinity')
+   {
+      value = 100;
+   }
+   //else if it is > 0 calculate percentage to highlight
+
+   else if (player.currentTime > 0) {
+      value = Math.floor((100 / player.duration) * player.currentTime);
+   }
+
+   //set the width of the progress bar
+
+   progress.stop().css({'width':value + '%'},500)
+
+   //set the new timestamp
+   $('#time').html(formatTime(player.currentTime))
+}
+
+// add event listener for audio time updates
+player.addEventListener("timeupdate", updateProgress, false);
+
+
+//Format the audio tag's time stamp
+function formatTime(seconds) {
+    minutes = Math.floor(seconds / 60);
+    minutes = (minutes >= 10) ? minutes : "" + minutes;
+    seconds = Math.floor(seconds % 60);
+    seconds = (seconds >= 10) ? seconds : "0" + seconds;
+    return minutes + ":" + seconds;
+ }
+ </script>
 </div>
 </body>
 </html>

@@ -1,0 +1,23 @@
+ <label>Song</label>
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :track_number %><br>
+    <%= f.number_field :track_number %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%= f.label :audio_file %>
+    <%= f.file_field :audio_file %>
+  </div>
+  <div class=" checkbox">
+    <label>
+    <%= f.check_box :_destroy, class: "form-checkbox " %><strong><div class="delete-checkbox-info">Delete Song?</div> </strong>
+    </label>
+  </div>
+<hr>

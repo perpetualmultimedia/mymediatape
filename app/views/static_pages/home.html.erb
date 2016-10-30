@@ -1,0 +1,98 @@
+<% if user_signed_in? %>
+	<div class="row">
+		<div class="col-md-1">
+			<%= image_tag current_user.avatar.url(:thumb), style: "padding:18px; float:right; border-radius:50px; height:100px;" %>
+		</div>
+		<div class="col-md-11">
+			<h3> Hey <%= current_user.first_name %>,</h3>
+			<h4> Here's your feed </h4>
+		</div>
+	</div>
+	<hr>
+	<div class="col-md-3">
+	<label>Your Bands</label>
+	<hr>
+		<% current_user.bands.each do |band| %>
+			<label> <%= link_to band do %><%= band.group_name %> <% end %></label> <br/> 
+			<%= link_to 'Edit', edit_band_path(band) %> | <%= link_to 'Add Music', new_band_album_path(band) %>
+			<hr>
+		<% end %>
+		<%= link_to 'New Band', new_band_path %>
+	</div>
+	<div class="col-md-6">
+	<label>Followed Albums</label>
+	<hr>
+		<% current_user.feed.each do |album| %>
+		<div class="col-md-12">
+			<div class="row">
+	          <div class="row">
+	            <div class="col-md-4">
+	            <%= link_to album.band do %>
+	              <%= image_tag album.album_art.url(:medium), style: "height:150px; width:150px; object-fit:cover;" %>
+	            <% end %>
+	            </div>
+	            <div class="col-md-8">	
+	            	<%= link_to album.band do %>
+		            	<p><%= album.band.group_name %></p>
+		              	<p><%= album.name %></p>
+		              	<p><%= album.album_type %></p>
+		              	<p><%= album.released %></p>
+	              	<% end %>
+	              	<hr>
+	              	<label> Songs </label>
+			    	<p>
+			    	<% album.songs.each do |song| %>
+			    		<%= song.track_number %>. <%= song.title %>
+			    	<% end %>
+			    	</p>
+	            </div>
+	          </div>
+			</div>
+			<div class="row">
+				<div class="col-md-12" style="margin-top:10px;">
+			    	
+			    </div>
+			</div>
+		    <hr>
+		</div>
+	    <% end %>
+	</div>
+	<div class="col-md-3">
+		<label> Bands you follow </label>
+		<hr>
+			<p>
+			<% current_user.following.each do |band| %>
+			<%= link_to band do %><%= band.group_name %><% end %>
+			</p>
+			<hr>
+		<% end %>
+	</div>
+<% else %>
+	<h3> Hey,</h3>
+	<h4> Welcome to My Media Tape! Listen to some music! </h4>
+	<hr>
+	<div class="col-md-4">
+		<label> Our Bands </label>
+		<% @bands.each do |band| %>
+		<p>
+			<%= link_to band do %><%= band.group_name %><% end %>
+		</p>
+		<% end %>
+	</div>
+	<div class="col-md-4">
+		<label> Albums </label>
+		<% @albums.each do |album| %>
+		<p>
+			<%= link_to band_album_url(album.band_id, album) do %><%= album.name %><% end %>
+		</p>
+		<% end %>
+	</div>
+	<div class="col-md-4">
+		<label> Songs </label>
+		<% @songs.each do |song| %>
+		<p>
+			<%= link_to band_song_path(song.album_id, song) do %><%= song.title %><% end %>
+		</p>
+		<% end %>
+	</div>
+<% end %>

@@ -1,0 +1,44 @@
+<%= form_for([@band, @album]) do |f| %>
+  <% if @album.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@album.errors.count, "error") %> prohibited this album from being saved:</h2>
+
+      <ul>
+      <% @album.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <div class="field">
+      <label>Album Title</label><br>
+      <%= f.text_field :name %>
+    </div>
+    <div class="field">
+      <%= f.label :album_art %>
+      <%= f.file_field :album_art %>
+    </div>
+    <div class="field">
+      <%= f.label "Type" %><br>
+      <%= f.select :album_type, options_for_select([['Album', 'Album'], ['EP', 'EP'], ['LP', 'LP'], ['Mixtape', 'Mixtape']]) %>
+    </div>
+    <div class="field">
+      <%= f.label :released %><br>
+      <%= f.text_field :released %>
+    </div>
+    <div class="field">
+      <%= f.label :description %><br>
+      <%= f.text_area :description %>
+    </div>
+      <h3> Songs </h3>
+    <%= f.fields_for :songs do |builder| %>
+      
+        <%= render 'song_fields', :f => builder %>
+
+    <% end %>
+    <%= link_to_add_more_fields "Add more songs in this group", f, :songs %>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>

@@ -1,39 +1,98 @@
 <p id="notice"><%= notice %></p>
+<div class="row" style="margin-bottom:20px;">
+  <div class="col-md-2">
+    <%= image_tag @band.band_avatar.url(:medium), style: "border-radius:100px; height: 150px;" %>
+  </div>
+  <div class="col-md-8" style="padding:30px;">
+    <h2>  <%= @band.group_name %>   </h2>
+  </div>
+  <div class="col-md-2" style="padding-top:50px;">
+    <% if user_signed_in? %>
+      <div id="follow_form">
+      <% if @user.following?(@band) %>
+        <%= render 'unfollow' %>
+      <% else %>
+        <%= render 'follow' %>
+      <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+<hr>
+<div class="col-md-3">
+  <p>
+    <strong>Genre:</strong>
+    <%= @band.genre %>
+  </p>
 
-<p>
-  <strong>Group name:</strong>
-  <%= @band.group_name %>
-</p>
+  <p>
+    <strong>City:</strong>
+    <%= @band.city %>
+  </p>
 
-<p>
-  <strong>Genre:</strong>
-  <%= @band.genre %>
-</p>
+  <p>
+    <strong>State:</strong>
+    <%= @band.state %>
+  </p>
 
-<p>
-  <strong>City:</strong>
-  <%= @band.city %>
-</p>
+  <p>
+    <strong>Description:</strong>
+    <%= @band.description %>
+  </p>
 
-<p>
-  <strong>State:</strong>
-  <%= @band.state %>
-</p>
+  <p>
+    <strong>Website:</strong>
+    <%= @band.website %>
+  </p>
+  <p>
+  <hr>
+  <label>Members</label>
+  <% @band.members.each do |member| %>
+    <p>
+    <%= member.first_name %> <%= member.last_name %>
+    </p>
+  <% end %>
+  <hr>
+</div>
+<div class="col-md-9">
+  <% unless @band.albums.blank? %>
+    <label>Albums</label>
+    <hr>
+      <% @band.albums.each do |album| %>
+      <%= link_to band_album_url(@band, album) do %>
+        <div class="col-md-4">
+          <div class="row">
+            <div class="col-md-4">
+              <%= image_tag album.album_art.url(:medium), style: "height:88px; width:88px; object-fit:cover;" %>
+            </div>
+            <div class="col-md-8">
+              <p><%= album.name %></p>
+              <p><%= album.album_type %></p>
+              <p><%= album.released %></p>
 
-<p>
-  <strong>User:</strong>
-  <%= @band.user %>
-</p>
+            </div>
+          </div>
+        </div>
+      <% end %>
 
-<p>
-  <strong>Description:</strong>
-  <%= @band.description %>
-</p>
 
-<p>
-  <strong>Website:</strong>
-  <%= @band.website %>
-</p>
+    <% end %>
+    
+  <% end %>
+  </p>
 
-<%= link_to 'Edit', edit_band_path(@band) %> |
-<%= link_to 'Back', bands_path %>
+</div>
+
+<div class="col-md-9">
+  <hr>
+
+  <label>Top Songs</label>
+  <hr>
+    <% @band.songs.each do |song| %>
+    <p>
+      <label>Title:</label> <%= song.title %>
+      <label>Year:</label> <%= song.album.released %>
+      <label>Album:</label> <%= song.album.name %>
+    </p>
+    <% end %>
+</div>

@@ -1,13 +1,32 @@
 Rails.application.routes.draw do
-  resources :songs
-  resources :collections
-  resources :bands
-  devise_for :users, :controllers => {:registrations => "registrations"}
+
+
+  get 'static_pages/home'
+
+  get 'static_pages/help'
+
+  get 'static_pages/sign_up_success'
+
+
+  resources :bands do
+    get :following, :followers
+    resources :albums, :except => [:update, :destroy]
+    resources :songs
+    resources :members
+  end
+  post "/bands/:band_id/songs/:id(.:format)", :to=>"songs#set_song_id"
+  resources :albums, :only => [:update, :destroy]
+  resources :relationships,       only: [:create, :destroy]
+  get 'users/index'
+
+  get 'users/show'
+  devise_for :users, :controllers => {:registrations => "users/registrations"}
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+   root 'static_pages#home'
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

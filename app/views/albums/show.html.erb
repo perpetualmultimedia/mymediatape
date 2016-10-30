@@ -1,0 +1,53 @@
+
+<p id="notice"><%= notice %></p>
+<div class="row" style="margin-bottom:20px;">
+  <%= link_to band_path(@album.band) do %>
+  <div class="col-md-2">
+    <%= image_tag @album.band.band_avatar.url(:medium), style: "border-radius:100px; height: 150px;" %>
+  </div>
+  <div class="col-md-8" style="padding:30px;">
+    <h2>  <%= @album.band.group_name %>   </h2>
+  </div>
+  <% end %>
+  <div class="col-md-2" style="padding-top:50px;">
+    
+  </div>
+</div>
+
+<hr>
+<div class="row">
+  <div class="col-md-4">
+    <%= image_tag @album.album_art.url(:medium), style: "height:300px; width:300px; object-fit:cover;" %>
+
+  <p>
+    <strong>Released:</strong>
+    <%= @album.released %>
+  </p>
+
+  <p>
+    <strong>Description:</strong>
+    <%= @album.description %>
+  </p>
+
+  </div>
+  <div class="col-md-8">
+  <label>Songs</label>
+    <% @album.songs.each do |album_song| %>
+    <script>
+    $(function(){
+      $("#set_song_id<%= album_song.id %>").click(function(){
+        $.post('/bands/:band_id/songs/<%= album_song.id %>(.:format)');
+      })
+    })
+    </script>
+     <p>
+      <a href="#" id="set_song_id<%= album_song.id %>"><%= album_song.track_number %>. <%= album_song.title %></a>
+    </p>
+    <% end %>
+  </p>
+  </div>
+</div>
+<hr>
+<%= link_to "Edit", edit_band_album_url(@album.band.id, @album) %> |
+<%= link_to 'Back', band_path(@album.band.id) %>
+

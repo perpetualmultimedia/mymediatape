@@ -4,10 +4,10 @@ one:
   title: MyString
   track_number: 1
   description: MyString
-  collection_id: 
+  album_id: 
 
 two:
   title: MyString
   track_number: 1
   description: MyString
-  collection_id: 
+  album_id: 

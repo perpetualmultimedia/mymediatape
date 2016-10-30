@@ -29,6 +29,9 @@ gem 'bootstrap-sass', '~> 3.3.5'
 gem 'aws-sdk-rails'
 gem 'paperclip', github: 'thoughtbot/paperclip'
 gem 'sprockets', '3.6.3'
+gem 'pjax_rails'
+gem "font-awesome-rails"
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

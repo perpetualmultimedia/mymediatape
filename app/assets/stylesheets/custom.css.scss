@@ -1,0 +1,183 @@
+
+body{
+	margin:0;
+	font-family: 'Patua One', cursive;
+}
+
+.sign-up{
+	margin-top:20px;
+
+}
+#bars{
+	position:absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;	
+}
+/*#audio{
+	display:none;
+}*/
+.content{
+	text-align:left;
+	margin-bottom:40px;
+}
+
+.audio-controls{
+	margin-top:-12px;
+	margin-bottom:10px;
+	float:left;
+}
+#progressOut {
+    width: calc(100% - 160px);
+    height:10px;
+    border:1px solid #ccc;
+    position:relative;
+    float:left;
+    border-radius:5px;
+    margin-left:20px;
+} 
+#progressIn {
+    position:relative;/*This is important*/
+    height:100%;
+    bottom:0px;
+    width:0px;
+    background:#bebebe; /*This can be anything*/
+    border-radius:5px;
+} 
+#time {
+    font-size:12px;
+    position:relative;
+    float:right;
+    margin-top:-3px;
+    padding-right:20px;
+}
+.media-player{
+	width:100%;
+	height:80px;
+	position:fixed;
+	bottom:0;
+	background-color: #f2f2f2;
+	border-top:solid;
+	border-top-width:thin;
+	border-top-color:#d9d9d9;
+}
+.audio-playback{
+	padding:35px;
+	float:right;
+	width: calc(100% - 260px);
+	border-left:solid;
+	border-left-width:thin;
+	border-left-color:#d9d9d9;
+}
+.audio-info{
+	background-color:#ececec;
+	height:100%;
+	width:260px;
+	float:left;
+	text-align:left;
+}
+.album-art{
+	height:80px;
+	width: 80px;
+	float:left;
+}
+.audio-art{
+	height:80px;
+	width: 80px;
+	float:left;
+}
+.audio-desc{
+	padding-top:9px;
+	padding-left:13px;
+	font-weight:bold;
+	float:left;
+}
+ /*==========  Mobile First Method  ==========*/
+
+    /* Custom, iPhone Retina */ 
+    @media only screen and (min-width : 320px) {
+        #progressOut {
+        	display:none;
+		} 
+		#progressIn {
+        	display:none;
+		} 
+		#bars{
+			width:100%;
+			height:250px;
+			overflow:hidden;
+			margin-left:2%;
+			margin-right:-2%;
+		}
+		.audio-playback{
+			padding:20px;
+		}
+		.logo-cont{
+			width:100%;
+			height:250px;
+			background-color:#550527;
+			text-align:center;
+			position:relative;
+		}
+		.png-logo{
+			padding-top:77px;
+			width:600px;
+			margin-left:auto;
+			margin-right:auto;
+			position:relative;
+			z-index:1000;
+		}
+    }
+
+    /* Extra Small Devices, Phones */ 
+    @media only screen and (min-width : 480px) {
+    	.audio-playback{
+			padding:35px;
+		}
+		#bars{
+			height:320px;
+		}
+		.logo-cont{
+			height:320px;
+		}
+    }
+
+    /* Small Devices, Tablets */
+    @media only screen and (min-width : 768px) {
+    	#progressOut {
+        	display:block;
+		} 
+		#progressIn {
+        	display:block;
+		} 
+
+		.png-logo{
+			padding-top:92px;
+		}
+    }
+
+    /* Medium Devices, Desktops */
+    @media only screen and (min-width : 992px) {
+
+    }
+
+    /* Large Devices, Wide Screens */
+    @media only screen and (min-width : 1200px) {
+
+    }
+
+
+.bar-wrapper {
+    height: 300px;
+    position: relative;
+}
+.bar {
+    position: relative;
+    bottom: 0;
+    width: 5px;
+    display: inline-block;
+    border: 1px solid red;
+    height: 5px;
+    border-bottom: 3px solid #A1094A;
+}
