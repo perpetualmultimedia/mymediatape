@@ -27,12 +27,12 @@
 			<div class="row">
 	          <div class="row">
 	            <div class="col-md-4">
-	            <%= link_to album.band do %>
+	            <%= link_to band_album_url(album.band.id, album.id) do %>
 	              <%= image_tag album.album_art.url(:medium), style: "height:150px; width:150px; object-fit:cover;" %>
 	            <% end %>
 	            </div>
 	            <div class="col-md-8">	
-	            	<%= link_to album.band do %>
+	            	<%= link_to band_album_url(album.band.id, album.id) do %>
 		            	<p><%= album.band.group_name %></p>
 		              	<p><%= album.name %></p>
 		              	<p><%= album.album_type %></p>
@@ -91,7 +91,7 @@
 		<label> Songs </label>
 		<% @songs.each do |song| %>
 		<p>
-			<%= link_to band_song_path(song.album_id, song) do %><%= song.title %><% end %>
+			<%= link_to band_album_song_path(song.album.band_id, song.album_id, song) do %><%= song.title %><% end %>
 		</p>
 		<% end %>
 	</div>

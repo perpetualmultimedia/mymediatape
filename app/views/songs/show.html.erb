@@ -3,11 +3,11 @@
 <h4> <%= @song.album.name %> </h4>
 <hr>
 <p>
-<%= link_to 'Play Song', @song.audio_file.url, :class => "play" %>
   <strong>Title:</strong>
   <%= @song.title %>
 </p>
-
+<%= audio_tag @song.audio_file.url, controls: "true", preload: "true" %>
+<audio src="/system/songs/audio_files/000/000/076/original/03_-_No_Shows.mp3" controls >
 <p>
   <strong>Track number:</strong>
   <%= @song.track_number %>
@@ -19,5 +19,4 @@
 </p>
 
 
-<%= link_to 'Edit',  edit_band_song_path(@song.album, @song) %> |
 <%= link_to 'Back', band_album_path(@song.album.band_id, @song.album) %>

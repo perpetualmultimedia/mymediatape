@@ -15,9 +15,9 @@
 </div>
 
 <hr>
-<div class="row">
+<div class="row albumColor" >
   <div class="col-md-4">
-    <%= image_tag @album.album_art.url(:medium), style: "height:300px; width:300px; object-fit:cover;" %>
+    <img src="<%= @album.album_art.url(:medium) %>" data-adaptive-background class="albumArt"style= "height:300px; width:300px; object-fit:cover;" >
 
   <p>
     <strong>Released:</strong>
@@ -41,7 +41,9 @@
     })
     </script>
      <p>
-      <a href="#" id="set_song_id<%= album_song.id %>"><%= album_song.track_number %>. <%= album_song.title %></a>
+<!--       <a href="#" id="set_song_id<%= album_song.id %>"><%= album_song.track_number %>. <%= album_song.title %> </a> -->
+      <%= link_to band_album_song_path(@album.band_id, album_song.album_id, album_song.id) do %> <%= album_song.track_number %>. <%= album_song.title %> 
+      <% end %>
     </p>
     <% end %>
   </p>
@@ -50,4 +52,9 @@
 <hr>
 <%= link_to "Edit", edit_band_album_url(@album.band.id, @album) %> |
 <%= link_to 'Back', band_path(@album.band.id) %>
-
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('.albumArt').on('ab-color-found', function(ev,payload){ $("body").css({ backgroundColor: payload.color }); });
+      $.adaptiveBackground.run();
+    });
+  </script>

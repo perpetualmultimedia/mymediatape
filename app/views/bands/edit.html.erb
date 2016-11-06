@@ -1,4 +1,5 @@
-<h2>Editing Band | <% if user_signed_in? && @user = @band.user_id %><%= link_to 'Add Music', new_band_album_path(@band) %> |
+<h2>Editing Band | <% if user_signed_in? && @user = @band.user_id %><%= link_to 'Add Music', new_band_album_path(@band) %> | 
+  <%= link_to 'Add An Event', new_band_event_path(@band) %> |
   <%= link_to 'Manage Albums', band_albums_path(@band) %> |
   <%= link_to 'Edit', edit_band_path(@band) %> | <% end %> 
   <%= link_to 'Back', bands_path %></h2>

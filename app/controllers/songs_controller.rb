@@ -69,6 +69,7 @@ class SongsController < ApplicationController
   end
 
   private
+  
     # Use callbacks to share common setup or constraints between actions.
     def set_song
       @song = Song.find(params[:id])

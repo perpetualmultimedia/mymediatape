@@ -1,11 +1,10 @@
 <% if user_signed_in? %>
 	<% if current_user.id == @album.band.user_id %>
 		<h1>Editing Album</h1>
-
 		<%= render 'form' %>
 
-		<%= link_to 'Show', band_album_path %> |
-		<%= link_to 'Back', band_albums_path %>
+		<%= link_to 'Show', band_album_path(@album.band_id, @album) %> |
+		<%= link_to 'Back', band_albums_path(@album.band_id) %>
 	<% else %>
 		<h1> You don't have access to <%= @album.band.group_name %>'s settings </h1> 
 		<h2> Your bands </h2>
