@@ -26,7 +26,7 @@ gem 'geocoder'
 gem 'socialization'
 gem 'pg'
 gem 'bootstrap-sass', '~> 3.3.5'
-gem 'aws-sdk-rails'
+gem 'aws-sdk', '~> 2.3'
 gem "paperclip", "~> 5.0.0"
 gem 'sprockets', '3.6.3'
 gem 'pjax_rails'
