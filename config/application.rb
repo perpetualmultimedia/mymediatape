@@ -22,10 +22,5 @@ module Mymediatape
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 
-    AWS::S3::Base.establish_connection!(
-        :access_key_id     => 'AKIAJL2BWRRO22DO7VOQ',
-        :secret_access_key => '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'
-    )
-    BUCKET = 'mymediatape'
   end
 end
