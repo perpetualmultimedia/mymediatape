@@ -67,7 +67,7 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-<div class="container" style="margin-bottom: 100px;" >
+<div class="container" style="margin-bottom: 100px;" data-pjax-container >
   <%= yield %>
 </div>
 <div class="media-player" >
@@ -75,11 +75,16 @@
 <% current_song = Song.find_by_id(session[:song_id]) %>
 <% current_album = Album.find_by_id(session[:album_id]) %>
 <% current_band = Band.find_by_id(session[:band_id]) %>
-  <div class="audio-player" style="width: 100%; height: 70px;" width="100%">
-  <%= image_tag current_song.album.album_art.url(:medium), class: "album-art", style: " object-fit:cover;" %>
-    <span class="artist"> <%= current_song.title %></span><br/>
+  <div class="audio-player" style="width: 100%; height: 90px;" width="100%">
+  <div class="audio-art">
+      <%= image_tag current_song.album.album_art.url(:medium), class: "album-art", style: " object-fit:cover;" %>
+    </div>
+    <div class="audio-desc">
+
+      <span class="artist"> <%= current_song.title %></span><br/>
       <span class="song"> <%= current_band.group_name %></span><br/>
       <span class="album"><%= current_album.name %></span><br/>
+    </div>
       <audio src="<%= current_song.audio_file.url %>" id="audio-player" ></audio>
   </div>
   <!-- <div class="audio-info">
@@ -120,7 +125,8 @@ $(function(){
     audioVolume: 'horizontal',
     iPadUseNativeControls: true,
     iPhoneUseNativeControls: true,
-    AndroidUseNativeControls: true
+    AndroidUseNativeControls: true,
+    pauseOtherPlayers: true
   });
 });
 </script>

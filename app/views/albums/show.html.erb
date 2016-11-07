@@ -41,9 +41,8 @@
     })
     </script>
      <p>
-<!--       <a href="#" id="set_song_id<%= album_song.id %>"><%= album_song.track_number %>. <%= album_song.title %> </a> -->
-      <%= link_to band_album_song_path(@album.band_id, album_song.album_id, album_song.id) do %> <%= album_song.track_number %>. <%= album_song.title %> 
-      <% end %>
+      <a href="#" id="set_song_id<%= album_song.id %>"><%= album_song.track_number %>. <%= album_song.title %> </a> 
+        
     </p>
     <% end %>
   </p>
