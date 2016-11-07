@@ -132,9 +132,7 @@ div.audio-player {
   bottom: 0;
   margin: 0 auto;
   background-color: #FFFFFF;
-  border-top:solid;
-  border-top-width:thin;
-  border-top-color:#d9d9d9;
+
 }
 .audio-player h2 {
   position: absolute;
@@ -157,7 +155,7 @@ div.audio-player {
 .mejs-controls .mejs-play button, .mejs-controls .mejs-pause button {
   width: 40px;
   height: 40px;
-  top: 20px;
+  top: 23px;
   left: 280px;
   background: url('playpause.png');
   object-fit:cover;
@@ -173,7 +171,7 @@ div.audio-player {
 .mejs-controls .mejs-mute button, .mejs-controls .mejs-unmute button {
   width: 30px;
   height: 30px;
-  top: 26px;
+  top: 28px;
   right: 142px;
   background: url('audio.png');
   object-fit:cover;
@@ -190,28 +188,28 @@ div.audio-player {
 .mejs-controls div.mejs-horizontal-volume-slider {
   position: absolute;
   width: 120px;
-  height: 10px;
+  height: 6px;
   right: 12px;
-  top: 28px;
+  top: 30px;
   cursor: pointer;
 }
 
 .mejs-controls .mejs-horizontal-volume-slider .mejs-horizontal-volume-total {
   position: absolute;
   width: 120px;
-  height: 11px;
+  height: 6px;
   right: 12px;
-  top: 33px;
+  top: 38px;
   background: grey;
 }
 
 .mejs-controls .mejs-horizontal-volume-slider .mejs-horizontal-volume-current {
   position: absolute;
-  height: 9px;
+  height: 6px;
   width:118px;
-  right: 13px;
-  top: 34px;
-  background: #FF3F00;
+  right: 12px;
+  top: 38px;
+  background: #FF7F11;
 
 }
 
@@ -261,6 +259,7 @@ div.audio-player {
   width: 2px;
   height: 14px;
   top: 2px;
+  right: 12px;
 }
 
 
@@ -270,8 +269,9 @@ div.audio-player {
   display: none;
   width: 33px;
   height: 23px;
-  top: -29px;
+  top: -27px;
   margin-left: -17px;
+  background: #333;
   z-index: 9999;
 }
  
@@ -279,7 +279,7 @@ div.audio-player {
   width: 33px;
   display: block;
   left: 0;
-  top: 5px;
+  top: 4px;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 10px;
   font-weight: bold;
