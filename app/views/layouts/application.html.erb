@@ -75,17 +75,19 @@
 <% current_song = Song.find_by_id(session[:song_id]) %>
 <% current_album = Album.find_by_id(session[:album_id]) %>
 <% current_band = Band.find_by_id(session[:band_id]) %>
-  <div class="audio-player" style="width: 100%; height: 90px;" width="100%">
-  <div class="audio-art">
-      <%= image_tag current_song.album.album_art.url(:medium), class: "album-art", style: " object-fit:cover;" %>
-    </div>
-    <div class="audio-desc">
+  <div class="audio-player" style="width: 100%; height: 84px;" width="100%">
+    <div class="audio-info">
+      <div class="audio-art">
+        <%= image_tag current_song.album.album_art.url(:medium), class: "album-art", style: " object-fit:cover;" %>
+      </div>
+      <div class="audio-desc">
 
-      <span class="artist"> <%= current_song.title %></span><br/>
-      <span class="song"> <%= current_band.group_name %></span><br/>
-      <span class="album"><%= current_album.name %></span><br/>
+        <span class="artist"> <%= current_song.title %></span><br/>
+        <span class="song"> <%= current_band.group_name %></span><br/>
+        <span class="album"><%= current_album.name %></span><br/>
+      </div>
+        <audio src="<%= current_song.audio_file.url %>" id="audio-player" autoplay="true"></audio>
     </div>
-      <audio src="<%= current_song.audio_file.url %>" id="audio-player" ></audio>
   </div>
   <!-- <div class="audio-info">
     <div class="audio-art">
@@ -127,7 +129,7 @@ $(function(){
     iPhoneUseNativeControls: true,
     AndroidUseNativeControls: true,
     pauseOtherPlayers: true
-  });
+    });
 });
 </script>
 <% else %>
