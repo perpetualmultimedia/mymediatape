@@ -132,6 +132,14 @@ $(function(){
     });
 });
 </script>
+<script type="text/javascript">
+  $('audio,video').mediaelementplayer({
+    success: function (mediaElement, domObject) { 
+        mediaElement.play();
+    }
+});
+</script>
+
 <% else %>
  <%= image_tag("logo.png", :alt => "My Media Tape", :class => "styleSmLogo ") %>
 

@@ -37,6 +37,7 @@
     $(function(){
       $("#set_song_id<%= album_song.id %>").click(function(){
         $.post('/bands/:band_id/songs/<%= album_song.id %>(.:format)');
+        window.location.reload()
       })
     })
     </script>
