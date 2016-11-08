@@ -21,6 +21,6 @@
 //= require_tree .
 
 $(function() {
-	$(document).pjax('[data-pjax] a, a[data-pjax]', '#pjax-container')
+	$(document).pjax('a', '#pjax-container')
 });
 
