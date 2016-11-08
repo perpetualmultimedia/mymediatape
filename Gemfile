@@ -29,6 +29,7 @@ gem 'bootstrap-sass', '~> 3.3.5'
 gem 'aws-sdk', '~> 2.3'
 gem "paperclip", "~> 5.0.0"
 gem 'sprockets', '3.6.3'
+gem 'pjax_rails'
 gem "font-awesome-rails"
 gem "mediaelement_rails"
 gem 'momentjs-rails', '>= 2.9.0'

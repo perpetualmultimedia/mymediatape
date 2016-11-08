@@ -15,12 +15,13 @@
 //= require turbolinks
 //= require jquery
 //= require bootstrap-sprockets
+//= require jquery.pjax
 //= require moment
 //= require bootstrap-datetimepicker
 //= require mediaelement_rails
 //= require_tree .
 
 $(function() {
-	$(document).pjax('a', '#pjax-container')
+  $(document).pjax('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])', '[data-pjax-container]')
 });
 
