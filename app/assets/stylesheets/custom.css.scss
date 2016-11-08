@@ -112,6 +112,16 @@ body{
 
 
 /** audio player styles **/
+@media only screen and (min-width : 320px) {
+.mejs-controls .mejs-play button, .mejs-controls .mejs-pause button {
+  right:20px;
+}
+}
+@media only screen and (min-width : 768px) {
+.mejs-controls .mejs-play button, .mejs-controls .mejs-pause button {
+  left: 280px;
+}
+}
 .audio-player, .audio-player div, .audio-player h2, .audio-player a, .audio-player span, .audio-player button {
   margin: 0;
   border: none;
@@ -156,7 +166,6 @@ div.audio-player {
   width: 28px;
   height: 28px;
   top: 28px;
-  left: 280px;
   background: url('play.png');
   object-fit:cover;
   background-size: cover;
@@ -164,6 +173,9 @@ div.audio-player {
 }
 .mejs-controls .mejs-pause button { 
   background: url('pause.png');
+  width:30px;
+  object-fit:cover;
+  background-size: cover;
 }
  
  
