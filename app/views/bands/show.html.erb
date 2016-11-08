@@ -4,12 +4,12 @@
     <%= image_tag @band.band_avatar.url(:medium), style: "border-radius:100px; height: 150px;" %>
   </div>
   <div class="col-md-8" style="padding:30px;">
-    <h2>  <%= @band.group_name %>   </h2>
+    <h2>  <%= @band.group_name %>  <% if user_signed_in? && @user = @band.user_id %> <%= link_to "Manage Band", edit_band_url %> <% end %></h2>
   </div>
   <div class="col-md-2" style="padding-top:50px;">
     <% if user_signed_in? %>
       <div id="follow_form">
-      <% if @user.following?(@band) %>
+      <% if current_user.following?(@band) %>
         <%= render 'unfollow' %>
       <% else %>
         <%= render 'follow' %>
@@ -55,15 +55,43 @@
   <hr>
 </div>
 <div class="col-md-9">
+  <% unless @band.events.blank? %>
+    <label>Shows</label>
+    <hr>
+    <div class="row">
+      <% @band.events.each do |event| %>
+        <%= link_to band_event_url(@band, event) do %>
+          <div class="col-md-4">
+            <div class="row">
+              <div class="col-md-4" style="text-align:center;">
+                <%= image_tag event.flyer.url(:medium), style: " width:88px; object-fit:cover; border-radius:2px;" %>
+              </div>
+              <div class="col-md-8">
+                <p>
+                  <%= event.city %>, <%= event.state %>
+                </p>
+                <p>
+                  <%= event.date %>, <%= event.time %>
+                </p>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+    <hr>
+  <% end %>
+  
   <% unless @band.albums.blank? %>
     <label>Albums</label>
     <hr>
+    <div class="row">
       <% @band.albums.each do |album| %>
       <%= link_to band_album_url(@band, album) do %>
         <div class="col-md-4">
           <div class="row">
             <div class="col-md-4">
-              <%= image_tag album.album_art.url(:medium), style: "height:88px; width:88px; object-fit:cover;" %>
+              <%= image_tag album.album_art.url(:medium), style: "height:88px; width:88px; object-fit:cover; border-radius:2px;" %>
             </div>
             <div class="col-md-8">
               <p><%= album.name %></p>
@@ -74,16 +102,11 @@
           </div>
         </div>
       <% end %>
-
-
     <% end %>
-    
+    </div>
+
   <% end %>
   </p>
-
-</div>
-
-<div class="col-md-9">
   <hr>
 
   <label>Top Songs</label>

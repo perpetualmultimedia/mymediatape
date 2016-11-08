@@ -12,6 +12,7 @@ class BandsController < ApplicationController
   def show
     @user = current_user
     @album = @band.albums
+    @event = @band.events
   end
 
   # GET /bands/new

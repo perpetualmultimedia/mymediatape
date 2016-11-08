@@ -1,43 +1,41 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Events</h1>
+<h1>Listing <%= @band.group_name %>'s Events</h1>
+<hr>
+<% @events.each do |event| %>
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= event.title %></h3>
+      </div>
+      <div class="panel-body">
+        <%= event.date %> <%= event.time %>
+        <p>
+        <%= event.city %> <%= event.state %>
+        </p>
+        <p>
+        <%= event.description %>
+        </p>
+      </div>
+      <div class="panel-footer">
+        <div class="btn-group btn-group-justified" role="group" aria-label="...">
+          <div class="btn-group" role="group">
+            <%= link_to 'Show', band_event_url(event.band_id, event.id), class: "btn btn-success" %>
+          </div>
+          <div class="btn-group" role="group">
+            <%= link_to 'Edit', edit_band_event_url(event.band_id, event.id), class: "btn btn-info" %>
+          </div>
+          <div class="btn-group" role="group">
+            <%= link_to 'Destroy', band_event_url(event.band_id, event.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Band</th>
-      <th>Title</th>
-      <th>Date</th>
-      <th>Time</th>
-      <th>Description</th>
-      <th>Address</th>
-      <th>City</th>
-      <th>State</th>
-      <th>Ticket link</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @events.each do |event| %>
-      <tr>
-        <td><%= event.band %></td>
-        <td><%= event.title %></td>
-        <td><%= event.date %></td>
-        <td><%= event.time %></td>
-        <td><%= event.description %></td>
-        <td><%= event.address %></td>
-        <td><%= event.city %></td>
-        <td><%= event.state %></td>
-        <td><%= event.ticket_link %></td>
-        <td><%= link_to 'Show', event %></td>
-        <td><%= link_to 'Edit', edit_event_path(event) %></td>
-        <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
 <br>
 
-<%= link_to 'New Event', new_event_path %>
+<%= link_to 'New Event', new_band_event_path %>

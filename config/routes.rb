@@ -12,12 +12,11 @@ Rails.application.routes.draw do
     resources :albums, :except => [:update, :destroy] do
       resources :songs
     end
-    resources :events, :except => [:update, :destroy]
+    resources :events
     resources :members
   end
   post "/bands/:band_id/songs/:id(.:format)", :to=>"songs#set_song_id"
   resources :albums, :only => [:update, :destroy]
-  resources :events, :only => [:update, :destroy]
   resources :relationships,       only: [:create, :destroy]
   get 'users/index'
 

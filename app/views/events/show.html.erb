@@ -1,49 +1,82 @@
 <p id="notice"><%= notice %></p>
+<div class="row" style="margin-bottom:20px;">
+  <%= link_to band_path(@event.band) do %>
+  <div class="col-md-2">
+    <%= image_tag @event.band.band_avatar.url(:medium), style: "border-radius:100px; height: 150px;" %>
+  </div>
+  <div class="col-md-8" style="padding:30px;">
+    <h2>  <%= @event.band.group_name %>   </h2>
+  </div>
+  <% end %>
+  <div class="col-md-2" style="padding-top:50px;">
+    
+  </div>
+</div>
 
-<p>
-  <strong>Band:</strong>
-  <%= @event.band %>
-</p>
+<hr>
+<div class="row albumColor" >
+  <div class="col-md-4">
+    <img src="<%= @event.flyer.url(:medium) %>" class="albumArt"style= "width:300px; object-fit:cover; border-radius:4px;" >
+  </div>
+  <div class="col-md-8">
 
-<p>
-  <strong>Title:</strong>
-  <%= @event.title %>
-</p>
+    <p>
+      <strong>Date:</strong>
+      <%= @event.date %>
+    </p>
 
-<p>
-  <strong>Date:</strong>
-  <%= @event.date %>
-</p>
+    <p>
+      <strong>Time:</strong>
+      <%= @event.time %>
+    </p>
 
-<p>
-  <strong>Time:</strong>
-  <%= @event.time %>
-</p>
+    </div>
+    <div class="col-md-8">
+  <p>
+    <strong>Band:</strong>
+    <%= @event.band.group_name %>
+  </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @event.description %>
-</p>
+  <p>
+    <strong>Title:</strong>
+    <%= @event.title %>
+  </p>
 
-<p>
-  <strong>Address:</strong>
-  <%= @event.address %>
-</p>
+  <p>
+    <strong>Date:</strong>
+    <%= @event.date %>
+  </p>
 
-<p>
-  <strong>City:</strong>
-  <%= @event.city %>
-</p>
+  <p>
+    <strong>Time:</strong>
+    <%= @event.time %>
+  </p>
 
-<p>
-  <strong>State:</strong>
-  <%= @event.state %>
-</p>
+  <p>
+    <strong>Description:</strong>
+    <%= @event.description %>
+  </p>
 
-<p>
-  <strong>Ticket link:</strong>
-  <%= @event.ticket_link %>
-</p>
+  <p>
+    <strong>Address:</strong>
+    <%= @event.address %>
+  </p>
 
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+  <p>
+    <strong>City:</strong>
+    <%= @event.city %>
+  </p>
+
+  <p>
+    <strong>State:</strong>
+    <%= @event.state %>
+  </p>
+
+  <p>
+    <strong>Ticket link:</strong>
+    <%= @event.ticket_link %>
+  </p>
+</div>
+</div>
+<% if user_signed_in? && @user = @event.band.user_id %><%= link_to 'Edit', edit_band_event_path(@event.band_id, @event) %> | <% end %>
+<%= link_to 'Back', band_path(@event.band_id) %>

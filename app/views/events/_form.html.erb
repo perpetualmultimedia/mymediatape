@@ -1,4 +1,4 @@
-<%= form_for([@band, @event]) do |f| %>
+<%= form_for  ([@band, @event]) do |f| %>
   <% if @event.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
@@ -12,42 +12,72 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :band %><br>
-    <%= f.text_field :band %>
+    <%= f.label :title %><br>
+    <%= f.text_field :title, class: "form-control" %>
   </div>
   <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
+    <%= f.label :flyer %>
+    <%= f.file_field :flyer %>
   </div>
+
   <div class="field">
     <%= f.label :date %><br>
-    <%= f.text_field :date %>
+    <div class="form-group">
+      <div class='input-group date' id='datetimepicker1'>
+          <%= f.text_field :date, class: "form-control" %>
+          <span class="input-group-addon">
+              <span class="glyphicon glyphicon-calendar"></span>
+          </span>
+      </div>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            $('#datetimepicker1').datetimepicker({
+              format: 'MM/DD/YYYY'
+            });
+        });
+    </script>
   </div>
   <div class="field">
     <%= f.label :time %><br>
-    <%= f.text_field :time %>
+    <div class="form-group">
+      <div class='input-group clockpicker'>
+          <%= f.text_field :time, class: "form-control" %>
+          <span class="input-group-addon">
+              <span class="glyphicon glyphicon-time"></span>
+          </span>
+      </div>
+    </div>
+    <script type="text/javascript">
+    $('.clockpicker').clockpicker({
+      align: 'right',
+      donetext: 'Done'
+    });
+    </script>
+
   </div>
   <div class="field">
     <%= f.label :description %><br>
-    <%= f.text_field :description %>
+    <%= f.text_area :description, class: "form-control" %>
   </div>
   <div class="field">
     <%= f.label :address %><br>
-    <%= f.text_field :address %>
+    <%= f.text_field :address, class: "form-control" %>
   </div>
   <div class="field">
     <%= f.label :city %><br>
-    <%= f.text_field :city %>
+    <%= f.text_field :city, class: "form-control" %>
   </div>
   <div class="field">
     <%= f.label :state %><br>
-    <%= f.text_field :state %>
+    <%= f.text_field :state, class: "form-control" %>
   </div>
   <div class="field">
     <%= f.label :ticket_link %><br>
-    <%= f.text_field :ticket_link %>
+    <%= f.text_field :ticket_link, class: "form-control" %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+  <br/>
+    <%= f.submit "Save", class: "btn btn-success btn-block" %>
   </div>
 <% end %>

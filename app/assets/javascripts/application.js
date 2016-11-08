@@ -17,8 +17,8 @@
 //= require bootstrap-sprockets
 //= require jquery.pjax
 //= require moment
-//= require bootstrap-datetimepicker
 //= require mediaelement_rails
+//= require bootstrap-datetimepicker
 //= require_tree .
 
 $(function() {

@@ -37,7 +37,6 @@
     $(function(){
       $("#set_song_id<%= album_song.id %>").click(function(){
         $.post('/bands/:band_id/songs/<%= album_song.id %>(.:format)');
-        window.location.reload()
       })
     })
     </script>
@@ -50,6 +49,6 @@
   </div>
 </div>
 <hr>
-<%= link_to "Edit", edit_band_album_url(@album.band.id, @album) %> |
+<% if user_signed_in? && @user = @album.band.user_id %><%= link_to "Edit", edit_band_album_url(@album.band.id, @album) %> | <% end %>
 <%= link_to 'Back', band_path(@album.band.id) %>
 
