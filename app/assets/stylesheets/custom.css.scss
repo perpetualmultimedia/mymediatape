@@ -61,6 +61,15 @@ body{
 			position:relative;
 			z-index:1000;
 		}
+    #about{
+      display:none;
+    }
+    .band-avatar-big{
+      text-align:center;
+    }
+    .band-name-big{
+      text-align:center;
+    }
     }
 
     /* Extra Small Devices, Phones */ 
@@ -72,6 +81,7 @@ body{
 
     /* Small Devices, Tablets */
     @media only screen and (min-width : 768px) {
+
     	#progressOut {
         	display:block;
 		} 
@@ -82,11 +92,19 @@ body{
 		.png-logo{
 			padding-top:92px;
 		}
+    .band-avatar-big{
+      text-align:left;
+    }
+    .band-name-big{
+      text-align:left;
+    }
     }
 
     /* Medium Devices, Desktops */
     @media only screen and (min-width : 992px) {
-
+    #about{
+      display:block;
+    }
     }
 
     /* Large Devices, Wide Screens */

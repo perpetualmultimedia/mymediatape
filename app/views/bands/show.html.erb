@@ -1,12 +1,12 @@
 <p id="notice"><%= notice %></p>
 <div class="row" style="margin-bottom:20px;">
-  <div class="col-md-2">
+  <div class="col-sm-3 col-md-2 band-avatar-big">
     <%= image_tag @band.band_avatar.url(:medium), style: "border-radius:100px; height: 150px;" %>
   </div>
-  <div class="col-md-8" style="padding:30px;">
+  <div class="col-sm-9 col-md-8 band-name-big" style="padding:30px;">
     <h2>  <%= @band.group_name %>  <% if user_signed_in? && @user = @band.user_id %> <%= link_to "Manage Band", edit_band_url %> <% end %></h2>
   </div>
-  <div class="col-md-2" style="padding-top:50px;">
+  <div class="col-sm-12 col-md-2" style="padding-top:50px;">
     <% if user_signed_in? %>
       <div id="follow_form">
       <% if current_user.following?(@band) %>
@@ -20,39 +20,49 @@
 </div>
 <hr>
 <div class="col-md-3">
-  <p>
-    <strong>Genre:</strong>
-    <%= @band.genre %>
-  </p>
 
-  <p>
-    <strong>City:</strong>
-    <%= @band.city %>
-  </p>
-
-  <p>
-    <strong>State:</strong>
-    <%= @band.state %>
-  </p>
-
-  <p>
-    <strong>Description:</strong>
-    <%= @band.description %>
-  </p>
-
-  <p>
-    <strong>Website:</strong>
-    <%= @band.website %>
-  </p>
-  <p>
-  <hr>
-  <label>Members</label>
-  <% @band.members.each do |member| %>
+  <div id="about">
     <p>
-    <%= member.first_name %> <%= member.last_name %>
+      <strong>Genre:</strong>
+      <%= @band.genre %>
     </p>
-  <% end %>
+
+    <p>
+      <strong>City:</strong>
+      <%= @band.city %>
+    </p>
+
+    <p>
+      <strong>State:</strong>
+      <%= @band.state %>
+    </p>
+
+    <p>
+      <strong>Description:</strong>
+      <%= @band.description %>
+    </p>
+
+    <p>
+      <strong>Website:</strong>
+      <%= @band.website %>
+    </p>
+    <hr>
+    <label>Members</label>
+    <% @band.members.each do |member| %>
+      <p>
+      <%= member.first_name %> <%= member.last_name %>
+      </p>
+    <% end %>
+    <hr>
+  </div>
+  <button id="hideshow" class="btn btn-default btn-block about-show" > About </button>
   <hr>
+  <script>
+  $("#hideshow").click(function() { 
+    // assumes element with id='button'
+    $("#about").toggle();
+  });
+  </script>
 </div>
 <div class="col-md-9">
   <% unless @band.events.blank? %>
@@ -61,12 +71,12 @@
     <div class="row">
       <% @band.events.each do |event| %>
         <%= link_to band_event_url(@band, event) do %>
-          <div class="col-md-4">
+          <div class="col-md-4 col-xs-6">
             <div class="row">
-              <div class="col-md-4" style="text-align:center;">
+              <div class="col-xs-6 col-sm-5 col-lg-4" style="text-align:center;">
                 <%= image_tag event.flyer.url(:medium), style: " width:88px; object-fit:cover; border-radius:2px;" %>
               </div>
-              <div class="col-md-8">
+              <div class="col-xs-6 col-sm-7 col-lg-8">
                 <p>
                   <%= event.city %>, <%= event.state %>
                 </p>
