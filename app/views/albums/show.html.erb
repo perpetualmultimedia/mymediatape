@@ -29,20 +29,33 @@
 
   </div>
   <div class="col-sm-6 col-md-8">
-  <label>Songs</label>
+  <h3><label>Songs</label></h3>
+  <br/>
+  <table class="table table-hover">
     <% @album.songs.each do |album_song| %>
     <script>
-    $(function(){
-      $("#set_song_id<%= album_song.id %>").click(function(){
-        $.post('/bands/:band_id/songs/<%= album_song.id %>(.:format)');
+      $(function(){
+        $("#set_song_id<%= album_song.id %>").click(function(){
+          $.post('/bands/:band_id/songs/<%= album_song.id %>(.:format)');
+        })
       })
-    })
     </script>
-     <p>
-      <a href="#" id="set_song_id<%= album_song.id %>" ><%= album_song.track_number %>. <%= album_song.title %> </a> 
-        
-    </p>
+    
+      <tr href="#" id="set_song_id<%= album_song.id %>">
+        <td style="padding-top:18px;"><%= album_song.track_number %></td>
+        <td><strong><%= album_song.title %></strong><br/> <%= album_song.album.name %></td>
+        <td style="padding-top:18px;"><%= album_song.album.released %></td>
+      </tr>
+      <script>
+        jQuery(document).ready(function($) {
+            $("#set_song_id<%= album_song.id %>).click(function() {
+                window.document.location = $(this).data("href");
+            });
+        });
+      </script>
+    
     <% end %>
+  </table>
   </p>
   </div>
 </div>

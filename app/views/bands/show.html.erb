@@ -20,7 +20,8 @@
 </div>
 <hr>
 <div class="col-md-3">
-
+  <button id="hideshow" class="btn btn-default btn-block about-show" > About </button>
+  <hr>
   <div id="about">
     <p>
       <strong>Genre:</strong>
@@ -55,7 +56,6 @@
     <% end %>
     <hr>
   </div>
-  <button id="hideshow" class="btn btn-default btn-block about-show" > About </button>
   <hr>
   <script>
   $("#hideshow").click(function() { 
@@ -66,7 +66,7 @@
 </div>
 <div class="col-md-9">
   <% unless @band.events.blank? %>
-    <label>Shows</label>
+    <h3><label>Shows</label></h3>
     <hr>
     <div class="row">
       <% @band.events.each do |event| %>
@@ -93,7 +93,7 @@
   <% end %>
   
   <% unless @band.albums.blank? %>
-    <label>Albums</label>
+    <h3><label>Albums</label></h3>
     <hr>
     <div class="row">
       <% @band.albums.each do |album| %>
@@ -119,13 +119,31 @@
   </p>
   <hr>
 
-  <label>Top Songs</label>
-  <hr>
-    <% @band.songs.each do |song| %>
-    <p>
-      <label>Title:</label> <%= song.title %>
-      <label>Year:</label> <%= song.album.released %>
-      <label>Album:</label> <%= song.album.name %>
-    </p>
+  <h3><label>Top Songs</label></h3>
+  <br/>
+    <table class="table table-hover">
+    <% @band.songs.each do |album_song| %>
+    <script>
+      $(function(){
+        $("#set_song_id<%= album_song.id %>").click(function(){
+          $.post('/bands/:band_id/songs/<%= album_song.id %>(.:format)');
+        })
+      })
+    </script>
+    
+      <tr href="#" id="set_song_id<%= album_song.id %>">
+        
+        <td><strong><%= album_song.title %></strong><br/> <%= album_song.album.name %></td>
+        <td style="padding-top:18px;"><%= album_song.album.released %></td>
+      </tr>
+      <script>
+        jQuery(document).ready(function($) {
+            $("#set_song_id<%= album_song.id %>).click(function() {
+                window.document.location = $(this).data("href");
+            });
+        });
+      </script>
+    
     <% end %>
+  </table>
 </div>
