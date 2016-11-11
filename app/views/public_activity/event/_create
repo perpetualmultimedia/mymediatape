@@ -1,0 +1,23 @@
+<div class="col-md-12">
+<div class="row">
+  <div class="row activity">
+
+    <div class="col-md-8">	
+    	
+        	<h4><%= link_to band_url(activity.trackable.band.id) do %><%= activity.trackable.band.group_name %><% end %> added a <strong>Show</strong></h4>
+          	<%= link_to band_event_url(activity.trackable.band.id, activity.trackable.id) do %><p><%= activity.trackable.title %></p>
+          	<p><%= activity.trackable.description %></p>
+          	<p><%= activity.trackable.date %></p>
+      	<% end %>
+      	<hr>
+    	<p>
+    	</p>
+    </div>
+    <div class="col-md-4">
+      <%= link_to band_event_url(activity.trackable.band.id, activity.trackable.id) do %>
+        <%= image_tag activity.trackable.flyer.url(:medium), style: "height:200px; width:145px; object-fit:cover;", class: "albumArt" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+</div>

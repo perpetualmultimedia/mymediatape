@@ -40,12 +40,23 @@ a, a:hover {
 	width: 80px;
 	float:left;
 }
+.albumArt{
+  border-radius:4px;
+}
 .audio-desc{
 	padding-top:6px;
 	padding-left:13px;
 	font-weight:bold;
 	float:left;
 }
+.activity{
+  padding-top:20px;
+  padding-bottom:10px;
+  border-bottom:solid;
+  border-bottom-width:thin;
+  border-bottom-color:#eeeeee;
+}
+
 
  /*==========  Mobile First Method  ==========*/
 

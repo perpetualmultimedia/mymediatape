@@ -20,42 +20,10 @@
 		<%= link_to 'New Band', new_band_path %>
 	</div>
 	<div class="col-md-6">
-	<label>Followed Albums</label>
+	<label>Recent Activities</label>
 	<hr>
-		<% current_user.feed.each do |album| %>
-		<div class="col-md-12">
-			<div class="row">
-	          <div class="row">
-	            <div class="col-md-4">
-	            <%= link_to band_album_url(album.band.id, album.id) do %>
-	              <%= image_tag album.album_art.url(:medium), style: "height:150px; width:150px; object-fit:cover;" %>
-	            <% end %>
-	            </div>
-	            <div class="col-md-8">	
-	            	<%= link_to band_album_url(album.band.id, album.id) do %>
-		            	<p><%= album.band.group_name %></p>
-		              	<p><%= album.name %></p>
-		              	<p><%= album.album_type %></p>
-		              	<p><%= album.released %></p>
-	              	<% end %>
-	              	<hr>
-	              	<label> Songs </label>
-			    	<p>
-			    	<% album.songs.each do |song| %>
-			    		<%= song.track_number %>. <%= song.title %>
-			    	<% end %>
-			    	</p>
-	            </div>
-	          </div>
-			</div>
-			<div class="row">
-				<div class="col-md-12" style="margin-top:10px;">
-			    	
-			    </div>
-			</div>
-		    <hr>
-		</div>
-	    <% end %>
+	<%= render_activities(@activities) %>
+
 	</div>
 	<div class="col-md-3">
 		<label> Bands you follow </label>
@@ -71,28 +39,11 @@
 	<h3> Hey,</h3>
 	<h4> Welcome to My Media Tape! Listen to some music! </h4>
 	<hr>
-	<div class="col-md-4">
-		<label> Our Bands </label>
-		<% @bands.each do |band| %>
-		<p>
-			<%= link_to band do %><%= band.group_name %><% end %>
-		</p>
-		<% end %>
-	</div>
-	<div class="col-md-4">
-		<label> Albums </label>
-		<% @albums.each do |album| %>
-		<p>
-			<%= link_to band_album_url(album.band_id, album) do %><%= album.name %><% end %>
-		</p>
-		<% end %>
-	</div>
-	<div class="col-md-4">
-		<label> Songs </label>
-		<% @songs.each do |song| %>
-		<p>
-			<%= link_to band_album_song_path(song.album.band_id, song.album_id, song) do %><%= song.title %><% end %>
-		</p>
-		<% end %>
+	<div class="row">
+		<div class="col-md-6">
+			<h3> Recent Activity </h3>
+			<hr>
+			<%= render_activities(@activities) %>
+		</div>
 	</div>
 <% end %>

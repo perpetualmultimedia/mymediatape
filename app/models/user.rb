@@ -33,5 +33,7 @@ class User < ActiveRecord::Base
                      WHERE  follower_id = :band_id"
     Album.where("band_id IN (#{following_ids})
                      OR band_id = :band_id", band_id: id)
+    Event.where("band_id IN (#{following_ids})
+                     OR band_id = :band_id", band_id: id)
   end
 end

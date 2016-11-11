@@ -1,0 +1,45 @@
+<div class="col-md-12">
+<div class="row">
+  <div class="row activity">
+    <div class="col-md-8">	
+    	<%= link_to band_album_url(activity.trackable.band.id, activity.trackable.id) do %>
+
+        	<h4><%= activity.trackable.band.group_name %> Released <strong><%= activity.trackable.name %></strong></h4>
+      	<% end %>
+      	<hr>
+      	<label> Songs </label>
+    	<p>
+    	<table class="table table-hover">
+    	<% activity.trackable.songs.each do |album_song| %>
+    		<script>
+		      $(function(){
+		        $("#set_song_id<%= album_song.id %>").click(function(){
+		          $.post('/bands/:band_id/songs/<%= album_song.id %>(.:format)');
+		        })
+		      })
+		    </script>
+		    
+		      <tr href="#" id="set_song_id<%= album_song.id %>">
+		        
+		        <td><strong><%= album_song.title %></strong><br/> <%= album_song.album.name %></td>
+		        <td style="padding-top:18px;"><%= album_song.album.released %></td>
+		      </tr>
+		      <script>
+		        jQuery(document).ready(function($) {
+		            $("#set_song_id<%= album_song.id %>).click(function() {
+		                window.document.location = $(this).data("href");
+		            });
+		        });
+		      </script>
+    	<% end %>
+    	</table>
+    	</p>
+    </div>
+    <div class="col-md-4">
+	    <%= link_to band_album_url(activity.trackable.band.id, activity.trackable.id) do %>
+	      <%= image_tag activity.trackable.album_art.url(:medium), style: "height:150px; width:150px; object-fit:cover;", class: "albumArt" %>
+	    <% end %>
+    </div>
+  </div>
+</div>
+</div>
