@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+  has_many :evaluations, class_name: "ReputationSystem::Evaluation", as: :source
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
@@ -36,4 +37,8 @@ class User < ActiveRecord::Base
     Event.where("band_id IN (#{following_ids})
                      OR band_id = :band_id", band_id: id)
   end
+  def voted_for?(band)
+    evaluations.where(target_type: band.class, target_id: band.id).present?
+  end
+
 end

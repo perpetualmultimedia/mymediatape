@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
 
   resources :bands do
+    member { post :vote }
     get :following, :followers
     resources :albums, :except => [:update, :destroy] do
       resources :songs

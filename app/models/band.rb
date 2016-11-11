@@ -1,4 +1,6 @@
 class Band < ActiveRecord::Base
+  has_merit
+  has_reputation :votes, source: :user, aggregated_by: :sum
   belongs_to :user
   has_many :albums, dependent: :destroy
   has_many :songs, through: :albums, dependent: :destroy

@@ -28,9 +28,18 @@
 	<div class="col-md-3">
 		<label> Bands you follow </label>
 		<hr>
+		<% current_user.following.each do |band| %>
 			<p>
-			<% current_user.following.each do |band| %>
+			
 			<%= link_to band do %><%= band.group_name %><% end %>
+			</p>
+			<hr>
+		<% end %>
+		<label> Top Bands </label>
+		<hr>
+		<% @bands.each do |top_band| %>
+			<p>
+			<%= link_to top_band do %><%= top_band.group_name %><% end %>
 			</p>
 			<hr>
 		<% end %>
