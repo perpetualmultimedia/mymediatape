@@ -2,10 +2,7 @@
 <div class="row">
   <div class="row activity">
     <div class="col-md-8">	
-    	<%= link_to band_album_url(activity.trackable.band.id, activity.trackable.id) do %>
-
-        	<h4><%= activity.trackable.band.group_name %> Released <strong><%= activity.trackable.name %></strong></h4>
-      	<% end %>
+        	<h5><%= link_to band_url(activity.trackable.band.id) do %><%= activity.trackable.band.group_name %><% end %> Released <strong><%= activity.trackable.name %></strong> <%= time_ago_in_words activity.trackable.created_at %> ago</h5>
       	<hr>
       	<label> Songs </label>
     	<p>

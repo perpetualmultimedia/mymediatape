@@ -4,12 +4,12 @@
 
     <div class="col-md-8">	
     	
-        	<h4><%= link_to band_url(activity.trackable.band.id) do %><%= activity.trackable.band.group_name %><% end %> added a <strong>Show</strong></h4>
+        	<h5><%= link_to band_url(activity.trackable.band.id) do %><%= activity.trackable.band.group_name %><% end %> added a <strong>Show</strong> <%= time_ago_in_words activity.trackable.created_at %> ago</h5>
+          <hr>
           	<%= link_to band_event_url(activity.trackable.band.id, activity.trackable.id) do %><p><%= activity.trackable.title %></p>
           	<p><%= activity.trackable.description %></p>
           	<p><%= activity.trackable.date %></p>
       	<% end %>
-      	<hr>
     	<p>
     	</p>
     </div>
