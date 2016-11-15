@@ -1,4 +1,5 @@
 <p id="notice"><%= notice %></p>
+
 <div class="row" style="margin-bottom:20px;">
   <div class="col-sm-3 col-md-2 band-avatar-big">
     <%= image_tag @band.band_avatar.url(:medium), style: "border-radius:100px; height: 150px;" %>
@@ -10,8 +11,21 @@
     <h5><%= pluralize @band.reputation_for(:votes).to_i, "vote" %></h5>
     <% if user_signed_in? %>
         <div class="btn-group vote" role="group" aria-label="...">
-          <%= link_to vote_band_path(@band, type: "up"), method: "post", class: "btn btn-default" do %><i class="fa fa-chevron-up" aria-hidden="true"></i><% end %>
-           <%= link_to vote_band_path(@band, type: "down"), method: "post", class: "btn btn-default" do %><i class="fa fa-chevron-down" aria-hidden="true"></i><% end %>
+          
+          <%= link_to vote_band_path(@band, type: "up"), method: "post", class: "btn btn-default", remote: true, id: "vote-pjax-up" do %><i class="fa fa-chevron-up" aria-hidden="true"></i><% end %>
+           <%= link_to vote_band_path(@band, type: "down"), method: "post", class: "btn btn-default",  remote: true, id: "vote-pjax-down" do %><i class="fa fa-chevron-down" aria-hidden="true"></i><% end %>
+          <script>
+
+            $("#vote-pjax-up").click(function(){
+              pjax.('#{band_url}');
+            });
+           </script>
+           <script>
+            
+            $("#vote-pjax-down").click(function(){
+              window.location.replace('#{band_url}');
+            });
+           </script>
         </div>
       <div id="follow_form">
       <% if current_user.following?(@band) %>
@@ -126,29 +140,30 @@
 
   <h3><label>Top Songs</label></h3>
   <br/>
-    <table class="table table-hover">
+  <table class="table table-hover">
     <% @band.songs.each do |album_song| %>
-    <script>
-      $(function(){
-        $("#set_song_id<%= album_song.id %>").click(function(){
-          $.post('/bands/:band_id/songs/<%= album_song.id %>(.:format)');
-        })
-      })
-    </script>
-    
-      <tr href="#" id="set_song_id<%= album_song.id %>">
+            <script>
+          $(function(){
+            $("#set_song_id<%= album_song.id %>").click(function(){
+              $.post('/bands/:band_id/songs/<%= album_song.id %>(.:format)');
+            })
+          })
+        </script>
         
-        <td><strong><%= album_song.title %></strong><br/> <%= album_song.album.name %></td>
-        <td style="padding-top:18px;"><%= album_song.album.released %></td>
-      </tr>
-      <script>
-        jQuery(document).ready(function($) {
-            $("#set_song_id<%= album_song.id %>).click(function() {
-                window.document.location = $(this).data("href");
+          <tr href="#" id="set_song_id<%= album_song.id %>">
+            
+            <td><strong><%= album_song.title %></strong><br/> <%= album_song.album.name %></td>
+            <td style="padding-top:18px;"><%= album_song.album.released %></td>
+          </tr>
+          <script>
+            jQuery(document).ready(function($) {
+                $("#set_song_id<%= album_song.id %>").click(function() {
+                    window.document.location = $(this).data("href");
+                    Turbolinks.clearCache()
+                });
             });
-        });
-      </script>
-    
+          </script>
+      
     <% end %>
   </table>
 </div>

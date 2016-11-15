@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.6'
+gem 'rails', '5.0.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 3.2'
 # Use Uglifier as compressor for JavaScript assets
@@ -20,16 +20,14 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
-gem 'devise', '~> 3.4.1'
+gem 'devise'
 gem 'ransack', github: 'activerecord-hackery/ransack'
 gem 'geocoder'
-gem 'socialization'
 gem 'pg'
 gem 'bootstrap-sass', '~> 3.3.5'
 gem 'aws-sdk', '~> 2.3'
 gem "paperclip", "~> 5.0.0"
 gem 'sprockets', '3.6.3'
-gem 'pjax_rails'
 gem "font-awesome-rails"
 gem "mediaelement_rails"
 gem 'momentjs-rails', '>= 2.9.0'
@@ -38,6 +36,8 @@ gem 'rails_12factor'
 gem 'public_activity'
 gem 'merit'
 gem 'activerecord-reputation-system'
+gem "react_on_rails", "~> 6"
+
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

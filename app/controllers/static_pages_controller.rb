@@ -1,6 +1,6 @@
 class StaticPagesController < ApplicationController
   def home
-  	@bands = Band.with_reputation(:votes).order("votes DESC")
+  	@bands = Band.with_reputation(:votes).order("votes DESC").limit(10)
   	@albums = Album.all
   	@songs = Song.all
     if user_signed_in?

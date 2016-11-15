@@ -13,6 +13,7 @@ class BandsController < ApplicationController
     @user = current_user
     @album = @band.albums
     @event = @band.events
+    
   end
 
   # GET /bands/new
@@ -69,7 +70,7 @@ class BandsController < ApplicationController
     value = params[:type] == "up" ? 1 : -1
     @band = Band.find(params[:id])
     @band.add_or_update_evaluation(:votes, value, current_user)
-    redirect_to :back, notice: "Thank you for voting!"
+    redirect_to(:back, turbolinks: true, notice: "Thank you for voting!")
   end
   private
     # Use callbacks to share common setup or constraints between actions.

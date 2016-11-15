@@ -40,5 +40,8 @@ class User < ActiveRecord::Base
   def voted_for?(band)
     evaluations.where(target_type: band.class, target_id: band.id).present?
   end
+  def voted_for?(song)
+    evaluations.where(target_type: song.class, target_id: song.id).present?
+  end
 
 end
