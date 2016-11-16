@@ -44,6 +44,9 @@ module Merit
       #
       #   user.name.length > 4
       # end
+      grant_on 'comments#vote', badge_id: 5, to: :band do |band|
+        band.votes.count == 5
+      end
     end
   end
 end

@@ -1,3 +1,4 @@
+
 // This is a manifest file that'll be compiled into application.js, which will include all the files
 // listed below.
 //
@@ -13,17 +14,14 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require jquery
 //= require bootstrap-sprockets
-//= require jquery.pjax
 //= require moment
 //= require mediaelement_rails
 //= require bootstrap-datetimepicker
+//= require react
+//= require react_ujs
+//= require components
 //= require_tree .
-
-$(function() {
-  $(document).pjax('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])', '[data-pjax-container]')
-});
 
 
   $("#hideshow").click(function() { 

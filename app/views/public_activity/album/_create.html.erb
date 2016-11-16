@@ -12,7 +12,6 @@
 		      $(function(){
 		        $("#set_song_id<%= album_song.id %>").click(function(){
 		          $.post('/bands/:band_id/songs/<%= album_song.id %>(.:format)');
-		          
 		        })
 		      })
 		    </script>
@@ -26,7 +25,6 @@
 		        jQuery(document).ready(function($) {
 		            $("#set_song_id<%= album_song.id %>").click(function() {
 		                window.document.location = $(this).data("href");
-
 		            });
 		        });
 		      </script>

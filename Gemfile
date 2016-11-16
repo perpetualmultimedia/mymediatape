@@ -37,6 +37,7 @@ gem 'public_activity'
 gem 'merit'
 gem 'activerecord-reputation-system'
 gem "react_on_rails", "~> 6"
+gem 'turbo_react-rails'
 
 
 # Use ActiveModel has_secure_password
@@ -62,3 +63,5 @@ group :development do
   gem 'spring'
 end
 
+
+gem 'mini_racer', platforms: :ruby

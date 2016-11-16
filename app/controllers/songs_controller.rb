@@ -65,7 +65,8 @@ class SongsController < ApplicationController
     session[:song_id] = @song.id
     session[:album_id] = @song.album_id
     session[:band_id] = @song.album.band_id
-    redirect_to :back, turbolinks: true, notice: "Song Updated!"
+    @band = @song.album.band_id
+    redirect_to :back
   end
   def vote
     value = params[:type] == "up" ? 1 : -1

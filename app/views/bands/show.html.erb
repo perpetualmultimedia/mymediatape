@@ -157,7 +157,7 @@
           </tr>
           <script>
             jQuery(document).ready(function($) {
-                $("#set_song_id<%= album_song.id %>").click(function() {
+                $("#set_song_id<%= album_song.id %>).click(function() {
                     window.document.location = $(this).data("href");
                     Turbolinks.clearCache()
                 });

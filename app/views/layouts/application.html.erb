@@ -76,7 +76,7 @@ a, a:hover{
   <%= yield %>
 </div>
 
-<div class="media-player" data-turbolinks-permanent data-turbolinks-track="reload"  id="pjax-music">
+<div class="media-player" data-turbolinks-permanent  id="pjax-music">
 <% if session[:song_id].present? %>
 <% current_song = Song.find_by_id(session[:song_id]) %>
 <% current_album = Album.find_by_id(session[:album_id]) %>
@@ -92,7 +92,7 @@ a, a:hover{
         <span class="song"> <%= current_band.group_name %></span><br/>
         <span class="album"><%= current_album.name %></span><br/>
       </div>
-        <audio src="<%= current_song.audio_file.url %>" data-turbolinks-track="reload" id="audio-player" ></audio>
+        <audio src="<%= current_song.audio_file.url %>"  id="audio-player" ></audio>
     </div>
   </div>
   <!-- <div class="audio-info">
