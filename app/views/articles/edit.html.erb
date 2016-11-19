@@ -1,6 +1,14 @@
-<h1>Editing Article</h1>
+<% if current_user.admin? || current_user.editor? || current_user.id == article.user_id %>
+<h2>Editing Article</h2>
+<hr>
 
 <%= render 'form', article: @article %>
 
 <%= link_to 'Show', @article %> |
 <%= link_to 'Back', articles_path %>
+<% else %>
+<div class="well">
+	<h2> Stop, Theif! You don't have access to that. </h2>
+	<%= link_to 'Back', root_path %>
+</div>
+<% end %>

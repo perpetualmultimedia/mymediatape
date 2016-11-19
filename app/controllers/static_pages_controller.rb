@@ -7,7 +7,7 @@ class StaticPagesController < ApplicationController
     if user_signed_in?
       @activities = PublicActivity::Activity.where(owner_id: current_user.following_ids).order('created_at DESC')
     else
-      @activities = PublicActivity::Activity.all
+      @activities = PublicActivity::Activity.all.order('created_at DESC')
     end
   end
 

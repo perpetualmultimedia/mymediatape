@@ -37,7 +37,7 @@ gem 'public_activity'
 gem 'merit'
 gem 'activerecord-reputation-system'
 gem 'pjax_rails'
-gem 'ckeditor'
+gem 'tinymce-rails'
 gem "selectize-rails"
 
 # Use ActiveModel has_secure_password

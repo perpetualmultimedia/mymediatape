@@ -16,9 +16,7 @@ p {
   font-size:18px;
   font-family: 'Roboto Slab', serif;
 }
-small.pull-right{
-  padding-top:3px;
-}
+
 .styleSmLogo{
 	width:270px;
 	margin-left:auto;
@@ -48,8 +46,20 @@ h5{
 label{
    font-size: 16px;
 }
-.form-control{
+h3 small.pull-right{
+  padding-top:5px;
+}
+small.pull-right{
+  padding-top:3px;
+}
+.form-control, .selectize-control{
   margin-bottom:10px;
+}
+.panel-admin{
+  height:290px;
+}
+.panel-body-admin{
+  height:196px;
 }
 .audio-info{
 	background-color:#ececec;
@@ -88,6 +98,24 @@ label{
 .btn-follow{
   margin-top:3px;
 }
+.article-container{
+  padding:25px;
+  overflow:hidden;
+}
+.cke_reset {
+  height:807px !important; 
+}
+.article-editor{
+  height:920px;
+}
+.article-body p img{
+  max-width:700px;
+}
+.article-activities{
+  width: 100%;
+  overflow:hidden;
+}
+
 
  /*==========  Mobile First Method  ==========*/
 

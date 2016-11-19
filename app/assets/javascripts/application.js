@@ -18,8 +18,8 @@
 //= require moment
 //= require mediaelement_rails
 //= require bootstrap-datetimepicker
-//= require ckeditor/init
 //= require selectize
+//= require tinymce-jquery
 //= require_tree .
 
 $(function() {

@@ -12,6 +12,7 @@ class ArticlesController < ApplicationController
   def show
     if @article.band_id.present?
     @band = Band.find(@article.band_id)
+    @activities = PublicActivity::Activity.where(owner_id: @band.id).order('created_at DESC').limit(4)
   end
   end
 
@@ -73,6 +74,6 @@ class ArticlesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def article_params
-      params.require(:article).permit(:title, :body, :user_id, :band_id)
+      params.require(:article).permit(:title, :body, :user_id, :band_id, :public)
     end
 end

@@ -1,22 +1,41 @@
-<p id="notice"><%= notice %></p>
+<style>
+img{
+	max-width:700px;
+}
+</style>
+<div class="row">
+  <div class="col-md-8 article-container">	
+	<p id="notice"><%= notice %></p>
 
-<h3>
-  <%= @article.title %>
-</h3>
-<% if @article.band_id.present? %>
-<h5>
-  <%= link_to band_url(@band) do %>
-  <%= image_tag @band.band_avatar.url(:thumb), style: "height:60px; width:60px; padding-right:6px; border-radius:30px;" %><%= @band.group_name %>
-  <% end %>
-</h5>
-<% end %>
-<p>
-  <%= @article.body.html_safe %>
-</p>
+	<h3>
+	  <%= @article.title %> <small class="pull-right"><%= @article.created_at.strftime("%B %d, %Y") %></small>
+	</h3>
+	<hr>
+	<p class="article-body">
+	  <%= @article.body.html_safe %>
+	</p>
 
-<h5>
-  <%= image_tag @article.user.avatar.url(:thumb), style: "height:30px; padding-right:6px; border-radius:11px;" %> <%= @article.user.first_name %> <%= @article.user.last_name %>
-</h5>
+	<h5>
+	  <%= image_tag @article.user.avatar.url(:thumb), style: "height:30px; padding-right:6px; border-radius:11px;" %> <%= @article.user.first_name %> <%= @article.user.last_name %>
+	</h5>
 
-<%= link_to 'Edit', edit_article_path(@article) %> |
-<%= link_to 'Back', articles_path %>
+	<%= link_to 'Edit', edit_article_path(@article) %> |
+	<%= link_to 'Back', articles_path %>
+  </div>
+  <div class="col-md-4">
+  	
+  	<% if @article.band_id.present? %>
+  		<h3><%= link_to band_url(@band) do %>
+		  <strong><%= @band.group_name %></strong>
+		  <% end %></h3>
+  		<hr>
+		<h4>
+		  Recent Activities
+		</h4>
+		<hr>
+		<div class="article-activities">
+			<%= render_activities(@activities) %>
+		</div>
+	<% end %>
+  </div>
+</div>

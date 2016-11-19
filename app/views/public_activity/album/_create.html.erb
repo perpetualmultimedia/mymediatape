@@ -1,7 +1,48 @@
 <div class="col-md-12">
 <div class="row">
   <div class="row activity">
-    <div class="col-md-8">	
+    <% if controller_name == "articles" && action_name == "show" %>
+
+    <div class="col-md-12">	
+        	<h4><%= link_to band_url(activity.trackable.band.id) do %><strong><%= activity.trackable.band.group_name %></strong><% end %> Released <strong><%= activity.trackable.name %></strong> <small class="pull-right"><%= time_ago_in_words activity.trackable.created_at %> ago</small></h4>
+      	<hr>
+      	<div style="margin-left:auto; margin-right:auto; text-align: center;">
+      	<%= link_to band_album_url(activity.trackable.band.id, activity.trackable.id) do %>
+	      <%= image_tag activity.trackable.album_art.url(:medium), style: "height:150px; width:150px; object-fit:cover;", class: "albumArt " %>
+	    <% end %>
+	    </div>
+	    <hr>
+      	<label> Songs </label>
+    	<p>
+    	<table class="table table-hover">
+    	<% activity.trackable.songs.each do |album_song| %>
+    		<script>
+		      $(function(){
+		        $("#set_song_id<%= album_song.id %>").click(function(){
+		          $.post('/bands/:band_id/songs/<%= album_song.id %>(.:format)');
+		        })
+		      })
+		    </script>
+		    
+		      <tr href="#" id="set_song_id<%= album_song.id %>">
+		        
+		        <td><strong><%= album_song.title %></strong><br/> <%= album_song.album.name %></td>
+		        <td style="padding-top:18px;"><%= album_song.album.released %></td>
+		      </tr>
+		      <script>
+		        jQuery(document).ready(function($) {
+		            $("#set_song_id<%= album_song.id %>).click(function() {
+		                window.document.location = $(this).data("href");
+		            });
+		        });
+		      </script>
+    	<% end %>
+    	</table>
+    	</p>
+    </div>
+
+    <% else %>
+        <div class="col-md-8">	
         	<h4><%= link_to band_url(activity.trackable.band.id) do %><strong><%= activity.trackable.band.group_name %></strong><% end %> Released <strong><%= activity.trackable.name %></strong> <small class="pull-right"><%= time_ago_in_words activity.trackable.created_at %> ago</small></h4>
       	<hr>
       	<label> Songs </label>
@@ -37,6 +78,7 @@
 	      <%= image_tag activity.trackable.album_art.url(:medium), style: "height:150px; width:150px; object-fit:cover;", class: "albumArt" %>
 	    <% end %>
     </div>
+    <% end %>
   </div>
 </div>
 </div>
