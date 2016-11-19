@@ -1,0 +1,17 @@
+<div class="col-md-12">
+<div class="row">
+  <div class="row activity">
+
+    <div class="col-md-8">	
+    	
+        	<h4><%= link_to article_url(activity.trackable.id) do %><strong><%= activity.trackable.band.group_name %></strong><% end %> has some  <strong>News</strong> <small class="pull-right"><%= time_ago_in_words activity.trackable.created_at %> ago</small></h4>
+          <hr>
+          	<%= link_to article_url(activity.trackable.id) do %><p><%= activity.trackable.title %></p>
+          	<p><%= activity.trackable.body.truncate(190).html_safe %></p>
+      	<% end %>
+    	<p>
+    	</p>
+    </div>
+  </div>
+</div>
+</div>

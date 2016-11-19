@@ -1,6 +1,7 @@
 class StaticPagesController < ApplicationController
   def home
-  	@bands = Band.with_reputation(:votes).order("votes DESC").limit(10)
+    #@articles = Article.text_search(params[:query]).where("place_id = :p", p: @place.id).limit(2)
+  	@bands = Band.with_reputation(:votes).order("votes DESC")
   	@albums = Album.all
   	@songs = Song.all
     if user_signed_in?

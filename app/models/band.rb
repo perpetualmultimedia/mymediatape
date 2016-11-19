@@ -5,6 +5,7 @@ class Band < ActiveRecord::Base
   has_many :albums, dependent: :destroy
   has_many :songs, through: :albums, dependent: :destroy
   has_many :events
+  has_many :articles
   has_many :members, dependent: :destroy
   accepts_nested_attributes_for :songs, allow_destroy: true, :reject_if => lambda { |a| a[:title].blank? }
   has_attached_file :band_avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"

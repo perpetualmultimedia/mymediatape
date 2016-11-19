@@ -36,21 +36,13 @@
 			<hr>
 		<% end %>
 		<label> Top Bands </label>
-		<table class="table table-hover">
-			<% @bands.to_enum.with_index(1).each do |top_band, i| %>
-					<tr id="band_link<%= top_band.id %>" href="bands/<%= top_band.id %>">
-						<td><%= i %></td>
-						<td><strong><%= top_band.group_name %></strong></td>
-						<td><%= pluralize top_band.reputation_for(:votes).to_i, "vote" %></td>
-					</tr>
-				<script>
-		        $("#band_link<%= top_band.id %>").click(function(){
-				    //to navigate to another page
-				    location.href = 'bands/<%= top_band.id %>';//the other page's url
-				 });
-				</script>
-			<% end %>
-		</table>
+		<hr>
+		<% @bands.each do |top_band| %>
+			<p>
+			<%= link_to top_band do %><%= top_band.group_name %><% end %>
+			</p>
+			<hr>
+		<% end %>
 	</div>
 <% else %>
 	<h3> Hey,</h3>

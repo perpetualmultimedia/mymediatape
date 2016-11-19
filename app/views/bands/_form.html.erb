@@ -13,23 +13,23 @@
 
   <div class="field">
     <%= f.label :group_name %><br>
-    <%= f.text_field :group_name %>
+    <%= f.text_field :group_name, class: "form-control" %>
   </div>
   <div class="field">
     <%= f.label :band_avatar %>
-    <%= f.file_field :band_avatar %>
+    <%= f.file_field :band_avatar, class: "form-control" %>
   </div>
   <div class="field">
     <%= f.label :genre %><br>
-    <%= f.text_field :genre %>
+    <%= f.text_field :genre, class: "form-control" %>
   </div>
   <div class="field">
     <%= f.label :city %><br>
-    <%= f.text_field :city %>
+    <%= f.text_field :city, class: "form-control" %>
   </div>
   <div class="field">
     <%= f.label :state %><br>
-    <%= f.text_field :state %>
+    <%= f.text_field :state, class: "form-control" %>
   </div>
   <div class="field">
     <%= f.label :description %><br>
@@ -37,7 +37,7 @@
   </div>
   <div class="field">
     <%= f.label :website %><br>
-    <%= f.text_field :website %>
+    <%= f.text_field :website, class: "form-control" %>
   </div>
   <hr>
   <h2> Band Members (Leave any extras blank)</h2>
@@ -48,6 +48,6 @@
   <% end %>
   <%= link_to_add_fields "Add more members", f, :members %>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Create Band", class: "btn btn-lg btn-success" %>
   </div>
 <% end %>

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :articles
+  mount Ckeditor::Engine => '/ckeditor'
   get 'hello_world', to: 'hello_world#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
     get 'static_pages/home'
@@ -6,7 +8,7 @@ Rails.application.routes.draw do
   get 'static_pages/help'
 
   get 'static_pages/sign_up_success'
-
+  get 'static_pages/become_a_writer'
 
   resources :bands do
     member { post :vote }

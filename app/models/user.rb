@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
   has_many :bands
-
+  has_many :articles
   has_many :active_relationships, class_name:  "Relationship",
                                   foreign_key: "follower_id",
                                   dependent:   :destroy
@@ -39,9 +39,6 @@ class User < ActiveRecord::Base
   end
   def voted_for?(band)
     evaluations.where(target_type: band.class, target_id: band.id).present?
-  end
-  def voted_for?(song)
-    evaluations.where(target_type: song.class, target_id: song.id).present?
   end
 
 end

@@ -1,11 +1,23 @@
 
+$font-family-sans-serif: "Oswald";
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+@import url('https://fonts.googleapis.com/css?family=PT+Sans|Roboto+Slab');
 body{
 	margin:0;
-	font-family: 'Patua One', cursive;
+	font-family: 'PT Sans', sans-serif;
 }
 a, a:hover {
   link-style:none;
   color:#000;
+}
+p {
+  font-size:18px;
+  font-family: 'Roboto Slab', serif;
+}
+small.pull-right{
+  padding-top:3px;
 }
 .styleSmLogo{
 	width:270px;
@@ -20,10 +32,25 @@ a, a:hover {
 	text-align:left;
 	margin-bottom:40px;
 }
-h5{
-  font-size: 17px
+h2{
+  font-family: 'PT Sans', sans-serif;
+  font-weight:bold;
+  font-size:38px;
 }
-
+h3{
+  font-family: 'PT Sans', sans-serif;
+  font-weight:bold;
+  font-size:32px;
+}
+h5{
+  font-size: 17px;
+}
+label{
+   font-size: 16px;
+}
+.form-control{
+  margin-bottom:10px;
+}
 .audio-info{
 	background-color:#ececec;
 	height:100%;

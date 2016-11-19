@@ -36,9 +36,9 @@ gem 'rails_12factor'
 gem 'public_activity'
 gem 'merit'
 gem 'activerecord-reputation-system'
-gem "react_on_rails", "~> 6"
-gem 'turbo_react-rails'
-
+gem 'pjax_rails'
+gem 'ckeditor'
+gem "selectize-rails"
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
