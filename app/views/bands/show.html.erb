@@ -84,7 +84,7 @@
   </script>
 </div>
 <div class="col-md-9">
-  <h3><label>Top Songs</label></h3>
+  <h3><strong>Top Songs</strong></h3>
   <br/>
     <table class="table table-hover" data-no-turbolink>
     <% @band.songs.each do |album_song| %>
@@ -113,7 +113,7 @@
   </table>
   <hr>
   <% unless @band.albums.blank? %>
-    <h3><label>Albums</label></h3>
+    <h3><strong>Albums</strong></h3>
     <hr>
     <div class="row">
       <% @band.albums.each do |album| %>
@@ -139,7 +139,7 @@
   </p>
   <hr>
   <% unless @band.events.blank? %>
-    <h3><label>Shows</label></h3>
+    <h3><strong>Shows</strong></h3>
     <hr>
     <div class="row">
       <% @band.events.each do |event| %>
@@ -164,7 +164,7 @@
     </div>
     <hr>
   <% end %>
-    <h3><label>News</label></h3>
+    <h3><strong>News</strong></h3>
     <hr>
     <div class="row">
       <% @articles.each do |article| %>

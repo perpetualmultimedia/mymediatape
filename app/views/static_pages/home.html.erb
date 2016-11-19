@@ -10,7 +10,7 @@
 	</div>
 	<hr>
 	<div class="col-md-3">
-	<label>Your Bands</label>
+	<h3><strong>Your Bands</strong></h3>
 	<hr>
 		<% current_user.bands.each do |band| %>
 			<label> <%= link_to band do %><%= band.group_name %> <% end %></label> <br/> 
@@ -20,13 +20,13 @@
 		<%= link_to 'New Band', new_band_path %>
 	</div>
 	<div class="col-md-6">
-	<label>Recent Activities</label>
+	<h3><strong>Recent Activities</strong></h3>
 	<hr>
 	<%= render_activities(@activities) %>
 
 	</div>
 	<div class="col-md-3">
-		<label> Bands you follow </label>
+		<h3><strong> Bands you follow </strong></h3>
 		<hr>
 		<% current_user.following.each do |band| %>
 			<p>
@@ -35,7 +35,7 @@
 			</p>
 			<hr>
 		<% end %>
-		<label> Top Bands </label>
+		<h3><strong> Top Bands </strong></h3>
 		<hr>
 		<% @bands.each do |top_band| %>
 			<p>
