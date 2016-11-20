@@ -280,13 +280,13 @@ small.pull-right{
   height: 38px;
   bottom: 173px;
   left: 47%;
-  background: url('play.png');
+  background: url('https://s3-us-west-2.amazonaws.com/mymediatape/static_assets/play.png');
   object-fit:cover;
   background-size: cover;
 
 }
 .mejs-controls .mejs-pause button { 
-  background: url('pause.png');
+  background: url('https://s3-us-west-2.amazonaws.com/mymediatape/static_assets/pause.png');
   width:33px;
   object-fit:cover;
   background-size: cover;
@@ -298,7 +298,7 @@ small.pull-right{
   position: absolute;
   width: 30px;
   height: 30px;
-  background: url('audio.png');
+  background: url('https://s3-us-west-2.amazonaws.com/mymediatape/static_assets/audio.png');
   object-fit:cover;
   background-size: cover;
   bottom: 120px;
@@ -306,7 +306,7 @@ small.pull-right{
 }
 .mejs-controls .mejs-unmute button { 
   position: absolute;
-  background: url('audiomute.png');
+  background: url('https://s3-us-west-2.amazonaws.com/mymediatape/static_assets/audiomute.png');
   object-fit:cover;
   background-size: cover;
   bottom: 120px;

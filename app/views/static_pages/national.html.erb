@@ -17,7 +17,7 @@
 			<h3><strong> Albums </strong></h3>
 			<hr>
 			<% @albums.each do |top_album| %>
-				<%= link_to top_album do %>
+				<%= link_to band_album_path(top_album.band_id, top_album) do %>
 				<p>
 					<strong><%= top_album.name %></strong><small class="pull-right pull-right-tall"> <%= top_album.reputation_for(:votes).to_i %></small>
 				</p>
@@ -33,7 +33,7 @@
 			<h3><strong> Songs </strong></h3>
 			<hr>
 			<% @songs.each do |top_song| %>
-				<%= link_to band_album_song_path(top_song.album.band_id, top_song.album_id, top_song ) do %>
+				<%= link_to band_album_song_path(top_song.album.band_id, top_song.album_id, top_song ), :target => "_blank" do %>
 					<p>
 						<strong><%= top_song.title %></strong> | <small><%= top_song.album.name if top_song.album %></small> <small class="pull-right pull-right-tall"> <%= top_song.reputation_for(:votes).to_i %></small>
 					</p>
