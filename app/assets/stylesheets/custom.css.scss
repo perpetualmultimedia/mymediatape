@@ -160,6 +160,7 @@ small.pull-right{
     .event-title-date{
       height:30px;
     }
+
     }
 
     /* Extra Small Devices, Phones */ 
@@ -167,6 +168,8 @@ small.pull-right{
 		.logo-cont{
 			height:320px;
 		}
+
+
     }
 
     /* Small Devices, Tablets */
@@ -188,6 +191,7 @@ small.pull-right{
     .band-name-big{
       text-align:left;
     }
+
     }
 
     /* Medium Devices, Desktops */
@@ -252,6 +256,9 @@ small.pull-right{
 .audio-desc-page{
   padding-top:20px;
   height:200px;
+}
+.audio-art-img-page{
+  border-radius: 5px;
 }
 .audio-desc-page h3 {
   text-align:center;

@@ -89,7 +89,7 @@
     <table class="table table-hover" data-no-turbolink>
     <% @band.songs.each do |album_song| %>
     
-            <tr data-href="<%= band_album_song_url(album_song.album.band_id, album_song.album, album_song) %>" id="show-song" class="clickable-row">
+        <tr data-href="<%= band_album_song_url(album_song.album.band_id, album_song.album, album_song) %>" id="show-song" class="clickable-row">
         <td style="padding-top:18px;"><%= album_song.track_number %></td>
         <td><strong><%= album_song.title %></strong><br/> <%= album_song.album.name %></td>
         <td style="padding-top:18px;"><%= album_song.album.released %></td>
