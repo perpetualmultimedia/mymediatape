@@ -1,5 +1,18 @@
+<% if user_signed_in? %>
 <h1>New Song</h1>
 
 <%= render 'form' %>
 
 <%= link_to 'Back', songs_path %>
+<% else %>
+<div class="col-xs-6 col-xs-offset-3 error-message">
+	<div class="error-message-inner">
+		<h3> To Continue You Must Have An Account. </h3>
+		<br/>
+		<div class="btn-group btn-group-justified  vote pull-right" role="group" aria-label="...">
+		<%= link_to "Sign Up", new_user_registration_path, class: "btn btn-lg btn-default" %> 
+		<%= link_to "Sign In", :user_session, class: "btn btn-lg btn-default" %>
+		</div>
+	</div>
+</div>
+<% end %>

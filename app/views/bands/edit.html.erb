@@ -1,3 +1,4 @@
+<% if user_signed_in? && current_user.admin? || user_signed_in? && current_user.id == @band.user_id %>
 <h2>Editing Band | <% if user_signed_in? && @user = @band.user_id %><%= link_to 'Add Music', new_band_album_path(@band) %> | 
   <%= link_to 'Add An Event', new_band_event_path(@band) %> |
   <%= link_to 'Manage Albums', band_albums_path(@band) %> |
@@ -8,3 +9,17 @@
 
 <%= link_to 'Show', @band %> |
 <%= link_to 'Back', bands_path %>
+<% else %>
+<div class="col-xs-6 col-xs-offset-3 error-message">
+	<div class="error-message-inner">
+		<h3> You Don't Have Access To This Page.</h3>
+		<% unless user_signed_in? %>
+		<br/>
+			<div class="btn-group btn-group-justified  vote pull-right" role="group" aria-label="...">
+			<%= link_to "Sign Up", new_user_registration_path, class: "btn btn-lg btn-default" %> 
+			<%= link_to "Sign In", :user_session, class: "btn btn-lg btn-default" %>
+			</div>
+		<% end %>
+	</div>
+</div>
+<% end %>

@@ -1,23 +1,27 @@
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
-	<% if user_signed_in? %>
-		<% if current_user.id == @album.band.user_id %>
-			<h2>New Album</h2>
-			<hr>
+<% if user_signed_in? && current_user.admin? || user_signed_in? &&  current_user.id == @album.band.user_id %>
+	<div class="row">
+	  <div class="col-md-6 col-md-offset-3">
 
-			<%= render 'form' %>
-			<br/>
-			<%= link_to 'Cancel', band_albums_path, class: "btn btn-lg btn-block btn-danger" %>
-		<% else %>
-			<h1> You don't have access to <%= @album.band.group_name %>'s settings </h1> 
-			<h2> Your bands </h2>
-			<%= current_user.bands.each do |band| %>
-				<h3><%= link_to band do %><%= band.group_name %><% end %></h3>
-			<% end %>
+		<h2>New Album</h2>
+		<hr>
+
+		<%= render 'form' %>
+		<br/>
+		<%= link_to 'Cancel', band_albums_path, class: "btn btn-lg btn-block btn-danger" %>
+
+	  </div>
+	</div>
+<% else %>
+<div class="col-xs-6 col-xs-offset-3 error-message">
+	<div class="error-message-inner">
+		<h3> You Don't Have Access To This Page.</h3>
+		<% unless user_signed_in? %>
+		<br/>
+			<div class="btn-group btn-group-justified  vote pull-right" role="group" aria-label="...">
+			<%= link_to "Sign Up", new_user_registration_path, class: "btn btn-lg btn-default" %> 
+			<%= link_to "Sign In", :user_session, class: "btn btn-lg btn-default" %>
+			</div>
 		<% end %>
-	<% else %>
-	<h1> You don't have access to <%= @album.band.group_name %>'s settings </h1>
-	<h2><%= link_to "Sign in to access your bands", new_user_session_path %></h2>
-	<% end %>
-  </div>
+	</div>
 </div>
+<% end %>

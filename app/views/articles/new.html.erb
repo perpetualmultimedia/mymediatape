@@ -1,5 +1,18 @@
-<h2>New Article</h2>
+<% if user_signed_in? %>
+	<h2>New Article</h2>
 
-<%= render 'form', article: @article %>
-<br/>
-<%= link_to 'Cancel', root_path, class: "btn btn-lg btn-block btn-danger" %>
+	<%= render 'form', article: @article %>
+	<br/>
+	<%= link_to 'Cancel', root_path, class: "btn btn-lg btn-block btn-danger" %>
+<% else %>
+<div class="col-xs-6 col-xs-offset-3 error-message">
+	<div class="error-message-inner">
+		<h3> To Continue You Must Have An Account. </h3>
+		<br/>
+		<div class="btn-group btn-group-justified  vote pull-right" role="group" aria-label="...">
+		<%= link_to "Sign Up", new_user_registration_path, class: "btn btn-lg btn-default" %> 
+		<%= link_to "Sign In", :user_session, class: "btn btn-lg btn-default" %>
+		</div>
+	</div>
+</div>
+<% end %>

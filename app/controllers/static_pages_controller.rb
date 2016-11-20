@@ -12,10 +12,12 @@ class StaticPagesController < ApplicationController
   end
 
   def local
+    if user_signed_in?
     @activities = PublicActivity::Activity.all.order('created_at DESC')
-    @topbands = Band.where("state = :b", b: current_user.state).with_reputation(:votes).reorder("votes DESC")
+    @topbands = Band.where("state = :b", b: current_user.state).with_reputation(:votes).order("votes DESC")
     @albums = Album.joins(:band).where(bands: {state: current_user.state}).with_reputation(:votes).reorder("votes DESC")
     @songs = Song.joins(album: :band).where(bands: {state: current_user.state}).with_reputation(:votes).reorder("votes DESC")
+  end
   end
 
   def national

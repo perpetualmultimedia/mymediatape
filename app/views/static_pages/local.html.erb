@@ -1,4 +1,4 @@
-
+<% if user_signed_in? %>
 
 	<div class="col-md-8 ">
 		<h2 style="text-align: center;"> Local Charts </h2>
@@ -17,7 +17,7 @@
 			<h3><strong> Albums </strong></h3>
 			<hr>
 			<% @albums.with_reputation(:votes).order("votes DESC").each do |top_album| %>
-				<%= link_to top_album do %>
+				<%= link_to band_album_path(top_album.band_id, top_album)do %>
 				<p>
 					<strong><%= top_album.name %></strong><small class="pull-right"><%= top_album.reputation_for(:votes).to_i %></small>
 				</p>
@@ -33,20 +33,36 @@
 			<h3><strong> Songs </strong></h3>
 			<hr>
 			<% @songs.each do |top_song| %>
-				<%= link_to band_album_song_path(top_song.album.band_id, top_song.album_id, top_song ) do %>
+				<a href="#" data-href="<%= band_album_song_path(top_song.album.band_id, top_song.album_id, top_song ) %>"  id ="song_path_<%= top_song.id %>" >
 					<p>
 						<strong><%= top_song.title %></strong> | <small><%= top_song.album.name if top_song.album %></small> <small class="pull-right"><%= top_song.reputation_for(:votes).to_i %></small>
 					</p>
 					<p>
 						<%= top_song.album.band.group_name if top_song.album %>
 					</p>
-				<% end %>
+				</a>
 				<hr>
+				<script>
+				jQuery(document).ready(function($) {
+				    $("#song_path_<%= top_song.id %>").click(function() {
+				      var url = $(this).data('href');
+				      window.open(url, '_blank');
+				    });
+				});
+				</script>
 			<% end %>
 		</div>
 	</div>
-		<div class="col-md-4 ">
+	<div class="col-md-4 ">
 	<h2 style="text-align: center;"><strong>All Recent Activities</strong></h2>
 	<hr>
 		<%= render_activities(@activities) %>
 	</div>
+<% else %>
+<div class="col-xs-6 col-xs-offset-3 error-message">
+	<div class="error-message-inner">
+		<h2> We don't know where you are.</h2>
+		<h3> <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-lg btn-default btn-block" %> </h3>
+	</div>
+</div>
+<% end %>

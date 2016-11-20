@@ -36,6 +36,9 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-   root 'static_pages#home'
+  authenticated :user do
+    root :to => "static_pages#home"
+  end
+   root 'static_pages#national'
 
 end
