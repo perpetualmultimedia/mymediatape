@@ -1,9 +1,9 @@
 <a href="javascript:window.close();">
 <div class="col-md-6 col-md-offset-3 col-sm-9 col-sm-offset-2" style= "margin-bottom:20px;" >
-	<div class="col-xs-1" style="padding-top:27px;">
+	<div class="col-xs-2 col-sm-1" style="padding-top:27px;">
 		<i class="fa fa-4x fa-chevron-left pull-right" aria-hidden="true"></i>
 	</div>
-	<div class="col-xs-11">
+	<div class="col-xs-10 col-sm-11">
 		<h3> <%= @song.album.band.group_name %> </h3>
 		<h4> <%= @song.album.name %> </h4>
 	</div>
@@ -40,7 +40,7 @@ body{
         </audio>
     </div>
   </div>
-  <div class="audio-player-vote-page">
+  <div class="audio-player-vote-page" style="height: 93px;">
       <h3><%= pluralize @song.reputation_for(:votes).to_i, "vote" %></h3>
     <% if user_signed_in? %>
         <div class="btn-group btn-group-justified  vote pull-right" role="group" aria-label="...">
