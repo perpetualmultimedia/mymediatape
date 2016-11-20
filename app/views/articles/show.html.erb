@@ -6,22 +6,41 @@ img{
 <div class="row">
   <div class="col-md-8 article-container">	
 	<p id="notice"><%= notice %></p>
+	<% if user_signed_in? && current_user.admin == "true" || user_signed_in? && current_user.editor == "true" || user_signed_in? && @article.user.id == current_user.id || @article.public? %>
+		<h3><% if user_signed_in? && current_user.admin == "true" || user_signed_in? && current_user.editor == "true" || user_signed_in? && @article.user == current_user %><% if @article.public? %> <i class="fa fa-star" aria-hidden="true"></i> <% else %> <i class="fa fa-star-o" aria-hidden="true"></i> <% end %> <% end %>
+		  <%= @article.title %> <small class="pull-right"><%= @article.created_at.strftime("%B %d, %Y") %></small>
+		</h3>
+		<hr>
+		<p class="article-body">
+		  <%= @article.body.html_safe %>
+		  <br/>
+		</p>
 
-	<h3>
-	  <%= @article.title %> <small class="pull-right"><%= @article.created_at.strftime("%B %d, %Y") %></small>
-	</h3>
-	<hr>
-	<p class="article-body">
-	  <%= @article.body.html_safe %>
-	</p>
+		<h5>
+		  <%= image_tag @article.user.avatar.url(:thumb), style: "height:30px; padding-right:6px; border-radius:11px;" %> <%= @article.user.first_name %> <%= @article.user.last_name %>
+		</h5>
+		<% if user_signed_in? && current_user.admin? || user_signed_in? && current_user.editor? %>
+		<br/>
+		<%= link_to 'Edit Public Status', edit_article_path(@article), class: "btn btn-lg btn-warning" %> 	<%= link_to 'Editor Dashboard', articles_path, class: "btn btn-lg btn-default" %>
 
-	<h5>
-	  <%= image_tag @article.user.avatar.url(:thumb), style: "height:30px; padding-right:6px; border-radius:11px;" %> <%= @article.user.first_name %> <%= @article.user.last_name %>
-	</h5>
+		<% end %>
+		<hr>
+		<h3> Comments </h3>
+		<%= render :partial => 'article_comments_fields' %>
+		<% if @article.article_comments.present? %>
+			<% @article.article_comments.each do |comment| %>
+			<hr>
+				<h5> <strong><%= comment.user.first_name if comment.user %> <%= comment.user.last_name if comment.user %></strong> </h5>
+				<p>	<%= comment.body %> </p>
 
-	<%= link_to 'Edit', edit_article_path(@article) %> |
-	<%= link_to 'Back', articles_path %>
-  </div>
+			<% end %>
+		<% else %>
+			<div class="well">
+				<h4> No Comments </h4>
+			</div>
+		<% end %>
+	  </div>
+	<% end %>
   <div class="col-md-4">
   	
   	<% if @article.band_id.present? %>

@@ -10,10 +10,12 @@ class BandsController < ApplicationController
   # GET /bands/1
   # GET /bands/1.json
   def show
+    @band = Band.find(params[:id])
     @user = current_user
     @album = @band.albums
     @event = @band.events
-    @articles = @band.articles
+    @articles = Article.where(band_id: @band.id).where(public: true)
+    @band.state = State.find(@band.state).name
   end
 
   # GET /bands/new

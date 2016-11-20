@@ -1,0 +1,52 @@
+
+
+	<div class="col-md-8 ">
+		<h2 style="text-align: center;"> Local Charts </h2>
+		<hr>
+		<div class="col-md-4">
+			<h3><strong> Artists </strong></h3>
+			<hr>
+			<% @topbands.each do |top_band| %>
+				<p>
+				<%= link_to top_band do %><strong><%= top_band.group_name %></strong> <small class="pull-right"><%= top_band.reputation_for(:votes).to_i %></small> <% end %>
+				</p>
+				<hr>
+			<% end %>
+		</div>
+		<div class="col-md-4">
+			<h3><strong> Albums </strong></h3>
+			<hr>
+			<% @albums.with_reputation(:votes).order("votes DESC").each do |top_album| %>
+				<%= link_to top_album do %>
+				<p>
+					<strong><%= top_album.name %></strong><small class="pull-right"><%= top_album.reputation_for(:votes).to_i %></small>
+				</p>
+				<p> 
+					<%= top_album.band.group_name %>
+				</p>
+				<% end %>
+				<hr>
+
+			<% end %>
+		</div>
+		<div class="col-md-4">
+			<h3><strong> Songs </strong></h3>
+			<hr>
+			<% @songs.each do |top_song| %>
+				<%= link_to band_album_song_path(top_song.album.band_id, top_song.album_id, top_song ) do %>
+					<p>
+						<strong><%= top_song.title %></strong> | <small><%= top_song.album.name if top_song.album %></small> <small class="pull-right"><%= top_song.reputation_for(:votes).to_i %></small>
+					</p>
+					<p>
+						<%= top_song.album.band.group_name if top_song.album %>
+					</p>
+				<% end %>
+				<hr>
+			<% end %>
+		</div>
+	</div>
+		<div class="col-md-4 ">
+	<h2 style="text-align: center;"><strong>All Recent Activities</strong></h2>
+	<hr>
+		<%= render_activities(@activities) %>
+	</div>

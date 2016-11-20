@@ -11,6 +11,19 @@ class StaticPagesController < ApplicationController
     end
   end
 
+  def local
+    @activities = PublicActivity::Activity.all.order('created_at DESC')
+    @topbands = Band.where("state = :b", b: current_user.state).with_reputation(:votes).reorder("votes DESC")
+    @albums = Album.joins(:band).where(bands: {state: current_user.state}).with_reputation(:votes).reorder("votes DESC")
+    @songs = Song.joins(album: :band).where(bands: {state: current_user.state}).with_reputation(:votes).reorder("votes DESC")
+  end
+
+  def national
+    @activities = PublicActivity::Activity.all.order('created_at DESC')
+    @bands = Band.with_reputation(:votes).order("votes DESC").limit(10)
+    @albums = Album.all.limit(10).with_reputation(:votes).reorder("votes DESC")
+    @songs = Song.all.limit(10).with_reputation(:votes).reorder("votes DESC")
+  end
 
   def help
   end

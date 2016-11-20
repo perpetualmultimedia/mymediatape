@@ -29,7 +29,7 @@
   </div>
   <div class="field">
     <%= f.label :state %><br>
-    <%= f.text_field :state, class: "form-control" %>
+    <%= f.collection_select :state, State.order(:name), :id, :name, {include_blank: true} %>
   </div>
   <div class="field">
     <%= f.label :description %><br>
@@ -51,3 +51,11 @@
     <%= f.submit "Create Band", class: "btn btn-lg btn-success" %>
   </div>
 <% end %>
+<script type="text/javascript">
+  $(function() {
+  $('#band_state').selectize({
+    create: false,
+    sortField: 'text'
+  });
+});
+</script>

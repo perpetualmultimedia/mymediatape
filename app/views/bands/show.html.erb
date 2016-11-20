@@ -88,27 +88,12 @@
   <br/>
     <table class="table table-hover" data-no-turbolink>
     <% @band.songs.each do |album_song| %>
-    <script>
-      $(function(){
-        $("#set_song_id<%= album_song.id %>").click(function(){
-          $.post('/bands/:band_id/songs/<%= album_song.id %>(.:format)');
-        })
-      })
-    </script>
     
-      <tr href="#" id="set_song_id<%= album_song.id %>">
-        
+            <tr data-href="<%= band_album_song_url(album_song.album.band_id, album_song.album, album_song) %>" id="show-song" class="clickable-row">
+        <td style="padding-top:18px;"><%= album_song.track_number %></td>
         <td><strong><%= album_song.title %></strong><br/> <%= album_song.album.name %></td>
         <td style="padding-top:18px;"><%= album_song.album.released %></td>
       </tr>
-      <script>
-        jQuery(document).ready(function($) {
-            $("#set_song_id<%= album_song.id %>).click(function() {
-                window.document.location = $(this).data("href");
-            });
-        });
-      </script>
-    
     <% end %>
   </table>
   <hr>
@@ -164,25 +149,36 @@
     </div>
     <hr>
   <% end %>
+  <% if @articles.present? %>
     <h3><strong>News</strong></h3>
     <hr>
     <div class="row">
       <% @articles.each do |article| %>
-        <%= link_to article_url(article) do %>
-          <div class="col-md-4 col-xs-6">
-            <div class="row">
-              <div class="col-xs-12">
-                <h4><strong><%= article.title %></strong></h4>
-                <p>
-                  <%= article.body.truncate(190).html_safe %>
-                </p>
+        <% if article.public? %>
+          <%= link_to article_url(article) do %>
+            <div class="col-md-4 col-xs-6">
+              <div class="row">
+                <div class="col-xs-12">
+                  <h4><strong><%= article.title %></strong></h4>
+                  <p>
+                    <%= article.body.truncate(190).html_safe %>
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
+          <% end %>
         <% end %>
       <% end %>
     </div>
     <hr>
-
+  <% end %>
   
 </div>
+      <script>
+jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+      var url = $(this).data('href');
+      window.open(url, '_blank');
+    });
+});
+      </script>

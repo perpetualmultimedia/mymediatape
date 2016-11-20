@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161119015405) do
+ActiveRecord::Schema.define(version: 20161120042412) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,16 @@ ActiveRecord::Schema.define(version: 20161119015405) do
     t.integer  "album_art_file_size"
     t.datetime "album_art_updated_at"
     t.index ["band_id"], name: "index_albums_on_band_id", using: :btree
+  end
+
+  create_table "article_comments", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "article_id"
+    t.string   "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["article_id"], name: "index_article_comments_on_article_id", using: :btree
+    t.index ["user_id"], name: "index_article_comments_on_user_id", using: :btree
   end
 
   create_table "articles", force: :cascade do |t|
@@ -274,7 +284,13 @@ ActiveRecord::Schema.define(version: 20161119015405) do
     t.string   "audio_file_content_type"
     t.integer  "audio_file_file_size"
     t.datetime "audio_file_updated_at"
+    t.integer  "band_id"
     t.index ["album_id"], name: "index_songs_on_album_id", using: :btree
+  end
+
+  create_table "states", force: :cascade do |t|
+    t.string "name"
+    t.string "abbreviation"
   end
 
   create_table "users", force: :cascade do |t|
@@ -299,11 +315,14 @@ ActiveRecord::Schema.define(version: 20161119015405) do
     t.datetime "avatar_updated_at"
     t.boolean  "admin"
     t.boolean  "editor"
+    t.string   "state"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
   add_foreign_key "albums", "bands"
+  add_foreign_key "article_comments", "articles"
+  add_foreign_key "article_comments", "users"
   add_foreign_key "articles", "users"
   add_foreign_key "bands", "users"
   add_foreign_key "members", "bands"

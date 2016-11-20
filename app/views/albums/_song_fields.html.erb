@@ -1,19 +1,19 @@
  <label>Song</label>
   <div class="field">
     <%= f.label :title %><br>
-    <%= f.text_field :title %>
+    <%= f.text_field :title, class: "form-control"  %>
   </div>
   <div class="field">
     <%= f.label :track_number %><br>
-    <%= f.number_field :track_number %>
+    <%= f.number_field :track_number, class: "form-control"  %>
   </div>
   <div class="field">
     <%= f.label :description %><br>
-    <%= f.text_field :description %>
+    <%= f.text_field :description, class: "form-control"  %>
   </div>
   <div class="field">
     <%= f.label :audio_file %>
-    <%= f.file_field :audio_file %>
+    <%= f.file_field :audio_file, class: "form-control"  %>
   </div>
   <div class=" checkbox">
     <label>

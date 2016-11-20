@@ -1,6 +1,7 @@
 class Album < ActiveRecord::Base
   belongs_to :band
   has_many :songs, dependent: :destroy
+  has_reputation :votes, source: :user, aggregated_by: :sum
   include PublicActivity::Model
   tracked only: [:update, :create], :owner => :band
   accepts_nested_attributes_for :songs, allow_destroy: true, :reject_if => lambda { |a| a[:title].blank? }

@@ -4,12 +4,18 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   def index
-    @articles = Article.all
+    if current_user.admin? || current_user.editor?
+      @articles = Article.all
+    end
+    if current_user.articles.present?
+      @articles = current_user.articles
+    end
   end
 
   # GET /articles/1
   # GET /articles/1.json
   def show
+      @article.article_comments.build
     if @article.band_id.present?
     @band = Band.find(@article.band_id)
     @activities = PublicActivity::Activity.where(owner_id: @band.id).order('created_at DESC').limit(4)
@@ -74,6 +80,6 @@ class ArticlesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def article_params
-      params.require(:article).permit(:title, :body, :user_id, :band_id, :public)
+      params.require(:article).permit(:title, :body, :user_id, :band_id, :public, article_comments_attributes: [:user_id, :article_id, :body])
     end
 end

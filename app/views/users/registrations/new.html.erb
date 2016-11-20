@@ -20,8 +20,8 @@
         <%= f.file_field :avatar, class: "form-control" %>
       </div>
       <div class="field">
-        <%= f.label :zipcode %><br />
-        <%= f.text_field :zipcode, autofocus: true, class: "form-control" %>
+        <%= f.label :state %><br />
+        <%= f.collection_select :state, State.order(:name), :id, :name, {include_blank: true} %>
       </div>
 
       <div class="field">
@@ -52,3 +52,11 @@
     <%= render "devise/shared/links" %>
   </div>
 </div>
+<script type="text/javascript">
+  $(function() {
+  $('#user_state').selectize({
+    create: false,
+    sortField: 'text'
+  });
+});
+</script>

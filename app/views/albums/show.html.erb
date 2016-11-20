@@ -5,9 +5,10 @@
   <div class="col-sm-3 col-md-2 band-avatar-big">
     <%= image_tag @album.band.band_avatar.url(:medium), style: "border-radius:100px; height: 150px;" %>
   </div>
-  <div class="col-sm-9 col-md-8 band-name-big" style="padding:30px;">
+  <div class="col-sm-6 col-md-8 band-name-big" style="padding:30px;">
     <h2>  <%= @album.band.group_name %>   </h2>
   </div>
+
   <% end %>
 
 </div>
@@ -15,9 +16,30 @@
 <hr>
 <div class="row albumColor" >
   <div class="col-sm-6 col-md-4">
-    <img src="<%= @album.album_art.url(:medium) %>" class="albumArt img-responsive" style= "height:300px; width:300px; object-fit:cover;" >
+    <img src="<%= @album.album_art.url(:medium) %>" class="albumArt img-responsive" style= "width:100%; object-fit:cover;", class: "img-responsive" >
+    <h5><%= pluralize @album.reputation_for(:votes).to_i, "vote" %>
+    <% if user_signed_in? %>
+        <div class="btn-group vote pull-right" role="group" aria-label="...">
+          <%= link_to vote_band_album_path(@album, type: "up"), method: "post", class: "btn btn-default", remote: true, id: "vote-pjax-up" do %><i class="fa fa-chevron-up" aria-hidden="true"></i><% end %>
+           <%= link_to vote_band_album_path(@album, type: "down"), method: "post", class: "btn btn-default",  remote: true, id: "vote-pjax-down" do %><i class="fa fa-chevron-down" aria-hidden="true"></i><% end %>
+                     <script>
 
+            $("#vote-pjax-up").click(function(){
+              window.location.replace('#{band_url}');
+            });
+           </script>
+           <script>
+            
+            $("#vote-pjax-down").click(function(){
+              window.location.replace('#{band_url}');
+            });
+           </script>
+        </div>
+      <% end %>
+
+      </h5>
   <p>
+    <br/>
     <strong>Released:</strong>
     <%= @album.released %>
   </p>
@@ -33,26 +55,12 @@
   <br/>
   <table class="table table-hover">
     <% @album.songs.each do |album_song| %>
-    <script>
-      $(function(){
-        $("#set_song_id<%= album_song.id %>").click(function(){
-          $.post('/bands/:band_id/songs/<%= album_song.id %>(.:format)');
-        })
-      })
-    </script>
     
-      <tr href="#" id="set_song_id<%= album_song.id %>" class="set_song_id">
+      <tr data-href="<%= band_album_song_url(album_song.album.band_id, album_song.album, album_song) %>" id="show-song" class="clickable-row">
         <td style="padding-top:18px;"><%= album_song.track_number %></td>
         <td><strong><%= album_song.title %></strong><br/> <%= album_song.album.name %></td>
         <td style="padding-top:18px;"><%= album_song.album.released %></td>
       </tr>
-      <script>
-        jQuery(document).ready(function($) {
-            $("#set_song_id<%= album_song.id %>).click(function() {
-                window.document.location = $(this).data("href");
-            });
-        });
-      </script>
     
     <% end %>
   </table>
@@ -62,4 +70,11 @@
 <hr>
 <% if user_signed_in? && @user = @album.band.user_id %><%= link_to "Edit", edit_band_album_url(@album.band.id, @album) %> | <% end %>
 <%= link_to 'Back', band_path(@album.band.id) %>
-
+      <script>
+jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+      var url = $(this).data('href');
+      window.open(url, '_blank');
+    });
+});
+      </script>

@@ -60,12 +60,18 @@ class SongsController < ApplicationController
       format.json { head :no_content }
     end
   end
-  def set_song_id
-    set_song
-    session[:song_id] = @song.id
-    session[:album_id] = @song.album_id
-    session[:band_id] = @song.album.band_id
-    redirect_to band_album_path(@song.album.band_id, @song.album_id), tubolinks: false
+  # def set_song_id
+  #   set_song
+  #   session[:song_id] = @song.id
+  #   session[:album_id] = @song.album_id
+  #   session[:band_id] = @song.album.band_id
+  #   redirect_to band_album_path(@song.album.band_id, @song.album_id), tubolinks: false
+  # end
+  def vote
+    value = params[:type] == "up" ? 1 : -1
+    @song = Song.find(params[:id])
+    @song.add_or_update_evaluation(:votes, value, current_user)
+    redirect_to :back, notice: "Thank you for voting!"
   end
 
   private

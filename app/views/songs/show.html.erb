@@ -1,22 +1,81 @@
-<p id="notice"><%= notice %></p>
-<h3> <%= @song.album.band.group_name %> </h3>
-<h4> <%= @song.album.name %> </h4>
-<hr>
-<p>
-  <strong>Title:</strong>
-  <%= @song.title %>
-</p>
-<%= audio_tag @song.audio_file.url, controls: "true", preload: "true" %>
-<audio src="/system/songs/audio_files/000/000/076/original/03_-_No_Shows.mp3" controls >
-<p>
-  <strong>Track number:</strong>
-  <%= @song.track_number %>
-</p>
+<a href="javascript:window.close();">
+<div class="col-md-6 col-md-offset-3 col-sm-9 col-sm-offset-2" style= "margin-bottom:20px;" >
+	<div class="col-xs-1" style="padding-top:27px;">
+		<i class="fa fa-4x fa-chevron-left pull-right" aria-hidden="true"></i>
+	</div>
+	<div class="col-xs-11">
+		<h3> <%= @song.album.band.group_name %> </h3>
+		<h4> <%= @song.album.name %> </h4>
+	</div>
+</a>
 
-<p>
-  <strong>Description:</strong>
-  <%= @song.description %>
-</p>
+</div>
+
+<style>
+.navbar{
+  display:none;
+}
+body{
+  padding-top:50px;
+}
+
+</style>
+<div class="col-md-6 col-md-offset-3 col-sm-9 col-sm-offset-2">
+
+  <div class="audio-player-page" id="audio-player-page">
+    <div class="audio-info-page">
+      <div class="audio-art-page">
+        <%= link_to band_album_path(@song.album.band_id, @song.album) do %><%= image_tag @song.album.album_art.url(:medium), style: " width:100%; object-fit:cover;", class: "img-responsive" %><% end %>
+      </div>
+      <div class="audio-desc-page">
+
+        <h3> <span class="song"> <%= @song.title %></span></h3> 
+        <h4>
+        <span class="artist"> <%= @song.album.band.group_name %></span> |
+        <span class="album"><%= @song.album.name %></span>
+        </h4>
+      </div>
+        <audio id="audio-player" autoplay="autoplay">
+        	<source src="<%= @song.audio_file.url %>">
+        </audio>
+    </div>
+  </div>
+  <div class="audio-player-vote-page">
+      <h3><%= pluralize @song.reputation_for(:votes).to_i, "vote" %></h3>
+    <% if user_signed_in? %>
+        <div class="btn-group btn-group-justified  vote pull-right" role="group" aria-label="...">
+          <%= link_to vote_band_album_song_path(@song, type: "up"), method: "post", class: "btn btn-lg btn-success", remote: true, id: "vote-pjax-up" do %><i class="fa fa-chevron-up" aria-hidden="true"></i><% end %>
+           <%= link_to vote_band_album_song_path(@song, type: "down"), method: "post", class: "btn btn-lg btn-danger",  remote: true, id: "vote-pjax-down" do %><i class="fa fa-chevron-down" aria-hidden="true"></i><% end %>
+
+        </div>
+      <% end %>
+
+      
+  </div>
+
+	
 
 
-<%= link_to 'Back', band_album_path(@song.album.band_id, @song.album) %>
+
+
+
+</div>
+<script>
+$(function(){
+  $('#audio-player').mediaelementplayer({
+    alwaysShowControls: true,
+    features: ['playpause','progress','volume'],
+    audioVolume: 'horizontal',
+    iPadUseNativeControls: false,
+    iPhoneUseNativeControls: false,
+    AndroidUseNativeControls: false,
+    pauseOtherPlayers: true
+
+    });    
+});
+</script>
+<script type="text/javascript">
+	$(document).ready(function () {
+	  $('audio').mediaelementplayer().load();
+	});
+</script>

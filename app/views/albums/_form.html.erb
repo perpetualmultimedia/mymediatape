@@ -13,23 +13,23 @@
 
     <div class="field">
       <label>Album Title</label><br>
-      <%= f.text_field :name %>
+      <%= f.text_field :name, class: "form-control"  %>
     </div>
     <div class="field">
       <%= f.label :album_art %>
-      <%= f.file_field :album_art %>
+      <%= f.file_field :album_art, class: "form-control"  %>
     </div>
     <div class="field">
       <%= f.label "Type" %><br>
-      <%= f.select :album_type, options_for_select([['Album', 'Album'], ['EP', 'EP'], ['LP', 'LP'], ['Mixtape', 'Mixtape']]) %>
+      <%= f.select :album_type, options_for_select([['Album', 'Album'], ['EP', 'EP'], ['LP', 'LP'], ['Mixtape', 'Mixtape']]), class: "form-control"  %>
     </div>
     <div class="field">
       <%= f.label :released %><br>
-      <%= f.text_field :released %>
+      <%= f.text_field :released, class: "form-control" %>
     </div>
     <div class="field">
       <%= f.label :description %><br>
-      <%= f.text_area :description %>
+      <%= f.text_area :description, class: "form-control"  %>
     </div>
       <h3> Songs </h3>
     <%= f.fields_for :songs do |builder| %>
@@ -38,7 +38,9 @@
 
     <% end %>
     <%= link_to_add_more_fields "Add more songs in this group", f, :songs %>
+    <hr>
     <div class="actions">
-      <%= f.submit %>
+      <br/>
+      <%= f.submit "Create Album", class: "btn btn-block btn-lg btn-success" %>
     </div>
 <% end %>

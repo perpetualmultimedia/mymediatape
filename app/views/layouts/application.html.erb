@@ -33,6 +33,8 @@ a, a:hover{
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li><%= link_to "Home", root_path %></li>
+        <li><%= link_to "Local Charts", '/static_pages/local' %></li>
+        <li><%= link_to "National Charts", '/static_pages/national' %></li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
@@ -42,8 +44,12 @@ a, a:hover{
 	            <li class="dropdown">
 	              <a class="dropdown-toggle" href="" data-toggle="dropdown"> <% if user_signed_in? %> <%= image_tag current_user.avatar.url(:thumb), style: "height:20px; padding-right:6px; border-radius:10px;" %> <%= " #{current_user.first_name}" %> <%= " #{ current_user.last_name}" %><% end %> <span class="badge"></span> <strong class="caret"></strong></a>
 	              <div class="dropdown-menu" style=" padding:15px; padding-bottom: 10px;">
-	                <ul class=" nav-pills nav-stacked nav-drop">
+	                <ul class="nav nav-pills nav-stacked nav-drop">
 	                  	<li role="presentation" ><%= link_to "Home", root_path %></li>
+                      <li> <%= link_to "Account Settings",edit_user_registration_path %></li>
+                      <% if current_user.articles.present? %>
+                      <li> <%= link_to "Your Articles", articles_path %> </li>
+                      <% end %>
 						</li>
 						<hr>
 						<% if current_user.bands.any? %>
@@ -78,16 +84,16 @@ a, a:hover{
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-<div class="container" data-pjax-container style="margin-bottom: 100px;" >
+<div class="container" style="margin-bottom: 100px;" >
   <%= yield %>
-  <% if session[:song_id].present? %>
+<!--   <% if session[:song_id].present? %>
     <% current_song = Song.find_by_id(session[:song_id]) %>
     <% current_album = Album.find_by_id(session[:album_id]) %>
     <% current_band = Band.find_by_id(session[:band_id]) %>
-  <% end %>
+  <% end %> -->
     </div>
 
-<div class="media-player"  id="pjax-music">
+<!-- <div class="media-player"  id="pjax-music">
 <% if session[:song_id].present? %>
   <div class="audio-player" style="width: 100%; height: 84px;" width="100%">
     <div class="audio-info">
@@ -102,7 +108,7 @@ a, a:hover{
       </div>
         <audio src="<%= current_song.audio_file.url %>" id="audio-player" ></audio>
     </div>
-  </div>
+  </div> -->
   <!-- <div class="audio-info">
     <div class="audio-art">
       <%= image_tag current_song.album.album_art.url(:medium), class: "album-art", style: " object-fit:cover;" %>
@@ -131,7 +137,7 @@ a, a:hover{
     <div id='time'>00:00</div>
   </div>  -->
 
-</div>
+<!-- </div>
 <script>
 
 $(function(){
@@ -145,13 +151,13 @@ $(function(){
     pauseOtherPlayers: true
     });
 });
-</script>
+</script> 
 
 
 <% else %>
 
 
-<% end %>
+<% end %>-->
 </body>
 
 </html>
