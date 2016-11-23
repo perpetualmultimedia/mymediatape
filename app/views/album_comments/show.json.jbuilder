@@ -1,0 +1,1 @@
+json.partial! "album_comments/album_comment", album_comment: @album_comment

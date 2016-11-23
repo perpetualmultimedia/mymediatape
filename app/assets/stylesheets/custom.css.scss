@@ -1,5 +1,14 @@
-
+$brand-primary:#243983;
+$brand-success:#5A9AB4;
+$brand-info:#F4DE7A;
+$brand-warning:#F0AF75;
+$brand-danger:#8B3E4D;
+$btn-default-border:#243983;
 $font-family-sans-serif: "Oswald";
+$navbar-height: 70px;
+$navbar-border-radius: 0px;
+$grid-float-breakpoint-max: 991px;
+$navbar-default-link-hover-color:#FFF;
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
@@ -7,6 +16,38 @@ $font-family-sans-serif: "Oswald";
 body{
 	margin:0;
 	font-family: 'PT Sans', sans-serif;
+}
+@font-face {
+    font-family: 'Blackout';
+    src: url('https://s3-us-west-2.amazonaws.com/mymediatape/static_assets/blackout_midnight-webfont.woff2') format('woff2'),
+         url('https://s3-us-west-2.amazonaws.com/mymediatape/static_assets/blackout_midnight-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'Blackout-sunrise';
+    src: url('https://s3-us-west-2.amazonaws.com/mymediatape/static_assets/blackout_sunrise-webfont.woff') format('woff'),
+         url('https://s3-us-west-2.amazonaws.com/mymediatape/static_assets/blackout_sunrise-webfont.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'Blackout-two_am';
+    src: url('https://s3-us-west-2.amazonaws.com/mymediatape/static_assets/blackout_two_am-webfont.woff2') format('woff2'),
+         url('https://s3-us-west-2.amazonaws.com/mymediatape/static_assets/blackout_two_am-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
 }
 a, a:hover {
   link-style:none;
@@ -51,6 +92,54 @@ h3 small.pull-right{
 }
 small.pull-right{
   padding-top:3px;
+}
+.navbar-img{
+  height:50px;
+  margin-top:-14px;
+}
+.navbar-default{
+  background-color: #F0F5F8;
+  color:#FFF;
+}
+.navbar-default li:hover{
+  background-color: #5A9AB4;
+  height: 75px;
+}
+ul.nav.navbar-nav{
+    height: 75px;
+}
+.nav.nav-pills li:hover{
+  background: none;
+  height: 40px;
+}
+.nav.nav-pills li a:hover{
+  background: #5A9AB4;
+  height: 40px;
+}
+.navbar-default .navbar-nav > li > a{
+  font-size: 23px;
+  color:#000;
+  margin-top:2px;
+  font-family: 'Blackout' ;
+}
+.navbar li a:hover{
+  color:#FFF;
+}
+.navbar-default .navbar-nav > .open > a{
+    background-color: #5A9AB4;
+      color:#FFF;
+    height: 75px;
+    margin-top:0px;
+}
+.navbar-default .navbar-nav > .open > a:focus{
+    background-color: #5A9AB4;
+      color:#FFF;
+    height: 75px;
+}
+.navbar-default .navbar-nav > .open > a:hover{
+    background-color: #5A9AB4;
+      color:#FFF;
+    height: 75px;
 }
 .form-control, .selectize-control{
   margin-bottom:10px;

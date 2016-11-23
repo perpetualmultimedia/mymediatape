@@ -12,6 +12,7 @@ class AlbumsController < ApplicationController
   # GET /albums/1.json
   def show
     set_album
+    @album.album_comments.build
     @band = @album.band.id
     @album.songs = @album.songs.sort_by &:track_number
   end

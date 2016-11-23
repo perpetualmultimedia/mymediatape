@@ -4,6 +4,7 @@ class Album < ActiveRecord::Base
   has_reputation :votes, source: :user, aggregated_by: :sum
   include PublicActivity::Model
   tracked only: [:update, :create], :owner => :band
+  has_many :album_comments, dependent: :destroy
   accepts_nested_attributes_for :songs, allow_destroy: true, :reject_if => lambda { |a| a[:title].blank? }
   has_attached_file :album_art, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :album_art, content_type: /\Aimage\/.*\z/

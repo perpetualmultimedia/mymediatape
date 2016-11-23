@@ -1,0 +1,12 @@
+<div class="col-xs-6 col-xs-offset-3 error-message">
+	<div class="error-message-inner">
+		<h3> You Don't Have Access To This Page.</h3>
+		<% unless user_signed_in? %>
+		<br/>
+			<div class="btn-group btn-group-justified  vote pull-right" role="group" aria-label="...">
+			<%= link_to "Sign Up", new_user_registration_path, class: "btn btn-lg btn-default" %> 
+			<%= link_to "Sign In", :user_session, class: "btn btn-lg btn-default" %>
+			</div>
+		<% end %>
+	</div>
+</div>

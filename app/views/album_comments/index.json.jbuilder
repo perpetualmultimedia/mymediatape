@@ -1,0 +1,1 @@
+json.array! @album_comments, partial: 'album_comments/album_comment', as: :album_comment

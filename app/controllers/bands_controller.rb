@@ -4,7 +4,20 @@ class BandsController < ApplicationController
   # GET /bands
   # GET /bands.json
   def index
-    @bands = Band.all
+  session[:state_cont] = params[:state_cont]  
+  @state = State.find_by_id(session[:state_cont])
+   
+    if @state.present?
+      @activities = PublicActivity::Activity.all.order('created_at DESC')
+      @topbands = Band.where(state: @state).with_reputation(:votes).order("votes DESC")
+      @albums = Album.joins(:band).where(bands: {state: @state}).with_reputation(:votes).reorder("votes DESC")
+      @songs = Song.joins(album: :band).where(bands: {state: @state}).with_reputation(:votes).reorder("votes DESC")
+    else
+      @activities = PublicActivity::Activity.all.order('created_at DESC')
+      @topbands = Band.with_reputation(:votes).order("votes DESC").limit(10)
+      @albums = Album.all.limit(10).with_reputation(:votes).reorder("votes DESC")
+      @songs = Song.all.limit(10).with_reputation(:votes).reorder("votes DESC")
+    end
   end
 
   # GET /bands/1

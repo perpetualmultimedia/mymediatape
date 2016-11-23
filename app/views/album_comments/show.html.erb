@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Users:</strong>
+  <%= @album_comment.users %>
+</p>
+
+<p>
+  <strong>Album:</strong>
+  <%= @album_comment.album %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @album_comment.body %>
+</p>
+
+<%= link_to 'Edit', edit_album_comment_path(@album_comment) %> |
+<%= link_to 'Back', album_comments_path %>

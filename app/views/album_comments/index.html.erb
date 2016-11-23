@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Album Comments</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Users</th>
+      <th>Album</th>
+      <th>Body</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @album_comments.each do |album_comment| %>
+      <tr>
+        <td><%= album_comment.users %></td>
+        <td><%= album_comment.album %></td>
+        <td><%= album_comment.body %></td>
+        <td><%= link_to 'Show', album_comment %></td>
+        <td><%= link_to 'Edit', edit_album_comment_path(album_comment) %></td>
+        <td><%= link_to 'Destroy', album_comment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Album Comment', new_album_comment_path %>

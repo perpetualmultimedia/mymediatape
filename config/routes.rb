@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :album_comments
   resources :articles do 
     resources :article_comments
   end
@@ -17,6 +18,7 @@ Rails.application.routes.draw do
     member { post :vote }
     get :following, :followers
     resources :albums, :except => [:update, :destroy] do
+      resources :album_comments
       member { post :vote }
       resources :songs do
         member { post :vote }
@@ -39,6 +41,6 @@ Rails.application.routes.draw do
   authenticated :user do
     root :to => "static_pages#home"
   end
-   root 'static_pages#national'
+   root 'bands#index'
 
 end

@@ -1,0 +1,9 @@
+<%= form_for ([@album.band, @album, @album.album_comments.build]) do |f| %>
+
+	<div class="input-group">
+    <%= f.text_area :body, class: "form-control", style: "resize: none;" , placeholder: "Post a comment...", rows: "3" %>
+    <span class="input-group-btn">
+    <%= f.submit "Post", class: "btn btn-comment btn-success" %>
+    </span>
+  </div>
+<% end %>

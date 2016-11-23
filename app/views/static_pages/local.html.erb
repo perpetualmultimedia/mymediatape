@@ -1,7 +1,8 @@
 <% if user_signed_in? %>
 
 	<div class="col-md-8 ">
-		<h2 style="text-align: center;"> Local Charts </h2>
+		<h2 style="text-align: center;"> The Charts </h2>
+
 		<hr>
 		<div class="col-md-4">
 			<h3><strong> Artists </strong></h3>
@@ -59,10 +60,10 @@
 		<%= render_activities(@activities) %>
 	</div>
 <% else %>
-<div class="col-xs-6 col-xs-offset-3 error-message">
-	<div class="error-message-inner">
-		<h2> We don't know where you are.</h2>
-		<h3> <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-lg btn-default btn-block" %> </h3>
+	<div class="col-xs-6 col-xs-offset-3 error-message">
+		<div class="error-message-inner">
+			<h2> We don't know where you are.</h2>
+			<h3> <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-lg btn-default btn-block" %> </h3>
+		</div>
 	</div>
-</div>
 <% end %>

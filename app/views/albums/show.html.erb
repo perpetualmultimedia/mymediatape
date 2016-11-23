@@ -48,10 +48,12 @@
     <strong>Description:</strong>
     <%= @album.description %>
   </p>
+  <% if user_signed_in? && @user = @album.band.user_id || user_signed_in? && @user.admin?  %><%= link_to "Edit", edit_band_album_url(@album.band.id, @album) %> | <% end %>
+<%= link_to 'Back', band_path(@album.band.id) %>
 
   </div>
   <div class="col-sm-6 col-md-8">
-  <h3><label>Songs</label></h3>
+  <h3><%= @album.name %></h3>
   <br/>
   <table class="table table-hover">
     <% @album.songs.each do |album_song| %>
@@ -68,8 +70,22 @@
   </div>
 </div>
 <hr>
-<% if user_signed_in? && @user = @album.band.user_id %><%= link_to "Edit", edit_band_album_url(@album.band.id, @album) %> | <% end %>
-<%= link_to 'Back', band_path(@album.band.id) %>
+    <h3> Comments </h3>
+    <%= render :partial => 'album_comments_fields' %>
+    <% if @album.album_comments.present? %>
+      <% @album.album_comments.each do |comment| %>
+      <hr>
+      <% unless comment.body.blank? %>
+        <h5> <strong><%= comment.user.first_name if comment.user %> <%= comment.user.last_name if comment.user %></strong> <small class="pull-right"> <%= time_ago_in_words(comment.created_at) unless comment.created_at.blank? %> ago </small> </h5>
+        <p> <%= comment.body %> </p>
+      <% end %>
+      <% end %>
+    <% else %>
+      <div class="well">
+        <h4> No Comments </h4>
+      </div>
+    <% end %>
+
       <script>
 jQuery(document).ready(function($) {
     $(".clickable-row").click(function() {
