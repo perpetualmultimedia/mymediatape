@@ -1,7 +1,6 @@
-<div class="col-md-12">
-<div class="row">
-  <div class="row activity">
-  <% if controller_name == "articles" && action_name == "show" ||  controller_name == "static_pages" && action_name == "national"||  controller_name == "static_pages" && action_name == "local" %>
+
+  <div class="row activity event-activity-<%=activity.trackable.id%>">
+  <% if controller_name == "articles" && action_name == "show" ||  controller_name == "static_pages" && action_name == "national"||  controller_name == "bands" && action_name == "index" %>
 
     <div class="col-md-12">	
     	
@@ -26,19 +25,18 @@
       
           <h4><%= link_to band_url(activity.trackable.band.id) do %><strong><%= activity.trackable.band.group_name %></strong><% end %> added a <strong>Show</strong> <small class="pull-right"><%= time_ago_in_words activity.trackable.created_at %> ago</small></h4>
           <hr>
-            <%= link_to band_event_url(activity.trackable.band.id, activity.trackable.id) do %><p><%= activity.trackable.title %></p>
+            <%= link_to band_event_url(activity.trackable.band.id, activity.trackable.id) do %><p class="pull-left"><%= activity.trackable.title %></p><small class="pull-right"><%= activity.trackable.date %></small><% end %>
             <p><%= activity.trackable.description %></p>
-            <p><%= activity.trackable.date %></p>
-        <% end %>
+            
+        
       <p>
       </p>
     </div>
     <div class="col-md-4">
       <%= link_to band_event_url(activity.trackable.band.id, activity.trackable.id) do %>
-        <%= image_tag activity.trackable.flyer.url(:medium), style: "height:200px; width:145px; object-fit:cover;", class: "albumArt" %>
+
+        <img src="<%= activity.trackable.flyer.url %>" style= " object-fit:cover;" class="albumArt img-responsive" data-adaptive-background data-ab-parent='.event-activity-<%=activity.trackable.id%>' />
       <% end %>
     </div>
   <% end %>
   </div>
-</div>
-</div>

@@ -1,9 +1,9 @@
-<div class="col-md-12">
-<div class="row">
-  <div class="row activity">
-    <% if controller_name == "articles" && action_name == "show" ||  controller_name == "static_pages" && action_name == "national"||  controller_name == "static_pages" && action_name == "local" %>
+
+  <div class="row activity album-activity-<%=activity.trackable.id%>">
+    <% if controller_name == "articles" && action_name == "show" ||  controller_name == "static_pages" && action_name == "national"||  controller_name == "bands" && action_name == "index" %>
 
     <div class="col-md-12">	
+        
         	<h4><%= link_to band_url(activity.trackable.band.id) do %><strong><%= activity.trackable.band.group_name %></strong><% end %> Released <strong><%= activity.trackable.name %></strong> <small class="pull-right"><%= time_ago_in_words activity.trackable.created_at %> ago</small></h4>
       	<hr>
       	<div style="margin-left:auto; margin-right:auto; text-align: center;">
@@ -38,7 +38,9 @@
 
     <% else %>
         <div class="col-md-8">	
-        	<h4><%= link_to band_url(activity.trackable.band.id) do %><strong><%= activity.trackable.band.group_name %></strong><% end %> Released <strong><%= activity.trackable.name %></strong> <small class="pull-right"><%= time_ago_in_words activity.trackable.created_at %> ago</small></h4>
+          <div class="activity-title">
+          	<h4><%= link_to band_url(activity.trackable.band.id) do %><strong><%= activity.trackable.band.group_name %></strong><% end %> Released <strong><%= activity.trackable.name %></strong> <small class="pull-right"><%= time_ago_in_words activity.trackable.created_at %> ago</small></h4>
+          </div>
       	<hr>
       	<label> Songs </label>
     	<p>
@@ -63,13 +65,13 @@
     </div>
     <div class="col-md-4">
 	    <%= link_to band_album_url(activity.trackable.band.id, activity.trackable.id) do %>
-	      <%= image_tag activity.trackable.album_art.url(:medium), style: "height:150px; width:150px; object-fit:cover;", class: "albumArt" %>
+	      <img src="<%= activity.trackable.album_art.url %>" style= " object-fit:cover;" class="albumArt img-responsive" data-adaptive-background data-ab-parent='.album-activity-<%=activity.trackable.id%>' />
 	    <% end %>
     </div>
+
     <% end %>
   </div>
-</div>
-</div>
+
       <script>
 jQuery(document).ready(function($) {
     $(".clickable-row").click(function() {

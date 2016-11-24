@@ -51,7 +51,13 @@ body{
 }
 a, a:hover {
   link-style:none;
-  color:#000;
+  color: inherit;
+}
+hr{
+  color: inherit;
+}
+#show-song:hover{
+  background-color: rgba(255, 255, 255, 0.3);
 }
 p {
   font-size:18px;
@@ -89,9 +95,11 @@ label{
 }
 h3 small.pull-right{
   padding-top:5px;
+
 }
 small.pull-right{
   padding-top:3px;
+  color:inherit;
 }
 .navbar-img{
   height:50px;
@@ -184,10 +192,22 @@ ul.nav.navbar-nav{
 .activity{
   padding-top:20px;
   padding-bottom:10px;
-  border-bottom:solid;
-  border-bottom-width:thin;
-  border-bottom-color:#eeeeee;
+  margin-top:0px;
 }
+.activities{
+  margin:17px;
+}
+.activities :first-child{ 
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+
+}
+.activities :last-child{ 
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+
+}
+
 .btn-follow{
   margin-top:3px;
 }
