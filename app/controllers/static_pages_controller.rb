@@ -29,9 +29,9 @@ class StaticPagesController < ApplicationController
 
   def national
     @activities = PublicActivity::Activity.all.order('created_at DESC')
-    @bands = Band.with_reputation(:votes).order("votes DESC").limit(10)
-    @albums = Album.all.limit(10).with_reputation(:votes).reorder("votes DESC")
-    @songs = Song.all.limit(10).with_reputation(:votes).reorder("votes DESC")
+    @bands = Band.with_reputation(:votes).order("votes DESC").limit(5)
+    @albums = Album.all.limit(10).with_reputation(:votes).reorder("votes DESC").limit(5)
+    @songs = Song.all.limit(10).with_reputation(:votes).reorder("votes DESC").limit(5)
   end
 
   def help

@@ -1,4 +1,4 @@
-<% if current_user.admin? || current_user.editor? || current_user.id == article.user_id %>
+<% if current_user.admin? || current_user.editor? || current_user == @article.user %>
 <h2>Editing Article</h2>
 <hr>
 

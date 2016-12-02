@@ -13,8 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require bootstrap-sprockets
 //= require jquery.pjax
+//= require bootstrap-sprockets
 //= require moment
 //= require mediaelement_rails
 //= require bootstrap-datetimepicker

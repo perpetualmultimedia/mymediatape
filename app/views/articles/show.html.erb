@@ -11,7 +11,57 @@ img{
 		  <%= @article.title %> <small class="pull-right"><%= @article.created_at.strftime("%B %d, %Y") %></small>
 		</h3>
 		<hr>
+		<div class="photos-container">
+			<% if @article.article_photos.any? %>
+				<% if @article.article_photos.count == 1 %>
+					<% @article.article_photos.each do |photo| %>
+						<div class="col-md-12">
+							<%= image_tag photo.image.url(:medium), class: "img-responsive" %>
+						</div>
+					<% end %>
+				<% elsif @article.article_photos.count == 2 %>
+					<% @article.article_photos.each_with_index do |photo, i| %>
+						<div class="col-md-6">
+							<a href="#" data-toggle="modal" data-target="#photo-<%= i %>">
+								<%= image_tag photo.image.url(:medium), class: "img-responsive" %>
+							</a>
+						</div>
+						<div class="modal fade" id="photo-<%= i %>" tabindex="-1" role="dialog" aria-labelledby="photo-<%= i %>" aria-hidden="true">
+						  <div class="modal-dialog" role="document">
+						    <div class="modal-content" style="padding:20px;">
+						    <img src="<%= photo.image.url %>" class="img-responsive" style="margin-left:auto; margin-right:auto;" data-adaptive-background >
+						    </div><!-- /.modal-content -->
+						  </div><!-- /.modal-dialog -->
+						</div><!-- /.modal -->
+					<% end %>
+				<% elsif @article.article_photos.count == 3 %>
+					<div class="row">
+					<% @article.article_photos.each_with_index do |photo, i| %>
+						
+						<div class="<%= 'col-md-6' if i == 0 %> <%= 'col-md-3' if i == 1 %> <%= 'col-md-3' if i == 2 %>">
+							<a href="#" data-toggle="modal" data-target="#photo-<%= i %>">
+								<%= image_tag photo.image.url(:medium), class: "img-responsive" %>
+							</a>
+						</div>
+						
+						<div class="modal fade" id="photo-<%= i %>" tabindex="-1" role="dialog" aria-labelledby="photo-<%= i %>" aria-hidden="true">
+						  <div class="modal-dialog" role="document">
+						    <div class="modal-content" style="padding:20px;">
+						    <img src="<%= photo.image.url %>" class="img-responsive" style="margin-left:auto; margin-right:auto;" data-adaptive-background >
+						    </div><!-- /.modal-content -->
+						  </div><!-- /.modal-dialog -->
+						</div><!-- /.modal -->
+
+					<% end %>
+					</div>
+				<% end %>
+				<hr>
+			<% end %>
+
+		</div>
+		
 		<p class="article-body">
+
 		  <%= @article.body.html_safe %>
 		  <br/>
 		</p>
@@ -21,8 +71,9 @@ img{
 		</h5>
 		<% if user_signed_in? && current_user.admin? || user_signed_in? && current_user.editor? %>
 		<br/>
-		<%= link_to 'Edit Public Status', edit_article_path(@article), class: "btn btn-lg btn-warning" %> 	<%= link_to 'Editor Dashboard', articles_path, class: "btn btn-lg btn-default" %>
-
+		<%= link_to 'Edit Public Status', edit_article_path(@article), class: "btn btn-lg btn-warning" %> 	<%= link_to 'Back To Editor Dashboard', articles_path, class: "btn btn-lg btn-default" %>
+		<% elsif current_user == @article.user && @article.public.blank? %>
+			<%= link_to 'Edit Article', edit_article_path(@article), class: "btn btn-lg btn-warning" %>
 		<% end %>
 		<hr>
 		<h3> Comments </h3>

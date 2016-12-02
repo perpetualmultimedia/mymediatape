@@ -50,7 +50,7 @@ body{
 
 }
 a, a:hover {
-  link-style:none;
+  text-decoration: none;
   color: inherit;
 }
 hr{
@@ -106,7 +106,7 @@ small.pull-right{
   margin-top:-14px;
 }
 .navbar-default{
-  background-color: #F0F5F8;
+  background-color: #243983;
   color:#FFF;
 }
 .navbar-default li:hover{
@@ -120,13 +120,16 @@ ul.nav.navbar-nav{
   background: none;
   height: 40px;
 }
+.nav.nav-pills li a{
+  color:#000;
+}
 .nav.nav-pills li a:hover{
   background: #5A9AB4;
   height: 40px;
 }
 .navbar-default .navbar-nav > li > a{
   font-size: 23px;
-  color:#000;
+  color:#FFF;
   margin-top:2px;
   font-family: 'Blackout' ;
 }
@@ -207,6 +210,27 @@ ul.nav.navbar-nav{
   border-bottom-right-radius: 5px;
 
 }
+#carousel{
+    border-radius:  7px;
+
+  overflow: hidden;
+}
+#carousel .item {
+  border-radius:  7px;
+  height: 400px;
+  overflow: hidden;
+}
+.carousel-inner{
+    border-radius:  7px;
+    overflow: hidden;
+}
+.carousel-control{
+  border-radius:  7px;
+}
+.carousel-caption{
+  top: 28%;
+  right: 9%;
+}
 
 .btn-follow{
   margin-top:3px;
@@ -279,8 +303,12 @@ ul.nav.navbar-nav{
     .event-title-date{
       height:30px;
     }
-
+    .img-carousel{
+      margin-left:auto;
+      margin-right:auto;
     }
+    }
+
 
     /* Extra Small Devices, Phones */ 
     @media only screen and (min-width : 480px) {
@@ -317,6 +345,10 @@ ul.nav.navbar-nav{
     @media only screen and (min-width : 992px) {
     #about{
       display:block;
+    }
+        .img-carousel{
+      margin-left:0px;
+      margin-right:0px;
     }
     }
 

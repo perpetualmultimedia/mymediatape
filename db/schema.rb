@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161123193156) do
+ActiveRecord::Schema.define(version: 20161125044422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,17 @@ ActiveRecord::Schema.define(version: 20161123193156) do
     t.datetime "updated_at", null: false
     t.index ["article_id"], name: "index_article_comments_on_article_id", using: :btree
     t.index ["user_id"], name: "index_article_comments_on_user_id", using: :btree
+  end
+
+  create_table "article_photos", force: :cascade do |t|
+    t.integer  "article_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.index ["article_id"], name: "index_article_photos_on_article_id", using: :btree
   end
 
   create_table "articles", force: :cascade do |t|
@@ -335,6 +346,7 @@ ActiveRecord::Schema.define(version: 20161123193156) do
   add_foreign_key "albums", "bands"
   add_foreign_key "article_comments", "articles"
   add_foreign_key "article_comments", "users"
+  add_foreign_key "article_photos", "articles"
   add_foreign_key "articles", "users"
   add_foreign_key "bands", "users"
   add_foreign_key "members", "bands"

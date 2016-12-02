@@ -1,0 +1,16 @@
+  <div class="field">
+    <% unless f.object.image.url(:thumb) == "/images/thumb/missing.png" %>
+    <%= f.label "Change Image" %>
+    <%= image_tag f.object.image.url(:thumb), class: "pull-right" %>
+    <%= f.file_field :image, class: "form-control", style: "width:78%;"  %>
+    <% else %>
+    <%= f.label :image %>
+    <%= f.file_field :image, class: "form-control"  %>
+    <% end %>
+  </div>
+  <div class=" checkbox">
+    <label>
+    <%= f.check_box :_destroy, class: "form-checkbox " %><strong><div class="delete-checkbox-info">Delete Image?</div> </strong>
+    </label>
+  </div>
+<hr>

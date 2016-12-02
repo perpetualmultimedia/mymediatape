@@ -1,4 +1,42 @@
+<div id="carousel" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <% @albums.each_with_index do |album, i| %>
+    <li data-target="#carousel" data-slide-to="<%= album.id %>" class="<%= 'active' if i == 0 %>"></li>
+    <% end %>
 
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox">
+    <% @albums.each_with_index do |album, i| %>
+    
+    <div class="item <%= 'active' if i == 0 %>">
+    
+      <img src="<%= album.album_art.url %> alt="..." style=" min-width: 400px; max-height: 400px; object-fit: cover;" class="img-responsive img-carousel" data-adaptive-background >
+      <div class="carousel-caption col-md-6 col-md-offset-3">
+        <%= link_to band_album_url(album.band_id, album) do %><h3><%= album.band.group_name %></h3>
+        <hr>
+        <h2><%= album.name %></h2>
+        <% end %>
+      </div>
+
+    </div>
+    
+    <% end %>
+  </div>
+
+  <!-- Controls -->
+  <a class="left carousel-control" href="#carousel" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#carousel" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+<br/>
   <div class="col-md-8 ">
     <div class="row">
     <%= form_tag bands_path, method: :get do %>
@@ -6,10 +44,10 @@
       <%= submit_tag "Search", :name => nil, class: "btn btn-default col-xs-2"  %>
     <% end %>
     <br/>
-    <hr>
      <% if @state.present? %> <h2 style="text-align: center;"> <%= @state.name %>'s Charts</h2> <% else %> <h2 style="text-align: center;"> National Charts </h2> <% end %> 
-    <hr>
+
     </div>
+
     <div class="col-md-4">
       <h3><strong> Artists </strong></h3>
       <hr>

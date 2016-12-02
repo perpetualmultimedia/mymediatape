@@ -15,10 +15,14 @@
       <label>Album Title</label><br>
       <%= f.text_field :name, class: "form-control"  %>
     </div>
-    <div class="field">
-      <%= f.label :album_art %>
-      <%= f.file_field :album_art, class: "form-control"  %>
-    </div>
+    <% unless f.object.album_art.url(:thumb) == "/images/thumb/missing.png" %>
+    <%= f.label "Change Album Art" %>
+    <%= image_tag f.object.album_art.url(:thumb), class: "pull-right" %>
+    <%= f.file_field :album_art, class: "form-control", style: "width:78%;"  %>
+    <% else %>
+    <%= f.label :album_art %>
+    <%= f.file_field :album_art, class: "form-control"  %>
+    <% end %>
     <div class="field">
       <%= f.label "Type" %><br>
       <%= f.select :album_type, options_for_select([['Album', 'Album'], ['EP', 'EP'], ['LP', 'LP'], ['Mixtape', 'Mixtape']]), class: "form-control"  %>
