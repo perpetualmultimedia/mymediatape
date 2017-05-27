@@ -38,9 +38,8 @@ small{
           <div class="btn-group btn-group-justified  vote pull-right" role="group" aria-label="...">
             <%= link_to vote_band_path(@band, type: "up"), method: "post", class: "btn btn-lg btn-success", remote: true, id: "vote-pjax-up" do %><i class="fa fa-chevron-up" aria-hidden="true"></i><% end %>
              <%= link_to vote_band_path(@band, type: "down"), method: "post", class: "btn btn-lg btn-danger",  remote: true, id: "vote-pjax-down" do %><i class="fa fa-chevron-down" aria-hidden="true"></i><% end %>
-
+             </div>
           </div>
-        </div>
       <div id="follow_form">
       <% if current_user.following?(@band) %>
         <%= render 'unfollow' %>
@@ -48,6 +47,10 @@ small{
         <%= render 'follow' %>
       <% end %>
       </div>
+    <% end %>
+    <% if user_signed_in? %>
+    <% else %>
+    </div>
     <% end %>
         <h3 > About </h3>
         <hr>
