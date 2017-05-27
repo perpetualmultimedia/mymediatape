@@ -12,8 +12,8 @@
   	<% @albums.each_with_index do |album, i| %>
   	<%= link_to band_album_url(album.band_id, album) do %>
     <div class="item <%= 'active' if i == 0 %>">
-      <img src="<%= album.album_art.url %> alt="..." style=" min-width: 400px; max-height: 400px; object-fit: cover;" class="img-responsive img-carousel" data-adaptive-background >
-      <div class="carousel-caption col-md-6 col-md-offset-3">
+      
+      <div class="carousel-caption col-md-12">
         <h3><%= album.band.group_name %></h3>
         <hr>
         <h2><%= album.name %></h2>

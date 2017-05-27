@@ -1,4 +1,15 @@
 <% if user_signed_in? %>
+<style>
+.container{
+	margin-top:100px;
+}
+.row{
+	margin:0px;
+}
+.article-feed-img{
+	width:100%;
+}
+</style>
 	<div class="row">
 		<div class="col-md-1">
 			<%= image_tag current_user.avatar.url(:thumb), style: "padding:18px; float:right; border-radius:50px; height:100px;" %>

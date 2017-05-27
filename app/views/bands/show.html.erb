@@ -1,31 +1,45 @@
+<style>
 
 
-<p id="notice"><%= notice %></p>
-<div class="row" style="margin-bottom:20px;">
-  <div class="col-sm-3 col-md-2 band-avatar-big">
-    <%= image_tag @band.band_avatar.url(:medium), style: "border-radius:100px; height: 150px;" %>
+
+small{
+  font-size: 16px;
+}
+.artist-header{
+
+}
+</style>
+
+<div class="artist-header">
+  <div class="">
+    <div class="row">
+      <h1><span data.color> </span>
+      <div class="col-sm-4 col-md-2 col-lg-2">
+        <img src="<%= @band.band_avatar.url %>" style= " object-fit:cover;" class="artist-bg-img img-responsive"  />
+
+      </div>
+      <div class="col-sm-6 col-md-10 col-lg-10" style="padding-top:30px;">
+        <h2>  <%= @band.group_name %>   </h2>
+      </div>
+
+      </div>
+
+    </div>
   </div>
-  <div class="col-sm-9 col-md-8 band-name-big" style="padding:30px;">
-    <h2>  <%= @band.group_name %>  <% if user_signed_in? && @user = @band.user_id %> <%= link_to "Manage Band", edit_band_url %> <% end %></h2>
-  </div>
-  <div class="col-sm-12 col-md-2" style="padding-top:50px;">
-    <h5><%= pluralize @band.reputation_for(:votes).to_i, "vote" %></h5>
-    <% if user_signed_in? %>
-        <div class="btn-group vote" role="group" aria-label="...">
-          <%= link_to vote_band_path(@band, type: "up"), method: "post", class: "btn btn-default", remote: true, id: "vote-pjax-up" do %><i class="fa fa-chevron-up" aria-hidden="true"></i><% end %>
-           <%= link_to vote_band_path(@band, type: "down"), method: "post", class: "btn btn-default",  remote: true, id: "vote-pjax-down" do %><i class="fa fa-chevron-down" aria-hidden="true"></i><% end %>
-                     <script>
+</div>
 
-            $("#vote-pjax-up").click(function(){
-              window.location.replace('#{band_url}');
-            });
-           </script>
-           <script>
-            
-            $("#vote-pjax-down").click(function(){
-              window.location.replace('#{band_url}');
-            });
-           </script>
+<div class="artist-deets" >
+  <div class=" container">
+    <div class="row">
+      <div class="col-md-3 cool-panel" style="padding:20px;">
+             <div class="audio-player-vote-page" style="height: 93px; margin-top:-0px;">
+              <h3><%= pluralize @band.reputation_for(:votes).to_i, "vote" %></h3>
+          <% if user_signed_in? %>
+          <div class="btn-group btn-group-justified  vote pull-right" role="group" aria-label="...">
+            <%= link_to vote_band_path(@band, type: "up"), method: "post", class: "btn btn-lg btn-success", remote: true, id: "vote-pjax-up" do %><i class="fa fa-chevron-up" aria-hidden="true"></i><% end %>
+             <%= link_to vote_band_path(@band, type: "down"), method: "post", class: "btn btn-lg btn-danger",  remote: true, id: "vote-pjax-down" do %><i class="fa fa-chevron-down" aria-hidden="true"></i><% end %>
+
+          </div>
         </div>
       <div id="follow_form">
       <% if current_user.following?(@band) %>
@@ -35,144 +49,137 @@
       <% end %>
       </div>
     <% end %>
-  </div>
-</div>
-<hr>
-<div class="col-md-3">
-  <button id="hideshow" class="btn btn-default btn-block about-show" > About </button>
-  <hr>
-  <div id="about">
-    <p>
-      <strong>Genre:</strong>
-      <%= @band.genre %>
-    </p>
+        <h3 > About </h3>
+        <hr>
+        <div id="about">
+          <p>
+            <strong>Genre:</strong>
+            <%= @band.genre %>
+          </p>
 
-    <p>
-      <strong>City:</strong>
-      <%= @band.city %>
-    </p>
+          <p>
+            <strong>City:</strong>
+            <%= @band.city %>
+          </p>
 
-    <p>
-      <strong>State:</strong>
-      <%= @band.state %>
-    </p>
+          <p>
+            <strong>State:</strong>
+            <%= @band.state %>
+          </p>
 
-    <p>
-      <strong>Description:</strong>
-      <%= @band.description %>
-    </p>
+          <p>
+            <strong>Description:</strong>
+            <%= @band.description %>
+          </p>
 
-    <p>
-      <strong>Website:</strong>
-      <%= @band.website %>
-    </p>
-    <hr>
-    <label>Members</label>
-    <% @band.members.each do |member| %>
-      <p>
-      <%= member.first_name %> <%= member.last_name %>
-      </p>
-    <% end %>
-    <hr>
-  </div>
-  <hr>
-  <script>
-  $("#hideshow").click(function() { 
-    // assumes element with id='button'
-    $("#about").toggle();
-  });
-  </script>
-</div>
-<div class="col-md-9">
-  <h3><strong>Top Songs</strong></h3>
-  <br/>
-    <table class="table table-hover" data-no-turbolink>
-    <% @band.songs.each do |album_song| %>
-    
-        <tr data-href="<%= band_album_song_url(album_song.album.band_id, album_song.album, album_song) %>" id="show-song" class="clickable-row">
-        <td style="padding-top:18px;"><%= album_song.track_number %></td>
-        <td><strong><%= album_song.title %></strong><br/> <%= album_song.album.name %></td>
-        <td style="padding-top:18px;"><%= album_song.album.released %></td>
-      </tr>
-    <% end %>
-  </table>
-  <hr>
-  <% unless @band.albums.blank? %>
-    <h3><strong>Albums</strong></h3>
-    <hr>
-    <div class="row">
-      <% @band.albums.each do |album| %>
-      <%= link_to band_album_url(@band, album) do %>
-        <div class="col-md-4">
-          <div class="row">
-            <div class="col-md-4">
-              <%= image_tag album.album_art.url(:medium), style: "height:88px; width:88px; object-fit:cover; border-radius:2px;" %>
-            </div>
-            <div class="col-md-8">
-              <p><%= album.name %></p>
-              <p><%= album.album_type %></p>
-              <p><%= album.released %></p>
-
-            </div>
-          </div>
-        </div>
-      <% end %>
-    <% end %>
-    </div>
-
-  <% end %>
-  </p>
-  <hr>
-  <% unless @band.events.blank? %>
-    <h3><strong>Shows</strong></h3>
-    <hr>
-    <div class="row">
-      <% @band.events.each do |event| %>
-        <%= link_to band_event_url(@band, event) do %>
-          <div class="col-md-4 col-xs-6">
-            <div class="row">
-              <div class="col-xs-6 col-sm-5 col-lg-4" style="text-align:center;">
-                <%= image_tag event.flyer.url(:medium), style: " width:88px; object-fit:cover; border-radius:2px;" %>
-              </div>
-              <div class="col-xs-6 col-sm-7 col-lg-8">
-                <p>
-                  <%= event.city %>, <%= event.state %>
-                </p>
-                <p>
-                  <%= event.date %>, <%= event.time %>
-                </p>
-              </div>
-            </div>
-          </div>
-        <% end %>
-      <% end %>
-    </div>
-    <hr>
-  <% end %>
-  <% if @articles.present? %>
-    <h3><strong>News</strong></h3>
-    <hr>
-    <div class="row">
-      <% @articles.each do |article| %>
-        <% if article.public? %>
-          <%= link_to article_url(article) do %>
-            <div class="col-md-4 col-xs-6">
-              <div class="row">
-                <div class="col-xs-12">
-                  <h4><strong><%= article.title %></strong></h4>
-                  <p>
-                    <%= article.body.truncate(190).html_safe %>
-                  </p>
-                </div>
-              </div>
-            </div>
+          <p>
+            <strong>Website:</strong>
+            <%= @band.website %>
+          </p>
+          <hr>
+          <label>Members</label>
+          <% @band.members.each do |member| %>
+            <p>
+            <%= member.first_name %> <%= member.last_name %>
+            </p>
           <% end %>
+          <hr>
+        </div>
+        <hr>
+        <script>
+        $("#hideshow").click(function() { 
+          // assumes element with id='button'
+          $("#about").toggle();
+        });
+        </script>
+      </div>
+
+      <div class="col-md-9 cool-panel artist-deets-right" style="padding:20px; ">
+        <h3><strong>Top Songs</strong></h3>
+        <br/>
+          <table class="table table-hover" data-no-turbolink>
+          <% @band.songs.each do |album_song| %>
+          
+              <tr data-href="<%= band_album_song_url(album_song.album.band_id, album_song.album, album_song) %>" id="show-song" class="clickable-row">
+              
+              <td><strong><%= album_song.title %></strong><br/> <%= album_song.album.name %></td>
+              <td style="padding-top:18px;" ><span class="pull-right"><%= album_song.album.released %></span></td>
+            </tr>
+          <% end %>
+        </table>
+        <hr>
+        <% unless @band.albums.blank? %>
+          <h3><strong>Albums</strong></h3>
+          <hr>
+          <div class="row">
+            <% @band.albums.each do |album| %>
+            <%= link_to band_album_url(@band, album) do %>
+              <div class="col-xs-4 col-md-3">
+
+                    <%= image_tag album.album_art.url(:medium), style: "width:100%; object-fit:cover; border-radius:2px; margin-bottom:10px;", class: "img-responsive audio-art-img-page"%>
+                    <p><%= album.name %></p>
+                    <small><%= album.released %></small>
+              </div>
+            <% end %>
+          <% end %>
+          </div>
+
         <% end %>
-      <% end %>
+        </p>
+        <hr>
+        <% unless @band.events.blank? %>
+          <h3><strong>Shows</strong></h3>
+          <hr>
+          <div class="row">
+            <% @band.events.each do |event| %>
+              <%= link_to band_event_url(@band, event) do %>
+                <div class="col-md-4 col-xs-6">
+                  <div class="row">
+                    <div class="col-xs-6 col-sm-5 col-lg-4" style="text-align:center;">
+                      <%= image_tag event.flyer.url(:medium), style: " width:88px; object-fit:cover; border-radius:2px;" %>
+                    </div>
+                    <div class="col-xs-6 col-sm-7 col-lg-8">
+                      <p>
+                        <%= event.city %>, <%= event.state %>
+                      </p>
+                      <p>
+                        <%= event.date %>, <%= event.time %>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+          <hr>
+        <% end %>
+        <% if @articles.present? %>
+          <h3><strong>News</strong></h3>
+          <hr>
+          <div class="row">
+            <% @articles.each do |article| %>
+              <% if article.public? %>
+                <%= link_to article_url(article) do %>
+                  <div class="col-md-4 col-xs-6">
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <h4><strong><%= article.title %></strong></h4>
+                        <p>
+                          <%= article.body.truncate(190).html_safe %>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+          <hr>
+        <% end %>
+        
+      </div>
     </div>
-    <hr>
-  <% end %>
-  
+  </div>
 </div>
       <script>
 jQuery(document).ready(function($) {
@@ -181,4 +188,10 @@ jQuery(document).ready(function($) {
       window.open(url, '_blank');
     });
 });
+      </script>
+            <script>
+        var cw = $('.audio-art-img-page').width();
+        $('.audio-art-img-page').css({
+            'height': cw + 'px'
+        });
       </script>

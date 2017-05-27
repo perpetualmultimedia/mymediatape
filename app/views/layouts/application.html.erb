@@ -10,84 +10,7 @@
   <%= csrf_meta_tags %>
 </head>
 
-<body>
-
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#"><img alt="Brand" src="https://s3-us-west-2.amazonaws.com/mymediatape/static_assets/Logo+Standalone.png", class="navbar-img"></a>
-    </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li><%= link_to "Home", root_path %></li>
-        <li><%= link_to "The Charts", bands_path %></li>
-      </ul>
-
-      <ul class="nav navbar-nav navbar-right">
-
-           <li class="divider-vertical"></li>
-            <% if user_signed_in? %>
-	            <li class="dropdown">
-	              <a class="dropdown-toggle" href="" data-toggle="dropdown" style="padding-top:15px;"> <% if user_signed_in? %> <%= image_tag current_user.avatar.url(:thumb), style: "height:40px; margin-top:-3px; padding-right:6px; border-radius:10px;" %> <%= " #{current_user.first_name}" %> <%= " #{ current_user.last_name}" %><% end %> <span class="badge"></span> <strong class="caret"></strong></a>
-	              <div class="dropdown-menu" style=" padding:15px; padding-bottom: 10px;">
-	                <ul class="nav nav-pills nav-stacked nav-drop">
-	                  	<li><%= link_to "Home", root_path %></li>
-                      <li> <%= link_to "Account Settings",edit_user_registration_path %></li>
-                      <% if current_user.articles.present? %>
-                      <li> <%= link_to "Your Articles", articles_path %> </li>
-                      <% end %>
-						</li>
-						<hr>
-						<% if current_user.bands.any? %>
-							<% current_user.bands.each do |band|%>
-								<li role="presentation">
-									<%= link_to band do %>
-										<%= band.group_name %>
-									<% end %>
-								</li>
-							<% end %>
-						<% end %>
-	                </ul>
-	                <br/>
-	                <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "btn btn-large btn-block btn-primary" %>
-	              </div>
-	            </li>
-              <li>
-              <%= link_to '/static_pages/become_a_writer', style: "padding-top:20px;" do %>
-                <i class="fa fa-pencil" aria-hidden="true"></i>
-              <% end %>
-              </li>
-            <% else %>
-	            <li>
-		            <%= link_to "Sign Up", new_user_registration_path %>
-		        </li>
-		        <li>
-		            <%= link_to "Sign In", :user_session %>
-		        </li>
-            <% end %>
-        </li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
-<div class="container" style="margin-bottom: 100px;" >
-  <%= yield %>
-<!--   <% if session[:song_id].present? %>
-    <% current_song = Song.find_by_id(session[:song_id]) %>
-    <% current_album = Album.find_by_id(session[:album_id]) %>
-    <% current_band = Band.find_by_id(session[:band_id]) %>
-  <% end %> -->
-    
-</div>
+<body class=" animated fadeIn container-container">
 <script type="text/javascript">
   
 /* jshint debug: true, expr: true */
@@ -223,13 +146,103 @@
 
 </script>
 
-    <script type="text/javascript">
-    $(document).ready(function(){
-      $.adaptiveBackground.run({
-        normalizeTextColor: true
-      });
-    });
-  </script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $.adaptiveBackground.run({
+    normalizeTextColor: true
+  });
+});
+</script>
+<div class="navbar-holder">
+  <%= link_to root_path,  class: "toggle-logo" do %>
+    <img alt="Brand" src="https://s3-us-west-2.amazonaws.com/mymediatape/static_assets/logo.png", class="navbar-img">
+  <% end %>
+  <%= link_to root_path,  class: "toggle-logo-sm" do %>
+    <img alt="Brand" src="https://s3-us-west-2.amazonaws.com/mymediatape/static_assets/tape_logo.png", class="navbar-img">
+  <% end %>
+  <nav class="navbar navbar-default navbar-fixed " >
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <i class="fa fa-bars" aria-hidden="true"></i>
+        </button>
+
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><%= link_to "The Charts", bands_path %></li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+
+             <li class="divider-vertical"></li>
+              <% if user_signed_in? %>
+  	            <li class="dropdown">
+  	              <a class="dropdown-toggle" href="" data-toggle="dropdown" style="padding-top:15px;"> <% if user_signed_in? %> <%= image_tag current_user.avatar.url(:thumb), style: "height:45px; margin-top:-3px; padding-right:6px; border-radius:10px;" %> <%= " #{current_user.first_name}" %> <%= " #{ current_user.last_name}" %><% end %> <span class="badge"></span> <strong class="caret"></strong></a>
+  	              <div class="dropdown-menu" style=" padding:15px; padding-bottom: 10px;">
+  	                <ul class="nav nav-pills nav-stacked nav-drop">
+  	                  	<li><%= link_to "Home", root_path %></li>
+                        <li> <%= link_to "Account Settings",edit_user_registration_path %></li>
+                        <% if current_user.articles.present? %>
+                        <li> <%= link_to "Your Articles", articles_path %> </li>
+                        <% end %>
+  						</li>
+  						<hr>
+  						<% if current_user.bands.any? %>
+  							<% current_user.bands.each do |band|%>
+  								<li role="presentation">
+  									<%= link_to band do %>
+  										<%= band.group_name %>
+  									<% end %>
+  								</li>
+  							<% end %>
+  						<% end %>
+  	                </ul>
+  	                <br/>
+  	                <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "btn btn-large btn-block btn-danger" %>
+  	              </div>
+  	            </li>
+                <li>
+                <%= link_to '/static_pages/become_a_writer', style: "padding-top:20px;" do %>
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                <% end %>
+                </li>
+              <% else %>
+  	            <li>
+  		            <%= link_to "Sign Up", new_user_registration_path %>
+  		        </li>
+  		        <li>
+  		            <%= link_to "Sign In", :user_session %>
+  		        </li>
+              <% end %>
+          </li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+</div>
+<script>
+$( ".toggle-logo" ).click(function() {
+  $( "nav" ).toggle();
+});
+</script>
+
+<div class="container" style="margin-bottom: 100px;" >
+  <%= yield %>
+<!--   <% if session[:song_id].present? %>
+    <% current_song = Song.find_by_id(session[:song_id]) %>
+    <% current_album = Album.find_by_id(session[:album_id]) %>
+    <% current_band = Band.find_by_id(session[:band_id]) %>
+  <% end %> -->
+    
+</div>
+
+
+
 <!-- <div class="media-player"  id="pjax-music">
 <% if session[:song_id].present? %>
   <div class="audio-player" style="width: 100%; height: 84px;" width="100%">

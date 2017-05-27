@@ -6,7 +6,11 @@
         <div class="row activity">
 
           <div class="col-md-12">	
-          	
+          	     <div style="margin-left:auto; margin-right:auto; text-align: center;">
+                  <%= link_to article_url(activity.trackable.band.id, activity.trackable.id) do %>
+                  <%= image_tag activity.trackable.photo.image.url(:medium), style: "height:150px; width:150px; object-fit:cover;", class: "albumArt " %>
+                <% end %>
+                </div>
               	<h4><%= link_to article_url(activity.trackable.id) do %><strong><%= activity.trackable.band.group_name %></strong><% end %> has some  <strong>News</strong> <small class="pull-right"><%= time_ago_in_words activity.trackable.created_at %> ago</small></h4>
                 <hr>
                 	<%= link_to article_url(activity.trackable.id) do %><p><%= activity.trackable.title %></p>
@@ -19,11 +23,11 @@
       </div>
     </div>
   <% else %>
-      <div class="col-md-12">
+    <div class="col-md-12 activity-color">
       <div class="row">
         <div class="row activity">
 
-          <div class="col-md-12"> 
+          <div class="col-md-8"> 
             
                 <h4><%= link_to article_url(activity.trackable.id) do %><strong><%= activity.trackable.band.group_name %></strong><% end %> has some  <strong>News</strong> <small class="pull-right"><%= time_ago_in_words activity.trackable.created_at %> ago</small></h4>
                 <hr>
@@ -32,6 +36,17 @@
               <% end %>
             <p>
             </p>
+          </div>
+          <div class="col-md-4">
+            <% if activity.trackable.article_photos.any? %>
+              <% activity.trackable.article_photos.each_with_index do |photo, i| %>
+                <% if i == 0 %>
+                  <img class="article-feed-img" src=<%= photo.image.url %>" data-adaptive-background data-ab-parent='.activity-color'%>
+                <% end %>
+              <% end %>
+            <% else %>
+              <img src="activity.trackable.band.avatar.url" data-adaptive-background %>
+            <% end %>
           </div>
         </div>
       </div>

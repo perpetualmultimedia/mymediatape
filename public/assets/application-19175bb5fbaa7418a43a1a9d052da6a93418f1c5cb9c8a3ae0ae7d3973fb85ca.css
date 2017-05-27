@@ -6856,7 +6856,7 @@ tbody.collapse.in {
 /* line 397, /Users/coltonhagan/.rvm/gems/ruby-2.3.0/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-default {
   background-color: #f8f8f8;
-  border-color: #e7e7e7;
+  border: none;
 }
 /* line 401, /Users/coltonhagan/.rvm/gems/ruby-2.3.0/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-default .navbar-brand {
@@ -6905,7 +6905,6 @@ tbody.collapse.in {
 /* line 453, /Users/coltonhagan/.rvm/gems/ruby-2.3.0/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-default .navbar-collapse,
 .navbar-default .navbar-form {
-  border-color: #e7e7e7;
 }
 /* line 462, /Users/coltonhagan/.rvm/gems/ruby-2.3.0/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
