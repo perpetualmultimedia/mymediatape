@@ -6,12 +6,13 @@ $brand-danger:#691D22;
 $btn-default-border:#243983;
 $font-family-sans-serif: "Oswald";
 $navbar-height: 70px;
+$grid-gutter-width: 30px;
 $navbar-border-radius: 0px;
 $grid-float-breakpoint-max: 991px;
 $navbar-default-link-hover-color:#5d5d5d;
 @import "bootstrap-sprockets";
 @import "bootstrap";
-@import url('https://fonts.googleapis.com/css?family=Bungee|PT+Sans:400,400i,700');
+@import url('https://fonts.googleapis.com/css?family=Bungee|PT+Sans:400,400i,700|Open+Sans');
 html, body {
     max-width: 100%;
 }
@@ -35,6 +36,7 @@ hr{
 #show-song:hover{
   background-color: rgba(255, 255, 255, 0.3);
 }
+
 p {
   font-size:18px;
   font-family: 'Open Sans', serif;
@@ -82,6 +84,14 @@ small.pull-right{
 
     /* Custom, iPhone Retina */ 
     @media only screen and (min-width : 320px) {
+      .w{
+        overflow:hidden;
+        padding: R 0 R 0;
+        margin: -R 0 -R 0;
+      }
+      .blurry-stock{
+        height:400px;
+      }
       .container-container{
         -webkit-animation-duration: 1s;
         -webkit-animation-delay: 0.3s;
@@ -90,10 +100,13 @@ small.pull-right{
         max-width: 1200px;
       }
       .btn-success:hover{
-        border: none;
+        
       }
       .btn-danger:hover{
-        border: none;
+        color:#FFF;
+      }
+      .btn:hover, .btn:focus{
+        color:#FFF;
       }
       .toggle-logo{
         left: 0px;
@@ -172,6 +185,11 @@ small.pull-right{
       .container{
 
       }
+      .w{
+        overflow: revert;
+        padding: 0px;
+        margin: 0px;
+      }
       .navbar-default .navbar-collapse{
         background-color: #213143;
         position: relative;
@@ -184,6 +202,9 @@ small.pull-right{
         max-width: 768px;
         padding-left:15px;
         padding-right: 15px;
+      }
+      .blurry-stock{
+        height:330px;
       }
     }
 
@@ -333,7 +354,7 @@ small.pull-right{
         border: none;
       }
       .artist-deets{
-        margin-top:-90px;
+        margin-top:0px;
       }
       .artist-deets-right{
         margin-top:15px;
@@ -393,7 +414,7 @@ small.pull-right{
 
       }
       .artist-deets{
-        margin-top:-90px;
+        margin-top:10px;
       }
     }
 
@@ -581,6 +602,13 @@ ul.nav.navbar-nav{
 
     /* Custom, iPhone Retina */ 
     @media only screen and (min-width : 320px) {
+      .blurry-stock {
+        overflow: hidden;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+      }
   		.logo-cont{
   			width:100%;
   			height:250px;
@@ -636,7 +664,7 @@ ul.nav.navbar-nav{
           background-color: #E8E8EF;
       }
       .navbar-holder{
-        box-shadow: 0px 0px 20px #888888;
+        box-shadow: 0px 0px 20px #000000;
         height:77px;
         width:100%;
         position: fixed;
@@ -758,7 +786,13 @@ ul.nav.navbar-nav{
         font-weight: bold;
         font-family: 'Bungee', serif; 
       }
-      
+      .h3-centered-sm{
+        text-align: center;
+        padding-top:10px;
+        font-size: 28px;
+        font-weight: bold;
+        font-family: 'Bungee', serif;
+      }
       .add-deets{
         position: absolute;
         bottom: 14px;
@@ -916,6 +950,13 @@ ul.nav.navbar-nav{
     }
     .h3-centered{
         text-align: center;
+        padding-top:10px;
+        font-size: 23px;
+        font-weight: bold;
+        font-family: 'Bungee', serif; 
+      }
+    .h3-centered-sm{
+        text-align: left;
         padding-top:10px;
         font-size: 23px;
         font-weight: bold;

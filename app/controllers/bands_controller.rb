@@ -82,7 +82,7 @@ class BandsController < ApplicationController
     end
   end
   def vote
-    value = params[:type] == "up" ? 1 : -1
+    value = params[:type] == "up" ? 0.5 : -0.5
     @band = Band.find(params[:id])
     @band.add_or_update_evaluation(:votes, value, current_user)
     redirect_to :back, notice: "Thank you for voting!"

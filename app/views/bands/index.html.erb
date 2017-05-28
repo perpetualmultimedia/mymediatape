@@ -4,124 +4,125 @@ body{
 }
 
 </style>
-<div class="top-of-fold">
-  <div class="row top-of-fold-row" style="padding-left:15px; padding-right: 15px;">
-    <div class="col-lg-3 col-sm-6 col-md-6">
-          <% @topbands.with_reputation(:votes).order("votes DESC").each_with_index do |top_band, i| %>
-              <% if i == 0 %>
-              <%= link_to band_path(top_band)do %>
-              <div class="row top-of-fold-content" >
-                <div class="blur-art-sm">
-                  <img src="<%= top_band.band_avatar.url(:medium) %>"  style= " object-fit:cover;" class= " blurry-image-sm"  >
-                </div>
-                  <div class="art-top">
-                    <div class="clear-art-sm">
-                      <img src="<%= top_band.band_avatar.url(:medium) %>"  style= " object-fit:cover;" class= " clear-image band-img">
-                    </div>
+<div class="w">
+  <div class="top-of-fold">
+    <div class="row top-of-fold-row" style="padding-left:15px; padding-right: 15px;">
+      <div class="col-lg-3 col-sm-6 col-md-6">
+        <% @topbands.with_reputation(:votes).order("votes DESC").each_with_index do |top_band, i| %>
+          <% if i == 0 %>
+            <%= link_to band_path(top_band)do %>
+            <div class="row top-of-fold-content" >
+              <div class="blur-art-sm">
+                <img src="<%= top_band.band_avatar.url(:medium) %>"  style= "object-fit:cover;" class= "blurry-image-sm"  >
+              </div>
+                <div class="art-top">
+                  <div class="clear-art-sm">
+                    <img src="<%= top_band.band_avatar.url(:medium) %>"  style= "object-fit:cover;" class= "clear-image band-img">
                   </div>
-                  <div class="details-bottom">
-                    <div class="album-details-sm">
-                      <h4 class="h3-centered"> Top Band: <%= top_band.group_name %> </h4>
-                      <div class="add-deets">
+                </div>
+                <div class="details-bottom">
+                  <div class="album-details-sm">
+                    <h4 class="h3-centered"> Top Band: <%= top_band.group_name %> </h4>
+                    <div class="add-deets">
                       joined <%= top_band.created_at.strftime("%b %d, %Y") %>
-                      </div>
                     </div>
                   </div>
                 </div>
-                <% end %>
-              <% end %>
+              </div>
             <% end %>
-    </div>
-        <div class="col-lg-3 col-sm-6 col-md-6">
-          <% @albums.with_reputation(:votes).order("votes DESC").each_with_index do |top_album, i| %>
-              <% if i == 0 %>
-              <%= link_to band_album_path(top_album.band_id, top_album)do %>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="col-lg-3 col-sm-6 col-md-6">
+        <% @albums.with_reputation(:votes).order("votes DESC").each_with_index do |top_album, i| %>
+          <% if i == 0 %>
+            <%= link_to band_album_path(top_album.band_id, top_album)do %>
               <div class="row top-of-fold-content top-2" >
                 <div class="blur-art-sm">
                   <img src="<%= top_album.album_art.url(:medium) %>"  style= " object-fit:cover;" class= " blurry-image-sm"  >
                 </div>
-                  <div class="art-top">
-                    <div class="clear-art-sm">
-                      <img src="<%= top_album.album_art.url(:medium) %>"  style= " object-fit:cover;" class= " clear-image">
+                <div class="art-top">
+                  <div class="clear-art-sm">
+                    <img src="<%= top_album.album_art.url(:medium) %>"  style= " object-fit:cover;" class= " clear-image">
+                  </div>
+                </div>
+                <div class="details-bottom">
+                  <div class="album-details-sm">
+                    <h4 class="h3-centered">Top Album: <%= top_album.band.group_name %>'s  <%= top_album.name %></h4>
+                    <div class="add-deets">
+                    added <%= top_album.created_at.strftime("%b %d, %Y") %>
                     </div>
                   </div>
-                  <div class="details-bottom">
-                    <div class="album-details-sm">
-                      <h4 class="h3-centered">Top Album: <%= top_album.band.group_name %>'s  <%= top_album.name %></h4>
-                      <div class="add-deets">
-                      added <%= top_album.created_at.strftime("%b %d, %Y") %>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+          <div class="col-lg-3 col-lg-only ">
+            <% @songs.with_reputation(:votes).order("votes DESC").each_with_index do |top_song, i| %>
+              <% if i == 0 %>
+                <%= link_to band_album_song_path(top_song.album.band_id, top_song.album_id, top_song) do %>
+                  <div class="row top-of-fold-content top-2" >
+                    <div class="blur-art-sm">
+                      <img src="<%= top_song.album.album_art.url(:medium) %>"  style= " object-fit:cover;" class= " blurry-image-sm"  >
+                    </div>
+                    <div class="art-top">
+                      <div class="clear-art-sm">
+                        <img src="<%= top_song.album.album_art.url(:medium) %>"  style= " object-fit:cover;" class= " clear-image">
+                      </div>
+                    </div>
+                    <div class="details-bottom">
+                      <div class="album-details-sm">
+                        <h4 class="h3-centered">Top Song: <%= top_song.album.band.group_name %>'s  <%= top_song.title %></h4>
+                        <div class="add-deets">
+                          added <%= top_song.created_at.strftime("%b %d, %Y") %>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
                 <% end %>
               <% end %>
             <% end %>
-        </div>
-        <div class="col-lg-3 col-lg-only ">
-          <% @songs.with_reputation(:votes).order("votes DESC").each_with_index do |top_song, i| %>
-            <% if i == 0 %>
-              <%= link_to band_album_song_path(top_song.album.band_id, top_song.album_id, top_song) do %>
-              <div class="row top-of-fold-content top-2" >
-                <div class="blur-art-sm">
-                  <img src="<%= top_song.album.album_art.url(:medium) %>"  style= " object-fit:cover;" class= " blurry-image-sm"  >
-                </div>
-                  <div class="art-top">
-                    <div class="clear-art-sm">
-                      <img src="<%= top_song.album.album_art.url(:medium) %>"  style= " object-fit:cover;" class= " clear-image">
+          </div>
+          <div class="col-lg-3 col-lg-only">
+            <% @songs.with_reputation(:votes).order("votes DESC").each_with_index do |top_song, i| %>
+              <% if i == 0 %>
+                <%= link_to band_album_song_path(top_song.album.band_id, top_song.album_id, top_song) do %>
+                  <div class="row top-of-fold-content top-2" >
+                    <div class="blur-art-sm">
+                      <img src="<%= top_song.album.album_art.url(:medium) %>"  style= " object-fit:cover;" class= " blurry-image-sm"  >
                     </div>
-                  </div>
-                  <div class="details-bottom">
-                    <div class="album-details-sm">
-                      <h4 class="h3-centered">Top Song: <%= top_song.album.band.group_name %>'s  <%= top_song.title %></h4>
-                      <div class="add-deets">
-                      added <%= top_song.created_at.strftime("%b %d, %Y") %>
+                    <div class="art-top">
+                      <div class="clear-art-sm">
+                        <img src="<%= top_song.album.album_art.url(:medium) %>"  style= " object-fit:cover;" class= " clear-image">
+                      </div>
+                    </div>
+                    <div class="details-bottom">
+                      <div class="album-details-sm">
+                        <h4 class="h3-centered">Top Song: <%= top_song.album.band.group_name %>'s  <%= top_song.title %></h4>
+                        <div class="add-deets">
+                        added <%= top_song.created_at.strftime("%b %d, %Y") %>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
                 <% end %>
               <% end %>
             <% end %>
-        </div>
-        <div class="col-lg-3 col-lg-only">
-          <% @songs.with_reputation(:votes).order("votes DESC").each_with_index do |top_song, i| %>
-            <% if i == 0 %>
-              <%= link_to band_album_song_path(top_song.album.band_id, top_song.album_id, top_song) do %>
-              <div class="row top-of-fold-content top-2" >
-                <div class="blur-art-sm">
-                  <img src="<%= top_song.album.album_art.url(:medium) %>"  style= " object-fit:cover;" class= " blurry-image-sm"  >
-                </div>
-                  <div class="art-top">
-                    <div class="clear-art-sm">
-                      <img src="<%= top_song.album.album_art.url(:medium) %>"  style= " object-fit:cover;" class= " clear-image">
-                    </div>
-                  </div>
-                  <div class="details-bottom">
-                    <div class="album-details-sm">
-                      <h4 class="h3-centered">Top Song: <%= top_song.album.band.group_name %>'s  <%= top_song.title %></h4>
-                      <div class="add-deets">
-                      added <%= top_song.created_at.strftime("%b %d, %Y") %>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <% end %>
-              <% end %>
-            <% end %>
-        </div>
-        <div class="col-md-3">
-        </div>
+          </div>
+          <div class="col-md-3">
+          </div>
+    </div>
   </div>
-</div>
-<br/>
+  <br/>
   <div class="col-md-12 cool-panel panel-lg">
 
-      <div class="h2-needs-help row">
-        <h2>
-          <% if @state.present? %>  <%= @state.name %>'s Charts<% else %>  National Charts  <% end %> 
-        </h2>
-      </div>
+    <div class="h2-needs-help row">
+      <h2>
+        <% if @state.present? %>  <%= @state.name %>'s Charts<% else %>  National Charts  <% end %> 
+      </h2>
+    </div>
     
 
     <div class="col-md-4">
@@ -196,26 +197,7 @@ body{
       <% end %>
     </div>
   </div>
-<div class="modal fade" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Modal title</h4>
-      </div>
-      <div class="modal-body">
-        <%= form_tag bands_path, method: :get do %>
-          <%= collection_select :state_cont, nil, State.order(:name), :id, :name, {include_blank: true},  placeholder: "Which State's Charts? (Leave Blank For National Charts)", class: "col-xs-9" %> 
-          <%= submit_tag "Search", :name => nil, class: "btn btn-default col-xs-2 "  %>
-        <% end %>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+</div>
 
 
 <script type="text/javascript">
