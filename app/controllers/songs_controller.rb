@@ -68,7 +68,7 @@ class SongsController < ApplicationController
   #   redirect_to band_album_path(@song.album.band_id, @song.album_id), tubolinks: false
   # end
   def vote
-    value = params[:type] == "up" ? 0.5 : -0.5
+    value = params[:type] == "up" ? 1 : -1
     @song = Song.find(params[:id])
     @song.add_or_update_evaluation(:votes, value, current_user)
     redirect_to :back, notice: "Thank you for voting!"

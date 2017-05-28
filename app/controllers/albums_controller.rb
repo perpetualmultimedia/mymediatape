@@ -69,7 +69,7 @@ class AlbumsController < ApplicationController
     end
   end
   def vote
-    value = params[:type] == "up" ? 0.5 : -0.5
+    value = params[:type] == "up" ? 1 : -1
     @album = Album.find(params[:id])
     @album.add_or_update_evaluation(:votes, value, current_user)
     redirect_to :back, notice: "Thank you for voting!"
