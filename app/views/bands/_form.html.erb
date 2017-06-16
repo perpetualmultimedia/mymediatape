@@ -1,55 +1,64 @@
 <%= form_for(@band) do |f| %>
-  <% if @band.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@band.errors.count, "error") %> prohibited this band from being saved:</h2>
+  <div class="row">
+    <div class="col-md-8 article-container cool-panel">
+      <% if @band.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@band.errors.count, "error") %> prohibited this band from being saved:</h2>
 
-      <ul>
-      <% @band.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+          <ul>
+          <% @band.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
+
+      <div class="field">
+        <%= f.label :group_name %><br>
+        <%= f.text_field :group_name, class: "form-control" %>
+      </div>
+      <div class="field">
+        <%= f.label :band_avatar %>
+        <%= f.file_field :band_avatar, class: "form-control" %>
+      </div>
+      <div class="field">
+        <%= f.label :genre %><br>
+        <%= f.text_field :genre, class: "form-control" %>
+      </div>
+      <div class="field">
+        <%= f.label :city %><br>
+        <%= f.text_field :city, class: "form-control" %>
+      </div>
+      <div class="field">
+        <%= f.label :state %><br>
+        <%= f.collection_select :state, State.order(:name), :id, :name, {include_blank: true} %>
+      </div>
+      <div class="field">
+        <%= f.label :description %><br>
+        <%= f.text_area :description, class: "form-control" %>
+      </div>
+      <div class="field">
+        <%= f.label :website %><br>
+        <%= f.text_field :website, class: "form-control" %>
+        <br/>
+      </div>
+    </div>
+    <div class="col-md-4 article-container cool-panel">
+      <h2> Band Members </h2> <h5>(Leave any extras blank)</h5>
+      <%= f.fields_for :members do |builder| %>
+          
+        <%= render 'member_fields', :f => builder %>
+
+      <% end %>
+      <%= link_to_add_fields "Add more members", f, :members %>
+      <br/>
+    </div>
+  </div>
+  <%= button_tag(type: 'submit', class: "cool-panel btn btn-lg btn-success", style: "position:absolute; right: 0px; border-radius:0px; margin-top:10px; padding-right: 100px; padding-bottom: 15px; background-color:#5C7064;") do %>
+    <div class="back-form">
+      <h2>Save</h2>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :group_name %><br>
-    <%= f.text_field :group_name, class: "form-control" %>
-  </div>
-  <div class="field">
-    <%= f.label :band_avatar %>
-    <%= f.file_field :band_avatar, class: "form-control" %>
-  </div>
-  <div class="field">
-    <%= f.label :genre %><br>
-    <%= f.text_field :genre, class: "form-control" %>
-  </div>
-  <div class="field">
-    <%= f.label :city %><br>
-    <%= f.text_field :city, class: "form-control" %>
-  </div>
-  <div class="field">
-    <%= f.label :state %><br>
-    <%= f.collection_select :state, State.order(:name), :id, :name, {include_blank: true} %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description, class: "form-control" %>
-  </div>
-  <div class="field">
-    <%= f.label :website %><br>
-    <%= f.text_field :website, class: "form-control" %>
-  </div>
-  <hr>
-  <h2> Band Members (Leave any extras blank)</h2>
-  <%= f.fields_for :members do |builder| %>
-      
-    <%= render 'member_fields', :f => builder %>
-
-  <% end %>
-  <%= link_to_add_fields "Add more members", f, :members %>
-  <div class="actions">
-    <%= f.submit "Create Band", class: "btn btn-lg btn-success" %>
-  </div>
 <% end %>
 <script type="text/javascript">
   $(function() {

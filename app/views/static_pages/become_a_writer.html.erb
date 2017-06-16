@@ -11,4 +11,44 @@
 			<%= link_to "Write an article about an artist, album, or show", new_article_path, class: "btn btn-block btn-success" %>
 		</div>
 	</div>
+	<div class="row gutter-20 top-of-fold-row" style="padding-left:15px; padding-right: 15px; margin-top: 40px;">
+		<% @articles.each_with_index do |article, i| %>
+			<%= link_to article_path(article) do %>
+				<div class="col-lg-3 col-md-6 col-sm-6 cool-panel" style="padding-left:0px; padding-right:0px;">
+					<div class="row top-of-fold-content">
+		              	<div class="blur-art-sm">
+		              		<% if article.article_photos.any? %>
+		                  		<% article.article_photos.each_with_index do |photo, i| %>
+				                    <% if i == 0 %>
+		            				<%= image_tag photo.image.url(:medium), style: "object-fit:cover;", class: "blurry-image-sm"  %>
+		            				<% end %>
+		                  		<% end %>
+		                	<% end %>
+		              	</div>
+		                <div class="art-top">
+		                  	<div class="clear-art-sm" >
+			                  	<% if article.article_photos.any? %>
+			                  		<% article.article_photos.each_with_index do |photo, i| %>
+					                    <% if i == 0 %>
+					                      <%= image_tag photo.image.url(:medium), style: "object-fit:cover;", class: "clear-image band-img" %>
+					                    <% end %>
+				                  	<% end %>
+				                <% end %>
+		                  	</div>
+		                </div>
+		                <div class="details-bottom">
+		                  	<div class="album-details-sm">
+		                    	<h4 class="h3-centered"> <%= article.title %> </h4>
+
+		                    	<div class="add-deets">
+		                    	<h5> by <%= article.user.first_name %> <%= article.user.last_name %></h5>
+		                      	 <%= article.created_at.strftime("%b %d, %Y") %>
+		                    	</div>
+		                  	</div>
+		                </div>
+	                </div>
+	            </div>
+	        <% end %>
+		<% end %>
+	</div>
 </div>

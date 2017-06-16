@@ -189,13 +189,14 @@ $(document).ready(function(){
                         <li> <%= link_to "Account Settings",edit_user_registration_path %></li>
                         <% if current_user.articles.present? %>
                         <li> <%= link_to "Your Articles", articles_path %> </li>
+                        <li> <%= link_to "Register Band", new_band_path %> </li>
                         <% end %>
   						</li>
   						<hr>
   						<% if current_user.bands.any? %>
   							<% current_user.bands.each do |band|%>
   								<li role="presentation">
-  									<%= link_to band do %>
+  									<%= link_to edit_band_path(band) do %>
   										<%= band.group_name %>
   									<% end %>
   								</li>

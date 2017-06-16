@@ -33,7 +33,9 @@ class StaticPagesController < ApplicationController
     @albums = Album.all.limit(10).with_reputation(:votes).reorder("votes DESC").limit(5)
     @songs = Song.all.limit(10).with_reputation(:votes).reorder("votes DESC").limit(5)
   end
-
+  def become_a_writer
+    @articles = Article.all
+  end
   def help
   end
 

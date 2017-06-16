@@ -1,18 +1,102 @@
-<% if user_signed_in? %>
-	<% if current_user.id == @album.band.user_id %>
-		<h1>Editing Album</h1>
-		<%= render 'form' %>
+<style>
+body{
+	padding-top:110px;
+}
+</style>
+<% if user_signed_in? && current_user.admin? || user_signed_in? &&  current_user.id == @album.band.user_id %>
+<%= form_for([@band, @album]) do |f| %>
+  <div class="cool-panel" style="padding:20px; padding-bottom:40px; margin:-15px; background-color: #213143; color:#fff;">
+  	<div class="row">
+	  	<div class="col-sm-9">
+			<h2>Edit Album</h2> 
+			<h4> 
+			 These songs will be distributed and availible for download for free.
+		  	</h4>
+	  	</div>
+	  	<div class="col-sm-3" style="padding:0px;">
+	  	  <%= link_to request.referer.present? ? request.referer : default_path, class: "btn btn-lg btn-danger btn-danger-block-head", style: " " do %>
+	  	  	<div class="back-form">
+		      <h2><i class="fa fa-close" aria-hidden="true"></i></h2>
+		    </div>
+	  	  <% end %>
+	  	  <%= button_tag(type: 'submit', class: "btn btn-lg btn-success btn-success-block-head") do %>
+		    <div class="back-form">
+		      <h2><i class="fa fa-check" aria-hidden="true"></i></h2>
+		    </div>
+		  <% end %>
+		</div>
+	</div>
+  </div>
+	
+	  <div class="row">
+		<div class="col-md-7 cool-panel">
+		  <% if @album.errors.any? %>
+		    <div id="error_explanation">
+		      <h2><%= pluralize(@album.errors.count, "error") %> prohibited this album from being saved:</h2>
 
-		<%= link_to 'Show', band_album_path(@album.band_id, @album) %> |
-		<%= link_to 'Back', band_albums_path(@album.band_id) %>
-	<% else %>
-		<h1> You don't have access to <%= @album.band.group_name %>'s settings </h1> 
-		<h2> Your bands </h2>
-		<%= current_user.bands.each do |band| %>
-			<h3><%= link_to band do %><%= band.group_name %><% end %></h3>
-		<% end %>
+		      <ul>
+		      <% @album.errors.full_messages.each do |message| %>
+		        <li><%= message %></li>
+		      <% end %>
+		      </ul>
+		    </div>
+		  <% end %>
+		  <br/>
+		  <h3> Album Details </h3>
+		    <div class="field">
+		    	<br/>
+		      <label>Album Title</label><br>
+		      <%= f.text_field :name, class: "form-control"  %>
+		    </div>
+		    <% unless f.object.album_art.url(:thumb) == "/images/thumb/missing.png" %>
+		    <%= f.label "Change Album Art" %>
+		    <%= image_tag f.object.album_art.url(:thumb), class: "pull-right" %>
+		    <%= f.file_field :album_art, class: "form-control", style: "width:78%;"  %>
+		    <% else %>
+		    <%= f.label :album_art %>
+		    <%= f.file_field :album_art, class: "form-control"  %>
+		    <% end %>
+		    <div class="field">
+		      <%= f.label "Type" %><br>
+		      <%= f.select :album_type, options_for_select([['Album', 'Album'], ['EP', 'EP'], ['LP', 'LP'], ['Mixtape', 'Mixtape']]), class: "form-control"  %>
+		    </div>
+		    <div class="field">
+		      <%= f.label :released %><br>
+		      <%= f.text_field :released, class: "form-control" %>
+		    </div>
+		    <div class="field">
+		      <%= f.label :description %><br>
+		      <%= f.text_area :description, class: "form-control"  %>
+		      <br/>
+		    </div>
+		  </div>
+		  <div class="col-md-5 cool-panel">
+		  <br/>
+	      	<h3> Edit Songs </h3>
+	    	<%= f.fields_for :songs do |builder| %>
+	      
+	        <%= render 'song_fields', :f => builder %>
+
+	    	<% end %>
+	    	<%= link_to_add_more_fields "Add more songs in this group", f, :songs %>
+	    	<div class="actions">
+	      	<br/>
+	      </div>
+	    </div>
 	<% end %>
+
+
 <% else %>
-<h1> You don't have access to <%= @album.band.group_name %>'s settings </h1>
-<h2><%= link_to "Sign in to access your bands", new_user_session_path %></h2>
+<div class="col-xs-6 col-xs-offset-3 error-message">
+	<div class="error-message-inner">
+		<h3> You Don't Have Access To This Page.</h3>
+		<% unless user_signed_in? %>
+		<br/>
+			<div class="btn-group btn-group-justified  vote pull-right" role="group" aria-label="...">
+			<%= link_to "Sign Up", new_user_registration_path, class: "btn btn-lg btn-default" %> 
+			<%= link_to "Sign In", :user_session, class: "btn btn-lg btn-default" %>
+			</div>
+		<% end %>
+	</div>
+</div>
 <% end %>

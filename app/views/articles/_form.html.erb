@@ -1,3 +1,13 @@
+<style>
+.cool-panel{
+  padding:15px;
+}
+</style>
+<script type="text/javascript">
+  $(document).on('turbolinks:request-end', function() {
+  if (tinyMCE) { tinyMCE.remove(); }
+});
+</script>
 <%= tinymce_assets %>
 <%= form_for(article) do |f| %>
   <% if article.errors.any? %>
@@ -11,51 +21,62 @@
       </ul>
     </div>
   <% end %>
+<div class="w" data-no-turbolink="false">
+  <div class="row" style="margin-top:50px;">
+    <div class="col-md-3 cool-panel">
+      <div class="field">
+        <%= f.label :title %>
+        <%= f.text_field :title, class: "form-control"%>
+      </div>
+      <div class="field">
+        <%= f.label "Artist" %>
 
-  <div class="field">
-    <%= f.label :title %>
-    <%= f.text_field :title, class: "form-control"%>
-  </div>
-  <div class="field">
-    <%= f.label "Artist" %>
+      <%= f.collection_select :band_id, Band.order(:group_name), :id, :group_name, {include_blank: true, class: "form-control"}, { placeholder: "Type Artist Name Here"} %>
+      </div>
+      <hr>
+            <h3> Photos </h3>
+        <%= f.fields_for :article_photos do |builder| %>
+          
+            <%= render 'article_photo_fields', :f => builder %>
 
-  <%= f.collection_select :band_id, Band.order(:group_name), :id, :group_name, {include_blank: true, class: "form-control"}, { placeholder: "Type Artist Name Here"} %>
-  </div>
-  <hr>
-        <h3> Photos </h3>
-    <%= f.fields_for :article_photos do |builder| %>
-      
-        <%= render 'article_photo_fields', :f => builder %>
+        <% end %>
+        <%= link_to_add_more_fields "Add more photos ", f, :article_photos %>
+        <% if current_user.admin? || current_user.editor? %>
+        <hr>
+        <h2> Editor Tools </h2>
+        <br/>
+        <div class="field">
+          <%= f.label "Make Public?" %>
+          <%= f.select :public, options_for_select([["#{f.object.public}", "#{f.object.public}"], ["FALSE", "FALSE"], ["TRUE", "TRUE"]]), class: "form-control" %>
+        </div>
+        <br/>
+        <% end %>
+        <hr>
 
-    <% end %>
-    <%= link_to_add_more_fields "Add more photos to this article", f, :article_photos %>
-    <hr>
+        <div class="actions">
+          <br/>
+          <%= link_to 'Cancel', root_path, class: "btn btn-lg btn-block btn-danger" %><%= f.submit 'Save', class: "btn btn-lg btn-block btn-success" %>
+        </div>
+    </div>
+    <div class="col-md-9 cool-panel">
+      <div class="field article-editor">
+        <%= f.text_area :body, :class => "tinymce", :rows => 40, :cols => 120 %>
+      </div>
 
-  <div class="field article-editor">
-    <%= f.label :body %>
-    <%= f.text_area :body, :class => "tinymce", :rows => 40, :cols => 120 %>
+    </div>
   </div>
-
-  <% if current_user.admin? || current_user.editor? %>
-  <hr>
-  <h2> Editor Tools </h2>
-  <br/>
-  <div class="field">
-    <%= f.label "Make Public?" %>
-    <%= f.select :public, options_for_select([["#{f.object.public}", "#{f.object.public}"], ["FALSE", "FALSE"], ["TRUE", "TRUE"]]), class: "form-control" %>
-  </div>
-  <br/>
-  <% end %>
-  <div class="actions">
-    <br/>
-    <%= f.submit 'Save', class: "btn btn-lg btn-block btn-success" %>
-  </div>
+</div>
 <% end %>
 <script type="text/javascript">
   $(function() {
   $('#article_band_id').selectize({
     create: true
   });
+});
+</script>
+<script type="text/javascript">
+  $(document).on('turbolinks:request-end', function() {
+  if (tinyMCE) { tinyMCE.remove(); }
 });
 </script>
 <script type="text/javascript">

@@ -1,14 +1,101 @@
+<style>
+body{
+	padding-top:110px;
+}
+</style>
 <% if user_signed_in? && current_user.admin? || user_signed_in? && current_user.id == @band.user_id %>
-<h2>Editing Band | <% if user_signed_in? && @user = @band.user_id %><%= link_to 'Add Music', new_band_album_path(@band) %> | 
-  <%= link_to 'Add An Event', new_band_event_path(@band) %> |
-  <%= link_to 'Manage Albums', band_albums_path(@band) %> |
-  <%= link_to 'Edit', edit_band_path(@band) %> | <% end %> 
-  <%= link_to 'Back', bands_path %></h2>
 
-<%= render 'form' %>
+<%= form_for(@band) do |f| %>
+  <div class="cool-panel" style="padding:20px; padding-bottom:40px; margin:-15px; background-color: #213143; color:#fff;">
+  	<div class="row">
+	  	<div class="col-sm-9">
+			<h2>Editing Band</h2> 
+			<h4> 
+			<% if user_signed_in? && @user = @band.user_id %><%= link_to 'Add Music', new_band_album_path(@band) %> | 
+		  	<%= link_to 'Add An Event', new_band_event_path(@band) %> |
+		  	<%= link_to 'Manage Albums', band_albums_path(@band) %> |
+		  	<%= link_to 'Edit', edit_band_path(@band) %>  <% end %> 
+		  	</h4>
+	  	</div>
+	  	<div class="col-sm-3" style="padding:0px;">
+	  	  <%= link_to request.referer.present? ? request.referer : default_path, class: "btn btn-lg btn-danger btn-danger-block-head", style: " " do %>
+	  	  	<div class="back-form">
+		      <h2><i class="fa fa-close" aria-hidden="true"></i></h2>
+		    </div>
+	  	  <% end %>
+	  	  <%= button_tag(type: 'submit', class: "btn btn-lg btn-success btn-success-block-head", style: " ") do %>
+		    <div class="back-form">
+		      <h2><i class="fa fa-check" aria-hidden="true"></i></h2>
+		    </div>
+		  <% end %>
+		</div>
+	</div>
+  </div>
+  <div class="row">
+    <div class="col-md-8 article-container cool-panel">
+      <% if @band.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@band.errors.count, "error") %> prohibited this band from being saved:</h2>
 
-<%= link_to 'Show', @band %> |
-<%= link_to 'Back', bands_path %>
+          <ul>
+          <% @band.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="field">
+      <h3> Group Members </h3>
+        <%= f.label :group_name %><br>
+        <%= f.text_field :group_name, class: "form-control" %>
+      </div>
+      <div class="field">
+        <%= f.label "Group Picture" %>
+        <%= f.file_field :band_avatar, class: "form-control" %>
+      </div>
+      <div class="field">
+        <%= f.label :genre %><br>
+        <%= f.text_field :genre, class: "form-control" %>
+      </div>
+      <div class="field">
+        <%= f.label :city %><br>
+        <%= f.text_field :city, class: "form-control" %>
+      </div>
+      <div class="field">
+        <%= f.label :state %><br>
+        <%= f.collection_select :state, State.order(:name), :id, :name, {include_blank: true} %>
+      </div>
+      <div class="field">
+        <%= f.label :description %><br>
+        <%= f.text_area :description, class: "form-control" %>
+      </div>
+      <div class="field">
+        <%= f.label :website %><br>
+        <%= f.text_field :website, class: "form-control" %>
+        <br/>
+      </div>
+    </div>
+    <div class="col-md-4 article-container cool-panel">
+      <h3> Group Members </h3> <h5>(Leave any extras blank)</h5>
+      <%= f.fields_for :members do |builder| %>
+          
+        <%= render 'member_fields', :f => builder %>
+
+      <% end %>
+      <%= link_to_add_fields "Add more members", f, :members %>
+      <br/>
+    </div>
+  </div>
+<% end %>
+<script type="text/javascript">
+  $(function() {
+  $('#band_state').selectize({
+    create: false,
+    sortField: 'text'
+  });
+});
+</script>
 <% else %>
 <div class="col-xs-6 col-xs-offset-3 error-message">
 	<div class="error-message-inner">

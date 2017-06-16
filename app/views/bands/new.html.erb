@@ -1,18 +1,109 @@
-<% if user_signed_in? %>
-<h1>New Band</h1>
+<style>
+body{
+	padding-top:110px;
+}
+</style>
+<% if user_signed_in? && current_user.admin? || user_signed_in? && current_user.id == @band.user_id %>
 
-<%= render 'form' %>
+<%= form_for(@band) do |f| %>
+  <div class="cool-panel" style="padding:20px; padding-bottom:40px; margin:-15px; background-color: #213143; color:#fff;">
+  	<div class="row">
+	  	<div class="col-sm-9">
+			<h2>Register Group</h2> 
+			<h4> 
+			 Fill out the form below. Then save by pressing the green button.
+		  	</h4>
+	  	</div>
+	  	<div class="col-sm-3" style="padding:0px;">
+	  	  <%= link_to request.referer.present? ? request.referer : default_path, class: "btn btn-lg btn-danger btn-danger-block-head", style: " " do %>
+	  	  	<div class="back-form">
+		      <h2><i class="fa fa-close" aria-hidden="true"></i></h2>
+		    </div>
+	  	  <% end %>
+	  	  <%= button_tag(type: 'submit', class: "btn btn-lg btn-success btn-success-block-head", style: " ") do %>
+		    <div class="back-form">
+		      <h2><i class="fa fa-check" aria-hidden="true"></i></h2>
+		    </div>
+		  <% end %>
+		</div>
+	</div>
+  </div>
+  <div class="row">
+    <div class="col-md-8 article-container cool-panel">
+      <% if @band.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@band.errors.count, "error") %> prohibited this band from being saved:</h2>
 
-<%= link_to 'Back', bands_path %>
+          <ul>
+          <% @band.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <h3> Group Details </h3>
+      <div class="field">
+      <br/>
+        <%= f.label :group_name %><br>
+        <%= f.text_field :group_name, class: "form-control" %>
+      </div>
+      <div class="field">
+        <%= f.label "Group Picture" %>
+        <%= f.file_field :band_avatar, class: "form-control" %>
+      </div>
+      <div class="field">
+        <%= f.label :genre %><br>
+        <%= f.text_field :genre, class: "form-control" %>
+      </div>
+      <div class="field">
+        <%= f.label :city %><br>
+        <%= f.text_field :city, class: "form-control" %>
+      </div>
+      <div class="field">
+        <%= f.label :state %><br>
+        <%= f.collection_select :state, State.order(:name), :id, :name, {include_blank: true} %>
+      </div>
+      <div class="field">
+        <%= f.label :description %><br>
+        <%= f.text_area :description, class: "form-control" %>
+      </div>
+      <div class="field">
+        <%= f.label :website %><br>
+        <%= f.text_field :website, class: "form-control" %>
+        <br/>
+      </div>
+    </div>
+    <div class="col-md-4 article-container cool-panel">
+      <h3> Group Members </h3> <h5>(Leave any extras blank)</h5>
+      <%= f.fields_for :members do |builder| %>
+          
+        <%= render 'member_fields', :f => builder %>
+
+      <% end %>
+      <%= link_to_add_fields "Add more members", f, :members %>
+      <br/>
+    </div>
+  </div>
+<% end %>
+<script type="text/javascript">
+  $(function() {
+  $('#band_state').selectize({
+    create: false,
+    sortField: 'text'
+  });
+});
+</script>
 <% else %>
 <div class="col-xs-6 col-xs-offset-3 error-message">
 	<div class="error-message-inner">
-		<h3> To Continue You Must Have An Account. </h3>
+		<h3> You Don't Have Access To This Page.</h3>
+		<% unless user_signed_in? %>
 		<br/>
-		<div class="btn-group btn-group-justified  vote pull-right" role="group" aria-label="...">
-		<%= link_to "Sign Up", new_user_registration_path, class: "btn btn-lg btn-default" %> 
-		<%= link_to "Sign In", :user_session, class: "btn btn-lg btn-default" %>
-		</div>
+			<div class="btn-group btn-group-justified  vote pull-right" role="group" aria-label="...">
+			<%= link_to "Sign Up", new_user_registration_path, class: "btn btn-lg btn-default" %> 
+			<%= link_to "Sign In", :user_session, class: "btn btn-lg btn-default" %>
+			</div>
+		<% end %>
 	</div>
 </div>
 <% end %>

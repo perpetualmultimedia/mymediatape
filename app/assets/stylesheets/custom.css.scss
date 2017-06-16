@@ -1,6 +1,6 @@
 $brand-primary:#213143;
 $brand-success:#5C7064;
-$brand-info:#F4DE7A;
+$brand-info:#442933;
 $brand-warning:#442933;
 $brand-danger:#691D22;
 $btn-default-border:#243983;
@@ -8,6 +8,7 @@ $font-family-sans-serif: "Oswald";
 $navbar-height: 70px;
 $grid-gutter-width: 30px;
 $navbar-border-radius: 0px;
+$grid-gutter-width:         30px;
 $grid-float-breakpoint-max: 991px;
 $navbar-default-link-hover-color:#5d5d5d;
 @import "bootstrap-sprockets";
@@ -23,6 +24,34 @@ body{
   overflow-x: hidden;
 
 }
+// 20px gutter
+.gutter-20.row {
+  margin-right: -10px;
+  margin-left: -10px;
+}
+.gutter-20 > [class^="col-md-6"], .gutter-20 > [class^=" col-md-6"] {
+  padding-right: 10px;
+  padding-left: 10px;
+}
+// 10px gutter
+.gutter-10.row {
+  margin-right: -5px;
+  margin-left: -5px;
+}
+.gutter-10 > [class^="col-"], .gutter-10 > [class^=" col-"] {
+  padding-right: 5px;
+  padding-left: 5px;
+}
+// 0px gutter
+.gutter-0.row {
+  margin-right: 0;
+  margin-left: 0;
+}
+.gutter-0 > [class^="col-"], .gutter-0 > [class^=" col-"]{
+  padding-right: 0;
+  padding-left: 0;
+}
+
 .btn-danger{
   background-color: #691D22;
 }
@@ -63,7 +92,7 @@ h2{
 h3{
   font-family: 'Bungee', sans-serif;
   font-weight:bold;
-  font-size:32px;
+  font-size:30px;
 }
 h5{
   font-size: 17px;
@@ -84,6 +113,28 @@ small.pull-right{
 
     /* Custom, iPhone Retina */ 
     @media only screen and (min-width : 320px) {
+      .btn-success-block-head{
+        border-radius:0px; 
+        margin-top: 0px; 
+        margin-right:-20px; 
+        margin-bottom:-25px; 
+        height:100px;  
+        padding-bottom: 15px; 
+        padding-left:20px; 
+        padding-right:20px; 
+        background-color:#5C7064; 
+        width:50%;
+      }
+      .btn-danger-block-head{
+        border-radius:0px; 
+        margin-top: 0px;  
+        margin-bottom:-25px; 
+        height:100px;  
+        padding-bottom: 15px; 
+        padding-left:20px; 
+        padding-right:20px; 
+        width:50%;
+      }
       .w{
         overflow:hidden;
         padding: R 0 R 0;
@@ -182,6 +233,29 @@ small.pull-right{
 
     /* Small Devices, Tablets */
     @media only screen and (min-width : 768px) {
+      .btn-success-block-head{
+        border-radius:0px; 
+        margin-top: -20px; 
+        margin-right:-20px; 
+        margin-bottom:-25px; 
+        height:160px;  
+        padding-bottom: 15px; 
+        padding-left:20px; 
+        padding-right:20px; 
+        background-color:#5C7064; 
+        width:50%;
+      }
+      .btn-danger-block-head{
+        border-radius:0px; 
+        margin-top: -20px;  
+        margin-bottom:-25px; 
+        height:160px;  
+        padding-bottom: 15px; 
+        padding-left:20px; 
+        padding-right:20px; 
+        padding-top: 40px; 
+        width:50%;
+      }
       .container{
 
       }

@@ -11,7 +11,7 @@ small{
 </style>
 <div class="w">
   <div class="blurry-stock ">
-    <img src="<%= @band.band_avatar.url %>" class="blurry-image" style="object-fit: cover; filter: blur(10px)  opacity(0.5); height:100%;  background-color: #888;"/>
+    <img src="<%= @band.band_avatar.url %>" class="blurry-image" style="object-fit: cover; filter: blur(10px) opacity(0.5); height:100%;  background-color: #888;"/>
   </div>
   <div class="artist-header" >
     <div class="row">
@@ -95,37 +95,48 @@ small{
         </div>
 
         <div class="col-md-9 cool-panel artist-deets-right" style="padding:20px; ">
-          <h3><strong>Top Songs</strong></h3>
-          <br/>
-            <table class="table table-hover" data-no-turbolink>
-            <% @band.songs.each do |album_song| %>
-            
-                <tr data-href="<%= band_album_song_url(album_song.album.band_id, album_song.album, album_song) %>" id="show-song" class="clickable-row">
-                
-                <td><strong><%= album_song.title %></strong><br/> <%= album_song.album.name %></td>
-                <td style="padding-top:18px;" ><span class="pull-right"><%= album_song.album.released %></span></td>
-              </tr>
-            <% end %>
-          </table>
-          <hr>
-          <% unless @band.albums.blank? %>
-            <h3><strong>Albums</strong></h3>
-            <hr>
-            <div class="row">
-              <% @band.albums.each do |album| %>
-              <%= link_to band_album_url(@band, album) do %>
-                <div class="col-xs-4 col-md-3">
-
-                      <%= image_tag album.album_art.url(:medium), style: "width:100%; object-fit:cover; border-radius:2px; margin-bottom:10px;", class: "img-responsive audio-art-img-page"%>
-                      <p><%= album.name %></p>
-                      <small><%= album.released %></small>
-                </div>
+          <% if @band.albums.any? %>
+            <h3><strong>Top Songs</strong></h3>
+            <br/>
+              <table class="table table-hover" data-no-turbolink>
+              <% @band.songs.each do |album_song| %>
+              
+                  <tr data-href="<%= band_album_song_url(album_song.album.band_id, album_song.album, album_song) %>" id="show-song" class="clickable-row">
+                  
+                  <td><strong><%= album_song.title %></strong><br/> <%= album_song.album.name %></td>
+                  <td style="padding-top:18px;" ><span class="pull-right"><%= album_song.album.released %></span></td>
+                </tr>
               <% end %>
-            <% end %>
-            </div>
+            </table>
+            <hr>
+              <h3><strong>Albums</strong></h3>
+              <hr>
+              <div class="row">
+                <% @band.albums.each do |album| %>
+                  <%= link_to band_album_url(@band, album) do %>
+                    <div class="col-xs-4 col-md-3">
 
+                        <%= image_tag album.album_art.url(:medium), style: "width:100%; object-fit:cover; border-radius:2px; margin-bottom:10px;", class: "img-responsive audio-art-img-page"%>
+                        <p><%= album.name %></p>
+                        <small><%= album.released %></small>
+                    </div>
+                  <% end %>
+                <% end %>
+              </div>
+          <% elsif @band.user_id == current_user.id %>
+            <div class="row">
+              <h1 class="h3-centered" style="font-size: 70px;"> <i class="fa fa-music" aria-hidden="true"></i> </h1>
+              <h3 class="h3-centered" style="font-size: 30px;">You haven't added any music.</h3>
+              <div class="h3-centered">
+                <%= link_to "Add some songs", new_band_album_path(@band), class: "btn btn-lg btn-primary" %>
+              </div>
+            </div>
+          <% else %>
+            <div class="row">
+              <h1 class="h3-centered" style="font-size: 70px;"> <i class="fa fa-music" aria-hidden="true"></i> </h1>
+              <h3 class="h3-centered" style="font-size: 30px;">This band haven't added any music.</h3>
+            </div>
           <% end %>
-          </p>
           <hr>
           <% unless @band.events.blank? %>
             <h3><strong>Shows</strong></h3>
