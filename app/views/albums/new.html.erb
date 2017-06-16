@@ -3,7 +3,7 @@ body{
 	padding-top:110px;
 }
 </style>
-<% if user_signed_in? && current_user.admin? || user_signed_in? &&  current_user.id == @album.band.user_id %>
+<% if user_signed_in? && current_user.admin? or user_signed_in? &&  current_user.id == @album.band.user_id %>
 <%= form_for([@band, @album]) do |f| %>
   <div class="cool-panel" style="padding:20px; padding-bottom:40px; margin:-15px; background-color: #213143; color:#fff;">
   	<div class="row">
