@@ -189,8 +189,8 @@ $(document).ready(function(){
                         <li> <%= link_to "Account Settings",edit_user_registration_path %></li>
                         <% if current_user.articles.present? %>
                         <li> <%= link_to "Your Articles", articles_path %> </li>
-                        <li> <%= link_to "Register Band", new_band_path %> </li>
                         <% end %>
+                        <li> <%= link_to "Register Band", new_band_path %> </li>
   						</li>
   						<hr>
   						<% if current_user.bands.any? %>
