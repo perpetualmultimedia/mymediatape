@@ -233,13 +233,14 @@ $( ".toggle-logo" ).click(function() {
 </script>
 
 <div class="container" style="margin-bottom: 100px;" >
+  <div class="w">
   <%= yield %>
 <!--   <% if session[:song_id].present? %>
     <% current_song = Song.find_by_id(session[:song_id]) %>
     <% current_album = Album.find_by_id(session[:album_id]) %>
     <% current_band = Band.find_by_id(session[:band_id]) %>
   <% end %> -->
-    
+  </div>
 </div>
 
 

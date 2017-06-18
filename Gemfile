@@ -39,6 +39,7 @@ gem 'activerecord-reputation-system'
 gem 'pjax_rails'
 gem 'tinymce-rails'
 gem "selectize-rails"
+gem 'jquery-fileupload-rails'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

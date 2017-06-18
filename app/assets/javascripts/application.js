@@ -18,6 +18,9 @@
 //= require moment
 //= require mediaelement_rails
 //= require bootstrap-datetimepicker
+//= require jquery_ujs
+//= require jquery-fileupload/basic
+//= require jquery-fileupload/vendor/tmpl
 //= require selectize
 //= require tinymce-jquery
 //= require_tree .

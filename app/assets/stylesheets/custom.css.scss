@@ -21,7 +21,7 @@ body{
 	margin:0;
 	font-family: 'Open Sans', sans-serif;
   background-color: #F9F9FA;
-  overflow-x: hidden;
+  
 
 }
 // 20px gutter
@@ -113,6 +113,9 @@ small.pull-right{
 
     /* Custom, iPhone Retina */ 
     @media only screen and (min-width : 320px) {
+      body{
+        overflow-x: hidden;
+      }
       .btn-success-block-head{
         border-radius:0px; 
         margin-top: 0px; 
@@ -260,7 +263,7 @@ small.pull-right{
 
       }
       .w{
-        overflow: revert;
+        overflow: visible;
         padding: 0px;
         margin: 0px;
       }
@@ -279,6 +282,9 @@ small.pull-right{
       }
       .blurry-stock{
         height:330px;
+      }
+      body{
+        overflow-x: normal;
       }
     }
 

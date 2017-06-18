@@ -1,50 +1,55 @@
-<%= form_for([@band, @album]) do |f| %>
-  <% if @album.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@album.errors.count, "error") %> prohibited this album from being saved:</h2>
+ <div class="row">
+    <div class="col-md-7 cool-panel">
+      <% if @album.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@album.errors.count, "error") %> prohibited this album from being saved:</h2>
 
-      <ul>
-      <% @album.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+          <ul>
+          <% @album.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-    <div class="field">
-      <label>Album Title</label><br>
-      <%= f.text_field :name, class: "form-control"  %>
-    </div>
-    <% unless f.object.album_art.url(:thumb) == "/images/thumb/missing.png" %>
-    <%= f.label "Change Album Art" %>
-    <%= image_tag f.object.album_art.url(:thumb), class: "pull-right" %>
-    <%= f.file_field :album_art, class: "form-control", style: "width:78%;"  %>
-    <% else %>
-    <%= f.label :album_art %>
-    <%= f.file_field :album_art, class: "form-control"  %>
-    <% end %>
-    <div class="field">
-      <%= f.label "Type" %><br>
-      <%= f.select :album_type, options_for_select([['Album', 'Album'], ['EP', 'EP'], ['LP', 'LP'], ['Mixtape', 'Mixtape']]), class: "form-control"  %>
-    </div>
-    <div class="field">
-      <%= f.label :released %><br>
-      <%= f.text_field :released, class: "form-control" %>
-    </div>
-    <div class="field">
-      <%= f.label :description %><br>
-      <%= f.text_area :description, class: "form-control"  %>
-    </div>
-      <h3> Songs </h3>
-    <%= f.fields_for :songs do |builder| %>
-      
-        <%= render 'song_fields', :f => builder %>
-
-    <% end %>
-    <%= link_to_add_more_fields "Add more songs in this group", f, :songs %>
-    <hr>
-    <div class="actions">
       <br/>
-      <%= f.submit "Create Album", class: "btn btn-block btn-lg btn-success" %>
-    </div>
-<% end %>
+      <h3> Album Details </h3>
+        <div class="field">
+          <br/>
+          <label>Album Title</label><br>
+          <%= f.text_field :name, class: "form-control"  %>
+        </div>
+        <% unless f.object.album_art.url(:thumb) == "/images/thumb/missing.png" %>
+        <%= f.label "Change Album Art" %>
+        <%= image_tag f.object.album_art.url(:thumb), class: "pull-right" %>
+        <%= f.file_field :album_art, class: "form-control", style: "width:78%;"  %>
+        <% else %>
+        <%= f.label :album_art %>
+        <%= f.file_field :album_art, class: "form-control"  %>
+        <% end %>
+        <div class="field">
+          <%= f.label "Type" %><br>
+          <%= f.select :album_type, options_for_select([['Album', 'Album'], ['EP', 'EP'], ['LP', 'LP'], ['Mixtape', 'Mixtape']]), class: "form-control"  %>
+        </div>
+        <div class="field">
+          <%= f.label :released %><br>
+          <%= f.text_field :released, class: "form-control" %>
+        </div>
+        <div class="field">
+          <%= f.label :description %><br>
+          <%= f.text_area :description, class: "form-control"  %>
+          <br/>
+        </div>
+      </div>
+      <div class="col-md-5 cool-panel">
+      <br/>
+          <h3> Songs </h3>
+        <%= f.fields_for :songs do |builder| %>
+        
+          <%= render 'song_fields', :f => builder %>
+
+        <% end %>
+        <%= link_to_add_more_fields "Add more songs to this group", f, :songs %>
+        <div class="actions">
+          <br/>
+        </div>
+      </div>
