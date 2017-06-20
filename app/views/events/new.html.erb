@@ -1,5 +1,114 @@
-<h1>New <%= @band.group_name %> Event</h1>
+<style>
+body{
+	padding-top:110px;
+}
+</style>
+<%= form_for  ([@band, @event]) do |f| %>
+<div class="col-md-8 col-md-offset-2">	
+	<div class="cool-panel" style="padding:20px; padding-bottom:40px; margin:-15px; background-color: #213143; color:#fff;">
+	  <div class="row">
+	    <div class="col-sm-7">
+	    <h3>New <%= @band.group_name %> Event</h3> 
 
-<%= render 'form' %>
+	    </div>
+	    <div class="col-sm-5" style="padding:0px;">
+	      <%= link_to request.referer.present? ? request.referer : default_path, class: "btn btn-lg btn-danger btn-danger-block-head", style: " " do %>
+	        <div class="back-form">
+	        <h2><i class="fa fa-close" aria-hidden="true"></i></h2>
+	      </div>
+	      <% end %>
+	      <%= button_tag(type: 'submit', class: "btn btn-lg btn-success btn-success-block-head", style: " ") do %>
+	      <div class="back-form">
+	        <h2><i class="fa fa-check" aria-hidden="true"></i></h2>
+	      </div>
+	    <% end %>
+	  </div>
+	</div>
+  </div>
+  <div class="cool-panel row" style="padding:20px; margin-top: -14px;">
 
-<%= link_to 'Back', band_events_path %>
+  <% if @event.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+      <ul>
+      <% @event.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title, class: "form-control" %>
+  </div>
+  <div class="field">
+    <%= f.label :flyer %>
+    <%= f.file_field :flyer %>
+  </div>
+
+  <div class="field">
+    <%= f.label :date %><br>
+    <div class="form-group">
+      <div class='input-group date' id='datetimepicker1'>
+          <%= f.text_field :date, class: "form-control" %>
+          <span class="input-group-addon">
+              <span class="glyphicon glyphicon-calendar"></span>
+          </span>
+      </div>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            $('#datetimepicker1').datetimepicker({
+              format: 'MM/DD/YYYY'
+            });
+        });
+    </script>
+  </div>
+  <div class="field">
+    <%= f.label :time %><br>
+    <div class="form-group">
+      <div class='input-group clockpicker'>
+          <%= f.text_field :time, class: "form-control" %>
+          <span class="input-group-addon">
+              <span class="glyphicon glyphicon-time"></span>
+          </span>
+      </div>
+    </div>
+    <script type="text/javascript">
+    $('.clockpicker').clockpicker({
+      align: 'right',
+      donetext: 'Done'
+    });
+    </script>
+
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_area :description, class: "form-control" %>
+  </div>
+  <div class="field">
+    <%= f.label :address %><br>
+    <%= f.text_field :address, class: "form-control" %>
+  </div>
+  <div class="field">
+    <%= f.label :city %><br>
+    <%= f.text_field :city, class: "form-control" %>
+  </div>
+  <div class="field">
+    <%= f.label :state %><br>
+    <%= f.text_field :state, class: "form-control" %>
+  </div>
+  <div class="field">
+    <%= f.label :ticket_link %><br>
+    <%= f.text_field :ticket_link, class: "form-control" %>
+  </div>
+  <div class="actions">
+  <br/>
+  </div>
+  </div>
+</div>
+<% end %>
+
+

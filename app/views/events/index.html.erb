@@ -1,32 +1,41 @@
+<style>
+body{
+  margin-top:110px;
+}
+</style>
 <p id="notice"><%= notice %></p>
 
-<h1>Listing <%= @band.group_name %>'s Events</h1>
+<h2>Listing <%= @band.group_name %>'s Events</h2>
 <hr>
 <% @events.each do |event| %>
   <div class="col-md-4">
-    <div class="panel panel-default">
+    <div class="panel panel-default cool-panel">
       <div class="panel-heading">
         <h3 class="panel-title"><%= event.title %></h3>
       </div>
-      <div class="panel-body">
-        <%= event.date %> <%= event.time %>
-        <p>
-        <%= event.city %> <%= event.state %>
-        </p>
-        <p>
-        <%= event.description %>
-        </p>
-      </div>
-      <div class="panel-footer">
-        <div class="btn-group btn-group-justified" role="group" aria-label="...">
+          <div class="flyer" style="width:100%; text-align: center;">
+            <img src="<%= event.flyer.url(:medium) %>"  style= "object-fit:cover; margin-left: auto; margin-right: auto; margin-bottom: -20px;" class= "img-responsive">
+            <hr>
+          </div>
+        <div style="padding:20px;">
+          <strong>
+          <%= event.city %> <%= event.state %>
+          </strong>
+          <p>
+          <%= event.description %>
+          </p>
+          <small> <%= event.date %> <%= event.time %> </small>
+          <br/>
+        </div>
+        <div class="btn-group btn-group-justified" role="group" aria-label="..." style="margin-top:-0px;">
           <div class="btn-group" role="group">
-            <%= link_to 'Show', band_event_url(event.band_id, event.id), class: "btn btn-success" %>
+            <%= link_to 'Show', band_event_url(event.band_id, event.id), class: "btn btn-success btn-lg" %>
           </div>
           <div class="btn-group" role="group">
-            <%= link_to 'Edit', edit_band_event_url(event.band_id, event.id), class: "btn btn-info" %>
+            <%= link_to 'Edit', edit_band_event_url(event.band_id, event.id), class: "btn btn-info btn-lg" %>
           </div>
           <div class="btn-group" role="group">
-            <%= link_to 'Destroy', band_event_url(event.band_id, event.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+            <%= link_to 'Destroy', band_event_url(event.band_id, event.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-lg" %>
           </div>
         </div>
       </div>
