@@ -10,7 +10,8 @@ class Album < ActiveRecord::Base
   has_attached_file :album_art, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :album_art, content_type: /\Aimage\/.*\z/
   default_scope { order(released: :desc) }
-
+  validates_presence_of :name, :released
+  validates_associated :songs
   private
    def comment_rejectable?(att)
   att['body'].blank? 

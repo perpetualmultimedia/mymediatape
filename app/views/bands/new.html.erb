@@ -5,9 +5,9 @@ body{
 </style>
 
 <%= form_for(@band) do |f| %>
-  <div class="cool-panel" style="padding:20px; padding-bottom:40px; margin:-15px; background-color: #213143; color:#fff;">
+  <div class="cool-panel top-form-panel" style=" background-color: #213143; ">
   	<div class="row">
-	  	<div class="col-sm-9">
+	  	<div class="col-sm-9 top-text-form-panel">
 			<h2>Register Group</h2> 
 			<h4> 
 			 Fill out the form below. Then save by pressing the green button.
@@ -28,7 +28,7 @@ body{
 	</div>
   </div>
   <div class="row">
-    <div class="col-md-8 article-container cool-panel">
+    <div class="col-md-8 article-container cool-panel main-form-panel">
       <% if @band.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(@band.errors.count, "error") %> prohibited this band from being saved:</h2>
@@ -40,6 +40,7 @@ body{
           </ul>
         </div>
       <% end %>
+      <br/>
       <h3> Group Details </h3>
       <div class="field">
       <br/>
@@ -72,7 +73,8 @@ body{
         <br/>
       </div>
     </div>
-    <div class="col-md-4 article-container cool-panel">
+    <div class="col-md-4 article-container cool-panel side-form-panel">
+      <br/>
       <h3> Group Members </h3> <h5>(Leave any extras blank)</h5>
       <%= f.fields_for :members do |builder| %>
           

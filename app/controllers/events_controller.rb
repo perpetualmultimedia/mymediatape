@@ -58,6 +58,8 @@ class EventsController < ApplicationController
   # DELETE /events/1.json
   def destroy
     @event.destroy
+    @activity = PublicActivity::Activity.find_by(trackable_id: (params[:id]), trackable_type: controller_path.classify)
+    @activity.destroy
     respond_to do |format|
       format.html { redirect_to band_events_path, notice: 'Event was successfully destroyed.' }
       format.json { head :no_content }

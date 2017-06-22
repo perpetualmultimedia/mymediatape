@@ -6,14 +6,15 @@ body{
 <% if user_signed_in? && current_user.admin? || user_signed_in? && current_user.id == @band.user_id %>
 
 <%= form_for(@band) do |f| %>
-  <div class="cool-panel" style="padding:20px; padding-bottom:40px; margin:-15px; background-color: #213143; color:#fff;">
+  <div class="cool-panel top-form-panel" style="background-color: #213143;">
   	<div class="row">
-	  	<div class="col-sm-9">
+	  	<div class="col-sm-9 top-text-form-panel">
 			<h2>Editing Band</h2> 
 			<h4> 
 			<% if user_signed_in? && @user = @band.user_id %><%= link_to 'Add Music', new_band_album_path(@band) %> | 
 		  	<%= link_to 'Add An Event', new_band_event_path(@band) %> |
 		  	<%= link_to 'Manage Albums', band_albums_path(@band) %> |
+        <%= link_to 'Manage Event', band_events_path(@band) %> |
 		  	<%= link_to 'Edit', edit_band_path(@band) %>  <% end %> 
 		  	</h4>
 	  	</div>
@@ -32,7 +33,7 @@ body{
 	</div>
   </div>
   <div class="row">
-    <div class="col-md-8 article-container cool-panel">
+    <div class="col-md-8 article-container cool-panel main-form-panel">
       <% if @band.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(@band.errors.count, "error") %> prohibited this band from being saved:</h2>
@@ -46,6 +47,7 @@ body{
       <% end %>
 
       <div class="field">
+      <br/>
       <h3> Group Members </h3>
         <%= f.label :group_name %><br>
         <%= f.text_field :group_name, class: "form-control" %>
@@ -76,7 +78,8 @@ body{
         <br/>
       </div>
     </div>
-    <div class="col-md-4 article-container cool-panel">
+    <div class="col-md-4 article-container cool-panel side-form-panel">
+    <br/>
       <h3> Group Members </h3> <h5>(Leave any extras blank)</h5>
       <%= f.fields_for :members do |builder| %>
           

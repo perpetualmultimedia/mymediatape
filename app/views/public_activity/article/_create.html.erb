@@ -20,7 +20,7 @@
               	<h4><%= link_to article_url(activity.trackable.id) do %><strong><%= activity.trackable.band.group_name %></strong><% end %> has some  <strong>News</strong> <small class="pull-right"><%= time_ago_in_words activity.trackable.created_at %> ago</small></h4>
                 <hr>
                 	<%= link_to article_url(activity.trackable.id) do %><p><%= activity.trackable.title %></p>
-                	<p><%= activity.trackable.body.truncate(190).html_safe %></p>
+                	<p><%= strip_tags(activity.trackable.body.truncate(190)) %></p>
             	<% end %>
           	<p>
           	</p>
@@ -29,16 +29,16 @@
       </div>
     </div>
   <% else %>
-    <div class="col-md-12 activity-color">
-      <div class="row">
-        <div class="row activity">
+
+    <div class="activity panel cool-panel album-activity-<%=activity.trackable.id%>">
+        <div class="row">
 
           <div class="col-md-8"> 
             
                 <h4><%= link_to article_url(activity.trackable.id) do %><strong><%= activity.trackable.band.group_name %></strong><% end %> has some  <strong>News</strong> <small class="pull-right"><%= time_ago_in_words activity.trackable.created_at %> ago</small></h4>
                 <hr>
                   <%= link_to article_url(activity.trackable.id) do %><p><%= activity.trackable.title %></p>
-                  <p><%= activity.trackable.body.truncate(190).html_safe %></p>
+                  <p><%= strip_tags(activity.trackable.body.truncate(190)) %></p>
               <% end %>
             <p>
             </p>
@@ -47,15 +47,14 @@
             <% if activity.trackable.article_photos.any? %>
               <% activity.trackable.article_photos.each_with_index do |photo, i| %>
                 <% if i == 0 %>
-                  <img class="article-feed-img" src=<%= photo.image.url %>" data-adaptive-background data-ab-parent='.activity-color'%>
+                  <img class="article-feed-img albumArt" src="<%= photo.image.url %>" %>
                 <% end %>
               <% end %>
             <% else %>
-              <img src="activity.trackable.band.avatar.url" data-adaptive-background %>
+              <img src="activity.trackable.band.avatar.url"  %>
             <% end %>
           </div>
         </div>
-      </div>
     </div>
   <% end %>
 <% end %>

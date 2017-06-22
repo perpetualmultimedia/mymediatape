@@ -32,6 +32,7 @@ class AlbumsController < ApplicationController
   # POST /albums
   # POST /albums.json
   def create
+    @band = Band.find(params[:band_id])
     @album = Band.find(params[:band_id]).albums.build(album_params)
 
     respond_to do |format|
@@ -63,6 +64,8 @@ class AlbumsController < ApplicationController
   # DELETE /albums/1.json
   def destroy
     @album.destroy
+    @activity = PublicActivity::Activity.find_by(trackable_id: (params[:id]), trackable_type: controller_path.classify)
+    @activity.destroy
     respond_to do |format|
       format.html { redirect_to band_albums_url(@album.band.id), notice: 'Album was successfully destroyed.' }
       format.json { head :no_content }

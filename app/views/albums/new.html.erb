@@ -5,9 +5,9 @@ body{
 </style>
 <% if user_signed_in? && current_user.admin? or user_signed_in? &&  current_user.id == @album.band.user_id %>
 <%= form_for([@band, @album]) do |f| %>
-  <div class="cool-panel" style="padding:20px; padding-bottom:40px; margin:-15px; background-color: #213143; color:#fff;">
+  <div class="cool-panel top-form-panel" style="background-color: #213143;">
   	<div class="row">
-	  	<div class="col-sm-9">
+	  	<div class="col-sm-9 top-text-form-panel">
 			<h2>Add Album</h2> 
 			<h4> 
 			 These songs will be distributed and available for download for free.
@@ -29,7 +29,7 @@ body{
   </div>
 	
 	  <div class="row">
-		<div class="col-md-7 cool-panel">
+		<div class="col-md-7 cool-panel main-form-panel" >
 		  <% if @album.errors.any? %>
 		    <div id="error_explanation">
 		      <h2><%= pluralize(@album.errors.count, "error") %> prohibited this album from being saved:</h2>
@@ -70,7 +70,7 @@ body{
 		      <br/>
 		    </div>
 		  </div>
-		  <div class="col-md-5 cool-panel">
+		  <div class="col-md-5 cool-panel side-form-panel">
 		  <br/>
 	      	<h3> Add Songs </h3>
 	    	<%= f.fields_for :songs do |builder| %>

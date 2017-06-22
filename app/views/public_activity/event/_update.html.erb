@@ -1,5 +1,5 @@
-
-  <div class="row activity event-activity-<%=activity.trackable.id%>">
+<div class="activity panel cool-panel ">
+  <div class="row ">
   <% if controller_name == "articles" && action_name == "show" ||  controller_name == "static_pages" && action_name == "national"||  controller_name == "bands" && action_name == "index" %>
 
     <div class="col-md-12">	
@@ -34,8 +34,9 @@
     </div>
     <div class="col-md-4">
       <%= link_to band_event_url(activity.trackable.band.id, activity.trackable.id) do %>
-        <img src="<%= activity.trackable.flyer.url %>" style= " object-fit:cover;" class="albumArt img-responsive" data-adaptive-background data-ab-parent='.event-activity-<%=activity.trackable.id%>' />
+        <img src="<%= activity.trackable.flyer.url %>" style= " object-fit:cover;" class="albumArt img-responsive" />
       <% end %>
     </div>
   <% end %>
   </div>
+</div>

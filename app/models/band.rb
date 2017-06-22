@@ -15,7 +15,8 @@ class Band < ActiveRecord::Base
                                    foreign_key: "followed_id",
                                    dependent:   :destroy  
   has_many :followers, through: :passive_relationships, source: :follower                                                              
-  validates_presence_of :group_name
+  validates_presence_of :group_name, :city, :state
+  validates_associated :members
   accepts_nested_attributes_for :events, allow_destroy: true
   accepts_nested_attributes_for :albums, allow_destroy: true
   accepts_nested_attributes_for :members, allow_destroy: true

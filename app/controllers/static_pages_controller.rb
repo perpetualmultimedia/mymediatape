@@ -41,5 +41,5 @@ class StaticPagesController < ApplicationController
 
   def sign_up_success
   end
-
+  
 end
