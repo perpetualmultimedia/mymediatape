@@ -4,7 +4,6 @@
     <div class="col-md-12">
       <div class="row">
         <div class="row activity">
-
           <div class="col-md-12">	
           	<div style="margin-left:auto; margin-right:auto; text-align: center;">
               <%= link_to article_url(activity.trackable.band.id, activity.trackable.id) do %>
@@ -32,12 +31,11 @@
 
     <div class="activity panel cool-panel album-activity-<%=activity.trackable.id%>">
         <div class="row">
-
           <div class="col-md-8"> 
-            
                 <h4><%= link_to article_url(activity.trackable.id) do %><strong><%= activity.trackable.band.group_name %></strong><% end %> has some  <strong>News</strong> <small class="pull-right"><%= time_ago_in_words activity.trackable.created_at %> ago</small></h4>
                 <hr>
                   <%= link_to article_url(activity.trackable.id) do %><p><%= activity.trackable.title %></p>
+                  <hr>
                   <p><%= strip_tags(activity.trackable.body.truncate(190)) %></p>
               <% end %>
             <p>
@@ -47,7 +45,7 @@
             <% if activity.trackable.article_photos.any? %>
               <% activity.trackable.article_photos.each_with_index do |photo, i| %>
                 <% if i == 0 %>
-                  <img class="article-feed-img albumArt" src="<%= photo.image.url %>" %>
+                  <img class="article-feed-img albumArt img-responsive" src="<%= photo.image.url %>" %>
                 <% end %>
               <% end %>
             <% else %>

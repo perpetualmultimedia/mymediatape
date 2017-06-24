@@ -213,6 +213,9 @@ small.pull-right{
       .band-img{
         border-radius:150px;
       }
+      .add-pad{
+      
+      }
     }
 
     /* Extra Small Devices, Phones */ 
@@ -708,6 +711,10 @@ ul.nav.navbar-nav{
 
     /* Custom, iPhone Retina */ 
     @media only screen and (min-width : 320px) {
+      .activities-row{
+        margin-top: 350px;
+        margin-left: 0px;
+      }
       .blurry-stock {
         overflow: hidden;
         position: absolute;
@@ -948,6 +955,9 @@ ul.nav.navbar-nav{
 
     /* Extra Small Devices, Phones */ 
     @media only screen and (min-width : 480px) {
+    .activities-row{
+      margin-top: 350px;
+    }
 		.logo-cont{
 			height:320px;
 		}
@@ -1013,12 +1023,24 @@ ul.nav.navbar-nav{
       margin-left:17%;
       overflow: hidden;
     }
-
+    .clear-art-lg{
+      position: absolute;
+      z-index: 1200;
+      width:260px;
+      height:180px;
+      top:0px;
+      margin-left:26%;
+      overflow: hidden;
+    }
     
     }
 
     /* Small Devices, Tablets */
     @media only screen and (min-width : 768px) {
+    .activities-row{
+      margin-top: -20px;
+      margin-left: -30px;
+    }
     .top-of-fold-content{
       width:98%;
     }
@@ -1033,6 +1055,15 @@ ul.nav.navbar-nav{
       height:170px;
       top:0px;
       margin-left:8%;
+      overflow: hidden;
+    }
+    .clear-art-lg{
+      position: absolute;
+      z-index: 1200;
+      width:240px;
+      height:160px;
+      top:10px;
+      margin-left:15%;
       overflow: hidden;
     }
 		#progressIn {
@@ -1088,6 +1119,15 @@ ul.nav.navbar-nav{
       margin-left:13%;
       overflow: hidden;
     }
+    .clear-art-lg{
+      position: absolute;
+      z-index: 1200;
+      width:250px;
+      height:170px;
+      top:0px;
+      margin-left:22%;
+      overflow: hidden;
+    }
         .toggle-logo-sm{
       display: none;
     }
@@ -1105,6 +1145,15 @@ ul.nav.navbar-nav{
       height:160px;
       top:0px;
       margin-left:1%;
+      overflow: hidden;
+    }
+    .clear-art-lg{
+      position: absolute;
+      z-index: 1200;
+      width:240px;
+      height:160px;
+      top:10px;
+      margin-left:29%;
       overflow: hidden;
     }
     .top-of-fold{

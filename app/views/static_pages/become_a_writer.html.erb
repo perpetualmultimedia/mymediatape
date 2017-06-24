@@ -11,10 +11,10 @@
 			<%= link_to "Write an article about an artist, album, or show", new_article_path, class: "btn btn-block btn-success" %>
 		</div>
 	</div>
-	<div class="row gutter-20 top-of-fold-row" style="padding-left:15px; padding-right: 15px; margin-top: 40px;">
+	<div class="row" style="padding-left:15px; padding-right: 15px; margin-top: 40px;">
 		<% @articles.each_with_index do |article, i| %>
 			<%= link_to article_path(article) do %>
-				<div class="col-lg-3 col-md-6 col-sm-6 cool-panel" style="padding-left:0px; padding-right:0px;">
+				<div class="col-lg-3 col-md-6 col-sm-6 cool-panel top-2" style="padding-left:0px; padding-right:0px;">
 					<div class="row top-of-fold-content">
 		              	<div class="blur-art-sm">
 		              		<% if article.article_photos.any? %>
@@ -51,4 +51,3 @@
 	        <% end %>
 		<% end %>
 	</div>
-</div>

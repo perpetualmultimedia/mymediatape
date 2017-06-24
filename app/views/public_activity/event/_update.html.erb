@@ -1,3 +1,4 @@
+<% if Event.find(activity.trackable.id).present? %>
 <div class="activity panel cool-panel ">
   <div class="row ">
   <% if controller_name == "articles" && action_name == "show" ||  controller_name == "static_pages" && action_name == "national"||  controller_name == "bands" && action_name == "index" %>
@@ -40,3 +41,4 @@
   <% end %>
   </div>
 </div>
+<% end %>

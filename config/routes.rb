@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   get 'static_pages/sign_up_success'
   get 'static_pages/become_a_writer'
+  get 'static_pages/everything'
 
   resources :bands do
     member { post :vote }
@@ -42,6 +43,6 @@ Rails.application.routes.draw do
   authenticated :user do
     root :to => "static_pages#home"
   end
-   root 'bands#index'
+   root 'static_pages#everything'
 
 end
