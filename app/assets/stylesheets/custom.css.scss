@@ -128,6 +128,18 @@ small.pull-right{
         background-color:#442933; 
         width:100%;
       }
+      .band-head-img{
+        position: relative;
+        float:left;
+        height:420px;
+        width:100%;
+      }
+      .band-head-deets{
+        position: absolute;
+        top:320px;
+        width:100%;
+        height:220px;
+      }
       .btn-success-block-head-sm{
         border-radius:0px; 
         margin-top: 0px; 
@@ -314,16 +326,17 @@ small.pull-right{
       .band-head-img{
         position: relative;
         float:left;
-        height:220px;
-        width:220px;
+        height:224px;
+        width:224px;
       }
       .band-head-deets{
         padding-left:15px;
         padding-right:15px;
         position: relative;
         float:right;
-        height:220px;
-        width: calc(100% - 235px);
+        top:0px;
+        height:224px;
+        width: calc(100% - 239px);
       }
       .btn-success-block-head{
         border-radius:0px; 
@@ -411,6 +424,7 @@ small.pull-right{
 
     /* Medium Devices, Desktops */
     @media only screen and (min-width : 992px) {
+
       .deets-cool-cont{
         padding-right:15px;
         margin-bottom: 15px;
@@ -440,6 +454,21 @@ small.pull-right{
 
     /* Large Devices, Wide Screens */
     @media only screen and (min-width : 1200px) {
+      .band-head-img{
+        position: relative;
+        float:left;
+        height:270px;
+        width:277px;
+      }
+      .band-head-deets{
+        padding-left:15px;
+        padding-right:15px;
+        position: relative;
+        float:right;
+        top:0px;
+        height:270px;
+        width: calc(100% - 292px);
+      }
       .container{
         max-width: 1200px;
       }
@@ -607,7 +636,6 @@ small.pull-right{
         margin-top:15px;
       }
       .artist-header{
-        overflow: hidden;
         position: relative;
         padding-top:97px;
         padding-bottom: 24px;

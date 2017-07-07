@@ -5,20 +5,18 @@
 small{
   font-size: 16px;
 }
-.artist-header{
 
-}
+
 </style>
-<div class="w">
 
   <div class="artist-header" >
-    <div class="row" style="margin-left: 0px;">
+    <div class="row" style="margin-left: 0px; margin-right: 0px;">
       <h1><span data.color> </span>
       <div class="band-head-img">
-        <img src="<%= @band.band_avatar.url %>" style= " object-fit:cover; height:220px; width:220px;" class=" img-responsive"  />
+        <img src="<%= @band.band_avatar.url %>" style= " object-fit:cover; height:100%; width:100%;" class="cool-panel img-responsive"  />
 
       </div>
-      <div class="band-head-deets" style="padding-top:40px; height:220px; background-color: #213143; color:#FFF; border-top: solid; border-top-color: #691D22; border-top-width: 40px; >
+      <div class="band-head-deets cool-panel" style="padding-top:50px; background-color: #213143; color:#FFF; border-top: solid; border-top-color: #691D22; border-top-width: 60px; ">
         <div class="h3-centered-sm"><h2>  <%= @band.group_name %>   </h2></div>
       </div>
     </div>
@@ -98,7 +96,7 @@ small{
             <div class="cool-panel " style="padding:20px; padding-top: 0px; border-top: solid; border-top-color: #5C7064; border-top-width: 20px;">
             <h3><strong>Top Songs</strong>
               <div style="padding:0px; position: absolute; top:0px; right:0px; height: 100px; width:100px;">
-              <% if current_user.id == @band.user_id %>
+              <% if user_signed_in? && current_user.id == @band.user_id %>
               <%= link_to new_band_album_path(@band), class: "btn btn-lg btn-success btn-success-block-head-sm" do %>
                   
                   <div class="back-form">
@@ -235,8 +233,7 @@ small{
       </div>
     </div>
   </div>
-</div>
-      <script>
+<script>
 jQuery(document).ready(function($) {
     $(".clickable-row").click(function() {
       var url = $(this).data('href');
