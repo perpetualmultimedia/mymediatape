@@ -2,13 +2,19 @@
 .cool-panel{
   padding:15px;
 }
+body{
+  margin-top:120px;
+}
+.btn-danger-block-head{
+
+}
 </style>
+
 <script type="text/javascript">
-  $(document).on('turbolinks:request-end', function() {
+   $(document).on('turbolinks:request-end', function() {
   if (tinyMCE) { tinyMCE.remove(); }
 });
 </script>
-<%= tinymce_assets %>
 <%= form_for(article) do |f| %>
   <% if article.errors.any? %>
     <div id="error_explanation">
@@ -21,12 +27,35 @@
       </ul>
     </div>
   <% end %>
-<div class="w" data-no-turbolink="false">
-  <div class="row" style="margin-top:50px;">
-    <div class="col-md-3 cool-panel">
+<div class="w" data-no-turbolink="true">
+  <div class="cool-panel top-form-panel" style="background-color: #213143; margin-bottom: 15px; padding: 20px; overflow: hidden;">
+      <div class="row">
+        <div class="col-sm-9 top-text-form-panel">
+        <h2>Write an article</h2> 
+        <h4> 
+         Help the community by submitting a write up involving your favorite local artist!
+          </h4>
+        </div>
+        <div class="col-sm-3" style="padding:0px;">
+          <%= link_to request.referer.present? ? request.referer : default_path, class: "btn btn-lg btn-danger btn-danger-block-head", style: "padding-top: 37px;" do %>
+            <div class="back-form">
+            <h2><i class="fa fa-close" aria-hidden="true"></i></h2>
+          </div>
+          <% end %>
+          <%= button_tag(type: 'submit', class: "btn btn-lg btn-success btn-success-block-head", style: "padding-top: 0px;") do %>
+          <div class="back-form">
+            <h2><i class="fa fa-check" aria-hidden="true"></i></h2>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="row" style="margin-top:15px;">
+    <div class="col-md-3 deets-cool-cont">
+      <div class="cool-panel">
       <div class="field">
         <%= f.label :title %>
-        <%= f.text_field :title, class: "form-control"%>
+        <%= f.text_field :title, class: "form-control", placeholder: "Something Catchy"%>
       </div>
       <div class="field">
         <%= f.label "Artist" %>
@@ -51,12 +80,7 @@
         </div>
         <br/>
         <% end %>
-        <hr>
-
-        <div class="actions">
-          <br/>
-          <%= link_to 'Cancel', root_path, class: "btn btn-lg btn-block btn-danger" %><%= f.submit 'Save', class: "btn btn-lg btn-block btn-success" %>
-        </div>
+      </div>
     </div>
     <div class="col-md-9 cool-panel">
       <div class="field article-editor">
@@ -75,12 +99,9 @@
 });
 </script>
 <script type="text/javascript">
-  $(document).on('turbolinks:request-end', function() {
-  if (tinyMCE) { tinyMCE.remove(); }
-});
-</script>
-<script type="text/javascript">
+  
   tinyMCE.init({
     selector: '#article_body'
   });
 </script>
+

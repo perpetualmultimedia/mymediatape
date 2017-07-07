@@ -24,6 +24,7 @@ class BandsController < ApplicationController
   # GET /bands/1.json
   def show
     @band = Band.find(params[:id])
+    @topsongs = @band.songs.with_reputation(:votes).reorder("votes DESC")
     @user = current_user
     @album = @band.albums
     @event = @band.events

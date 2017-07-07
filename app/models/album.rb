@@ -11,7 +11,7 @@ class Album < ActiveRecord::Base
   validates_attachment_content_type :album_art, content_type: /\Aimage\/.*\z/
   default_scope { order(released: :desc) }
   validates_presence_of :name, :released
-  validates_associated :songs
+  
   private
    def comment_rejectable?(att)
   att['body'].blank? 

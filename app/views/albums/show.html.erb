@@ -41,7 +41,8 @@
 <div class="  " style="" >
   <div class=" container-fluid">
     <div class="row">
-      <div class=" col-sm-6 col-md-4 cool-panel" style="margin-top:10px; padding:20px;">
+      <div class=" col-sm-6 col-md-4 deets-cool-cont" style="margin-top:10px;">
+      <div class="cool-panel" style="padding:20px;">
         <img src="<%= @album.album_art.url(:medium) %>" class="audio-art-img-page albumArt img-responsive" style= "width:100%; object-fit:cover;", class: " img-responsive album-bg-img" >
           <img src="<%= @album.album_art.url(:medium) %>" class="audio-art-img-page albumArt img-responsive" style= "width:100%; display: none;", class: " img-responsive album-bg-img"  >
           <div class="audio-player-vote-page" style="height: 93px;">
@@ -69,23 +70,54 @@
       </p>
       <% if user_signed_in? && @user = @album.band.user_id || user_signed_in? && @user.admin?  %><%= link_to "Edit Album", edit_band_album_url(@album.band.id, @album), class: "btn btn-lg btn-block btn-default" %>  <% end %>
     
-
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-8 cool-panel" style="margin-top:10px; padding:20px;">
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-8" style="margin-top:10px; ">
+      <div class="cool-panel" style="margin-bottom:15px; padding:20px;">
       <h3><%= @album.name %></h3>
       <br/>
       <table class="table table-hover table-borderless">
-        <% @album.songs.each do |album_song| %>
+        <% @album.songs.each_with_index do |album_song, i| %>
         
           <tr data-href="<%= band_album_song_url(album_song.album.band_id, album_song.album, album_song) %>" id="show-song" class="clickable-row song-list">
             <td style="padding-top:18px;"><%= album_song.track_number %></td>
             <td><strong><%= album_song.title %></strong><br/> <%= album_song.album.name %></td>
             <td style="padding-top:18px;"><%= album_song.album.released %></td>
+            <td style="padding-top:16px;"><span id="duration-<%= i %>" style="float: right;"></span></td>
           </tr>
+          <audio id="my-audio-<%= i %>" src="<%= album_song.audio_file.url %>"></audio>
+
+          <script>
+            $("#my-audio-<%= i %>").on("canplaythrough", function(e){
+                var seconds = e.currentTarget.duration;
+                var duration = moment.duration(seconds, "seconds");
+                
+                var time = "";
+                var hours = duration.hours();
+                if (hours > 0) { time = hours + ":" ; }
+                
+                time = time + duration.minutes() + ":" + duration.seconds();
+                $("#duration-<%= i %>").text(time);
+            });
+
+            $("#file").change(function(e){
+              var file = e.currentTarget.files[0];
+
+              var reader = new FileReader();
+              
+              reader.onLoad = function(encodedFile){
+                $("#my-audio").prop(src, encodedFile);
+              };
+              
+              reader.readAsDataURL(file);
+            });
+          </script>
         
         <% end %>
       </table>
       </p>
+      </div>
+      <div class="cool-panel" style="padding:20px;">
       <h3> Comments </h3>
       <%= render :partial => 'album_comments_fields' %>
       <% if @album.album_comments.present? %>
@@ -102,6 +134,7 @@
           <h4> No Comments </h4>
         </div>
       <% end %>
+      </div>
       </div>
     </div>
 

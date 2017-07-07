@@ -5,16 +5,20 @@ img{
 body{
 	margin-top: 90px;
 }
+
 </style>
 <div class="w">
 	<div class="row">
-	  <div class="col-md-8 article-container cool-panel">	
+	  <div class="col-md-8 " style="margin-right: -30px;">	
 		<% if user_signed_in? && current_user.admin == "true" || user_signed_in? && current_user.editor == "true" || user_signed_in? && @article.user.id == current_user.id || @article.public? %>
+			<div class="cool-panel top-form-panel" style=" background-color: #213143; margin:0px; margin-bottom: 15px; margin-top: 15px; ">
 			<h3><% if user_signed_in? && current_user.admin == "true" || user_signed_in? && current_user.editor == "true" || user_signed_in? && @article.user == current_user %><% if @article.public? %> <i class="fa fa-star" aria-hidden="true"></i> <% else %> <i class="fa fa-star-o" aria-hidden="true"></i> <% end %> <% end %>
+
 			  <%= @article.title %> <small class="pull-right"><%= @article.created_at.strftime("%B %d, %Y") %></small>
 			</h3>
-			<hr>
-			<div class="photos-container">
+			</div>
+			<div class="article-container cool-panel" style="padding: 15px; margin-bottom: 15px;">
+			<div class="photos-container" style="padding-bottom: 15px;">
 				<% if @article.article_photos.any? %>
 					<% if @article.article_photos.count == 1 %>
 						<% @article.article_photos.each do |photo| %>
@@ -78,7 +82,8 @@ body{
 			<% elsif current_user == @article.user && @article.public.blank? %>
 				<%= link_to 'Edit Article', edit_article_path(@article), class: "btn btn-lg btn-warning" %>
 			<% end %>
-			<hr>
+			</div>
+			<div class="cool-panel" style="padding: 15px;">
 			<h3> Comments </h3>
 			<%= render :partial => 'article_comments_fields' %>
 			<% if @article.article_comments.present? %>
@@ -93,23 +98,26 @@ body{
 					<h4> No Comments </h4>
 				</div>
 			<% end %>
+			</div>
 		  </div>
 		<% end %>
-	  <div class="col-md-4 cool-panel" style="padding:20px;">
+	  <div class="col-md-4">
 	  	
 	  	<% if @article.band_id.present? %>
-	  		<h3><%= link_to band_url(@band) do %>
+	  		<div class="cool-panel top-form-panel" style=" background-color: #213143; margin:17px; text-align: center;">
+	  			<h3><%= link_to band_url(@band) do %>
 			  <strong><%= @band.group_name %></strong>
 			  <% end %></h3>
-	  		<hr>
-			<h4>
-			  Recent Activities
-			</h4>
-			<hr>
-			<div class="article-activities" style="padding:10px;">
+	  			<hr>
+				<h4>
+			  		Recent Activities
+				</h4>
+			</div>
+			<div class="article-activities" style="padding-left:10px; padding-right:10px;">
 				<%= render_activities(@activities) %>
 			</div>
 		<% end %>
+
 	  </div>
 	</div>
 </div>

@@ -14,21 +14,30 @@ class SongsController < ApplicationController
 
   # GET /songs/new
   def new
+    @album = Album.find(params[:album_id])
+    @band = nil
+    @album.songs = @album.songs.sort_by &:track_number
     @song = Song.new
   end
 
   # GET /songs/1/edit
   def edit
+    @album = Album.find(params[:album_id])
+    @band = nil
+    @album.songs = @album.songs.sort_by &:track_number
+    @song.album_id = params[:album_id]
+    @song = Song.new
   end
 
   # POST /songs
   # POST /songs.json
   def create
     @song = Song.new(song_params)
-
+    @album = Album.find(params[:album_id])
+    @song.album_id = params[:album_id]
     respond_to do |format|
       if @song.save
-        format.html { redirect_to @song, notice: 'Song was successfully created.' }
+        format.html { redirect_to  new_album_song_path(@album, @song), notice: 'Song was successfully created.' }
         format.json { render :show, status: :created, location: @song }
       else
         format.html { render :new }
@@ -42,7 +51,7 @@ class SongsController < ApplicationController
   def update
     respond_to do |format|
       if @song.update(song_params)
-        format.html { redirect_to @song, notice: 'Song was successfully updated.' }
+        format.html { redirect_to edit_album_song_path(@album, @song), notice: 'Song was successfully updated.' }
         format.json { render :show, status: :ok, location: @song }
       else
         format.html { render :edit }
@@ -83,6 +92,6 @@ class SongsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def song_params
-      params.require(:song).permit(:title, :track_number, :description, :album_id)
+      params.require(:song).permit(:title, :track_number, :description, :album_id, :audio_file)
     end
 end

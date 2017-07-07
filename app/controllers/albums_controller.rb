@@ -16,12 +16,16 @@ class AlbumsController < ApplicationController
     @band = @album.band.id
     @album.songs = @album.songs.sort_by &:track_number
   end
-
+  def add_songs_to_album
+    set_album
+    @band = @album.band.id
+    @album.songs = @album.songs.sort_by &:track_number
+    @album.songs.build
+  end
   # GET /albums/new
   def new
     @band = Band.find(params[:band_id])
     @album = @band.albums.build
-    @album.songs.build
 
   end
 
@@ -37,7 +41,7 @@ class AlbumsController < ApplicationController
 
     respond_to do |format|
       if @album.save
-        format.html { redirect_to band_albums_path(@album.band.id), notice: 'Album was successfully created.' }
+        format.html { redirect_to new_band_album_song_path(@album.band.id, @album.id), notice: 'Album was successfully created.' }
         format.json { render :show, status: :created, location: @album }
       else
         format.html { render :new }

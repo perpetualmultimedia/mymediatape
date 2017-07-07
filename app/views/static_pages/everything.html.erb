@@ -19,7 +19,7 @@
               </div>
                 <div class="art-top">
                   <div class="clear-art-sm">
-                    <img src="<%= top_band.band_avatar.url(:medium) %>"  style= "object-fit:cover;" class= "clear-image band-img">
+                    <img src="<%= top_band.band_avatar.url(:medium) %>"  style= "object-fit:cover;" class= "clear-image ">
                   </div>
                 </div>
                 <div class="details-bottom">
@@ -40,8 +40,8 @@
           <% if i == 0 %>
             <%= link_to band_path(top_band)do %>
             <div class="row top-of-fold-content" >
-              <div class="blur-art-sm">
-                <img src="<%= top_band.band_avatar.url(:medium) %>"  style= "object-fit:cover;" class= "blurry-image-sm"  >
+              <div class="blur-art-lg">
+                <img src="<%= top_band.band_avatar.url(:medium) %>"  style= "object-fit:cover;" class= "blurry-image-lg"  >
               </div>
                 <div class="art-top">
                   <div class="clear-art-lg">
@@ -71,7 +71,7 @@
               </div>
                 <div class="art-top">
                   <div class="clear-art-sm">
-                    <img src="<%= top_band.band_avatar.url(:medium) %>"  style= "object-fit:cover;" class= "clear-image band-img">
+                    <img src="<%= top_band.band_avatar.url(:medium) %>"  style= "object-fit:cover;" class= "clear-image ">
                   </div>
                 </div>
                 <div class="details-bottom">
@@ -91,8 +91,8 @@
   </div>
     <div class="row activities-row">
     	<div class="col-md-8">
-    		<div class="cool-panel top-form-panel" style=" background-color: #213143; margin:17px; text-align: center;">
-				<h3><strong>NEWS</strong></h3>
+    		<div class="cool-panel top-form-panel" style=" background-color: #213143; margin:17px; text-align: center; ">
+				<h3><strong>Recent NEWS</strong></h3>
 			</div>
 	    	<% if @activities.present? %>
 				<div class="activities">
@@ -107,7 +107,7 @@
 	<% end %>
     </div>
     <div class="col-md-4">
-		<div class="cool-panel" style=" background-color: #FFF; margin-left:-15px; margin-right:-15px; margin-top:-12px;">
+		<div class="cool-panel" style=" background-color: #FFF; margin-left:-15px; margin-right:0px; margin-top:-12px;">
 			<div class="top-form-panel" style=" background-color: #5C7064; margin-top:30px; text-align: center; margin-left:0px; margin-right:0px;">
 
     			<h3><strong> Top Artists </strong></h3>
@@ -129,7 +129,7 @@
 	      		<% end %>
       		</div>
     	</div>
-    	<div class="cool-panel" style=" background-color: #FFF; margin-left:-15px; margin-right:-15px; margin-top:-12px;">
+    	<div class="cool-panel" style=" background-color: #FFF; margin-left:-15px; margin-right:0px; margin-top:-12px;">
 			<div class="top-form-panel" style=" background-color: #5C7064; margin-top:30px; text-align: center; margin-left:0px; margin-right:0px;">
 
     			<h3><strong> Top Albums </strong></h3>
@@ -155,7 +155,7 @@
 	      		<% end %>
       		</div>
     	</div>
-    	<div class="cool-panel" style=" background-color: #FFF; margin-left:-15px; margin-right:-15px; margin-top:-12px;">
+    	<div class="cool-panel" style=" background-color: #FFF; margin-left:-15px; margin-right:0px; margin-top:-12px;">
 			<div class="top-form-panel" style=" background-color: #5C7064; margin-top:30px; text-align: center; margin-left:0px; margin-right:0px;">
 
     			<h3><strong> Top Songs </strong></h3>

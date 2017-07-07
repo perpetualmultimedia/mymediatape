@@ -30,7 +30,11 @@ Rails.application.routes.draw do
     resources :members
   end
   post "/bands/:band_id/songs/:id(.:format)", :to=>"songs#set_song_id"
-  resources :albums, :only => [:update, :destroy]
+  resources :albums, :only => [:update, :destroy] do
+    resources :songs, :except => [:show] do
+      member { post :vote }
+    end
+  end
   resources :relationships,       only: [:create, :destroy]
   get 'users/index'
 

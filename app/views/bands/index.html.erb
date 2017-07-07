@@ -62,7 +62,7 @@ body{
           <div class="col-lg-3 col-lg-only add-pad-lg-only">
             <% @songs.with_reputation(:votes).order("votes DESC").each_with_index do |top_song, i| %>
               <% if i == 0 %>
-                <%= link_to band_album_song_path(top_song.album.band_id, top_song.album_id, top_song) do %>
+                <%= link_to band_album_song_path(top_song.album.band.id, top_song.album_id, top_song) do %>
                   <div class="row top-of-fold-content top-2" >
                     <div class="blur-art-sm">
                       <img src="<%= top_song.album.album_art.url(:medium) %>"  style= " object-fit:cover;" class= " blurry-image-sm"  >
@@ -171,7 +171,7 @@ body{
       <h3><strong> Songs </strong></h3>
       <hr>
       <% @songs.each_with_index do |top_song, i| %>
-        <a href="#" data-href="<%= band_album_song_path(top_song.album.band_id, top_song.album_id, top_song ) %>"  id ="song_path_<%= top_song.id %>" >
+        <a href="#" data-href="<%= band_album_song_path(top_song.album.band.id, top_song.album_id, top_song ) %>"  id ="song_path_<%= top_song.id %>" >
           <div class="row li-songs-charts">
             <div class="col-xs-1 col-md-2" style="padding-top:17px;">
               <p><%= (i+1) %>. </p>

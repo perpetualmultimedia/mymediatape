@@ -5,31 +5,31 @@ body{
 </style>
 <% if user_signed_in? && current_user.admin? or user_signed_in? &&  current_user.id == @album.band.user_id %>
 <%= form_for([@band, @album]) do |f| %>
-  <div class="cool-panel top-form-panel" style="background-color: #213143;">
-  	<div class="row">
-	  	<div class="col-sm-9 top-text-form-panel">
-			<h2>Add Album</h2> 
-			<h4> 
-			 These songs will be distributed and available for download for free.
-		  	</h4>
-	  	</div>
-	  	<div class="col-sm-3" style="padding:0px;">
-	  	  <%= link_to request.referer.present? ? request.referer : default_path, class: "btn btn-lg btn-danger btn-danger-block-head", style: " " do %>
-	  	  	<div class="back-form">
-		      <h2><i class="fa fa-close" aria-hidden="true"></i></h2>
-		    </div>
-	  	  <% end %>
-	  	  <%= button_tag(type: 'submit', class: "btn btn-lg btn-success btn-success-block-head") do %>
-		    <div class="back-form">
-		      <h2><i class="fa fa-check" aria-hidden="true"></i></h2>
-		    </div>
-		  <% end %>
+	<div class="cool-panel top-form-panel" style="background-color: #213143;">
+	  	<div class="row">
+		  	<div class="col-sm-9 top-text-form-panel">
+				<h2>Add Album</h2> 
+				<h4> 
+				 These songs will be distributed and available for download for free.
+			  	</h4>
+		  	</div>
+		  	<div class="col-sm-3" style="padding:0px;">
+		  	  <%= link_to request.referer.present? ? request.referer : default_path, class: "btn btn-lg btn-danger btn-danger-block-head", style: " " do %>
+		  	  	<div class="back-form">
+			      <h2><i class="fa fa-close" aria-hidden="true"></i></h2>
+			    </div>
+		  	  <% end %>
+		  	  <%= button_tag(type: 'submit', class: "btn btn-lg btn-success btn-success-block-head") do %>
+			    <div class="back-form">
+			      <h2><i class="fa fa-check" aria-hidden="true"></i></h2>
+			    </div>
+			  <% end %>
+			</div>
 		</div>
 	</div>
-  </div>
 	
-	  <div class="row">
-		<div class="col-md-7 cool-panel main-form-panel" >
+	<div class="row">
+		<div class="col-md-12 cool-panel main-form-panel" >
 		  <% if @album.errors.any? %>
 		    <div id="error_explanation">
 		      <h2><%= pluralize(@album.errors.count, "error") %> prohibited this album from being saved:</h2>
@@ -70,19 +70,7 @@ body{
 		      <br/>
 		    </div>
 		  </div>
-		  <div class="col-md-5 cool-panel side-form-panel">
-		  <br/>
-	      	<h3> Add Songs </h3>
-	    	<%= f.fields_for :songs do |builder| %>
-	      
-	        <%= render 'song_fields', :f => builder %>
 
-	    	<% end %>
-	    	<%= link_to_add_more_fields "Add more songs to this group", f, :songs %>
-	    	<div class="actions">
-	      	<br/>
-	      </div>
-	    </div>
 	<% end %>
 
 
@@ -100,3 +88,107 @@ body{
 	</div>
 </div>
 <% end %>
+<script>
+  var fileUploadErrors = {
+    maxFileSize: 'File is too big',
+    minFileSize: 'File is too small',
+    acceptFileTypes: 'Filetype not allowed',
+    maxNumberOfFiles: 'Max number of files exceeded',
+    uploadedBytes: 'Uploaded bytes exceed file size',
+    emptyResult: 'Empty file upload result'
+  };
+</script>
+
+<!-- The template to display files available for upload -->
+<script id="template-upload" type="text/x-tmpl">
+{% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-upload fade">
+        <td class="preview"><span class="fade"></span></td>
+        <td class="name"><span>{%=file.name%}</span></td>
+        <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+        {% if (file.error) { %}
+            <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
+        {% } else if (o.files.valid && !i) { %}
+            <td>
+                <div class="progress progress-success progress-striped active"><div class="bar" style="width:0%;"></div></div>
+            </td>
+            <td class="start">{% if (!o.options.autoUpload) { %}
+                <button class="btn btn-primary">
+                    <i class="icon-upload icon-white"></i>
+                    <span>{%=locale.fileupload.start%}</span>
+                </button>
+            {% } %}</td>
+        {% } else { %}
+            <td colspan="2"></td>
+        {% } %}
+        <td class="cancel">{% if (!i) { %}
+            <button class="btn btn-warning">
+                <i class="icon-ban-circle icon-white"></i>
+                <span>{%=locale.fileupload.cancel%}</span>
+            </button>
+        {% } %}</td>
+    </tr>
+{% } %}
+</script>
+<!-- The template to display files available for download -->
+<script id="template-download" type="text/x-tmpl">
+{% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-download fade">
+        {% if (file.error) { %}
+            <td></td>
+            <td class="name"><span>{%=file.name%}</span></td>
+            <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+            <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
+        {% } else { %}
+            <td class="preview">{% if (file.thumbnail_url) { %}
+                <a href="{%=file.url%}" title="{%=file.name%}" rel="gallery" download="{%=file.name%}"><img src="{%=file.thumbnail_url%}"></a>
+            {% } %}</td>
+            <td class="name">
+                <a href="{%=file.url%}" title="{%=file.name%}" rel="{%=file.thumbnail_url&&'gallery'%}" download="{%=file.name%}">{%=file.name%}</a>
+            </td>
+            <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+            <td colspan="2"></td>
+        {% } %}
+        <td class="delete">
+            <button class="btn btn-danger" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}">
+                <i class="icon-trash icon-white"></i>
+                <span>{%=locale.fileupload.destroy%}</span>
+            </button>
+            <input type="checkbox" name="delete" value="1">
+        </td>
+    </tr>
+{% } %}
+</script>
+
+
+
+<!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
+<%= javascript_include_tag 'jquery.ui.widget.js' %>
+<!-- The Templates and Load Image plugins are included for the FileUpload user interface -->
+<script src="https://blueimp.github.com/JavaScript-Templates/tmpl.min.js"></script>
+<script src="https://blueimp.github.com/JavaScript-Load-Image/load-image.all.min.js"></script>
+<!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
+
+<!-- add include_tag js files to config.assets.precompile in ...environments/production.rb if you have it in vendor/ assets -->
+
+<script type="text/javascript" charset="utf-8">
+    $(function () {
+        // Initialize the jQuery File Upload widget:
+        $('#fileupload').fileupload();
+        // 
+        // Load existing files:
+        $.getJSON($('#fileupload').prop('action'), function (files) {
+          var fu = $('#fileupload').data('blueimp-fileupload'), 
+            template;
+          fu._adjustMaxNumberOfFiles(-files.length);
+          template = fu._renderDownload(files)
+            .appendTo($('#fileupload .files'));
+          // Force reflow:
+          fu._reflow = fu._transition && template.length &&
+            template[0].offsetWidth;
+          template.addClass('in');
+          $('#loading').remove();
+        });
+
+    });
+</script>

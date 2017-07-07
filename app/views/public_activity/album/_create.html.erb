@@ -1,9 +1,9 @@
 
-  <div class=" activity panel cool-panel  ">
-  <div class="row">
+  <div class=" activity ">
+  <div class="">
     <% if controller_name == "articles" && action_name == "show" ||  controller_name == "static_pages" && action_name == "national"||  controller_name == "bands" && action_name == "index" %>
 
-    <div class="col-md-12">	
+    <div class="cool-panel" style="margin-right:10px; margin-left:10px; padding:15px;">	
         
         	<h4><%= link_to band_url(activity.trackable.band.id) do %><strong><%= activity.trackable.band.group_name %></strong><% end %> Released <strong><%= activity.trackable.name %></strong> <small class="pull-right"><%= time_ago_in_words activity.trackable.created_at %> ago</small></h4>
       	<hr>
@@ -16,14 +16,41 @@
       	<label> Songs </label>
     	<p>
     	<table class="table table-hover">
-    	<% activity.trackable.songs.each do |album_song| %>
+    	<% activity.trackable.songs.each_with_index do |album_song, i| %>
     		
 		    
 	      <tr data-href="<%= band_album_song_url(album_song.album.band_id, album_song.album, album_song) %>" id="show-song" class="clickable-row-<%= album_song.id %>">
 	        <td style="padding-top:18px;"><%= album_song.track_number %></td>
 	        <td><strong><%= album_song.title %></strong><br/> <%= album_song.album.name %></td>
-	        <td style="padding-top:18px;"><%= album_song.album.released %></td>
+	        <td style="padding-top:16px;"><span id="duration-<%= i %>" style="float: right;"></span></td>
 	      </tr>
+        <audio id="my-audio-<%= i %>" src="<%= album_song.audio_file.url %>"></audio>
+
+        <script>
+          $("#my-audio-<%= i %>").on("canplaythrough", function(e){
+              var seconds = e.currentTarget.duration;
+              var duration = moment.duration(seconds, "seconds");
+              
+              var time = "";
+              var hours = duration.hours();
+              if (hours > 0) { time = hours + ":" ; }
+              
+              time = time + duration.minutes() + ":" + duration.seconds();
+              $("#duration-<%= i %>").text(time);
+          });
+
+          $("#file").change(function(e){
+            var file = e.currentTarget.files[0];
+
+            var reader = new FileReader();
+            
+            reader.onLoad = function(encodedFile){
+              $("#my-audio").prop(src, encodedFile);
+            };
+            
+            reader.readAsDataURL(file);
+          });
+        </script>
 	      <script>
 			jQuery(document).ready(function($) {
 			    $(".clickable-row-<%= album_song.id %>").click(function() {
@@ -46,12 +73,39 @@
       	<label> Songs </label>
     	<p>
     	<table class="table table-hover">
-    	<% activity.trackable.songs.each do |album_song| %>
+    	<% activity.trackable.songs.each_with_index do |album_song, i| %>
     		<tr data-href="<%= band_album_song_url(album_song.album.band_id, album_song.album, album_song) %>" id="show-song" class="clickable-row-<%= album_song.id %>">
 	        <td style="padding-top:18px;"><%= album_song.track_number %></td>
 	        <td><strong><%= album_song.title %></strong><br/> <%= album_song.album.name %></td>
-	        <td style="padding-top:18px;"><%= album_song.album.released %></td>
+	        <td style="padding-top:16px;"><span id="duration-<%= i %>" style="float: right;"></span></td>
 	      </tr>
+        <audio id="my-audio-<%= i+1 %>" src="<%= album_song.audio_file.url %>"></audio>
+
+        <script>
+          $("#my-audio-<%= i+1 %>").on("canplaythrough", function(e){
+              var seconds = e.currentTarget.duration;
+              var duration = moment.duration(seconds, "seconds");
+              
+              var time = "";
+              var hours = duration.hours();
+              if (hours > 0) { time = hours + ":" ; }
+              
+              time = time + duration.minutes() + ":" + duration.seconds();
+              $("#duration-<%= i %>").text(time);
+          });
+
+          $("#file").change(function(e){
+            var file = e.currentTarget.files[0];
+
+            var reader = new FileReader();
+            
+            reader.onLoad = function(encodedFile){
+              $("#my-audio").prop(src, encodedFile);
+            };
+            
+            reader.readAsDataURL(file);
+          });
+        </script>
 	      <script>
 			jQuery(document).ready(function($) {
 			    $(".clickable-row-<%= album_song.id %>").click(function() {

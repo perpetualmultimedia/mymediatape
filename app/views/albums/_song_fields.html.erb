@@ -11,9 +11,18 @@
     <%= f.label :description %><br>
     <%= f.text_field :description, class: "form-control"  %>
   </div>
-  <div class="field">
+
+  <div class="field" id="fileupload">
     <%= f.label :audio_file %>
-    <%= f.file_field :audio_file, class: "form-control"  %>
+        <p class="size" data-dz-size></p>
+        <div class="progress progress-success progress-striped active fade">
+          <div class="bar" style="width:0%;"></div>
+        </div>
+    <%= f.file_field :audio_file, class: "form-control dropzone", id: "fileupload"  %>
+          <button class="btn btn-primary start">
+          <i class="glyphicon glyphicon-upload"></i>
+          <span>Start</span>
+      </button>
   </div>
   <div class=" checkbox">
     <label>

@@ -1,0 +1,26 @@
+<h3><%= @album.name %></h3>
+<br/>
+<table class="table table-hover table-borderless">
+  <% @album.songs.each do |album_song| %>
+  
+    <tr data-href="<%= band_album_song_url(album_song.album.band_id, album_song.album, album_song) %>" id="show-song" class="clickable-row song-list">
+      <td style="padding-top:18px;"><%= album_song.track_number %></td>
+      <td><strong><%= album_song.title %></strong><br/> <%= album_song.album.name %></td>
+      <td style="padding-top:18px;"><%= album_song.album.released %></td>
+    </tr>
+  
+  <% end %>
+</table>
+      <div class="col-md-5 cool-panel side-form-panel">
+      <br/>
+          <h3> Add Songs </h3>
+        <%= f.fields_for :songs do |builder| %>
+        
+          <%= render 'song_fields', :f => builder %>
+
+        <% end %>
+        <%= link_to_add_more_fields "Add more songs to this group", f, :songs %>
+        <div class="actions">
+          <br/>
+        </div>
+      </div>

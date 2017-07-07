@@ -1,11 +1,156 @@
+<style>
+body{
+	margin-top: 120px;
+}
+
+</style>
 <% if user_signed_in? %>
+	<div class="cool-panel top-form-panel" style="background-color: #213143; margin-bottom: 15px;">
+	  	<div class="row">
+		  	<div class="col-sm-9 top-text-form-panel">
+				<h2>Add Songs To Album</h2> 
+				<h4> 
+				 These songs will be distributed and available for download for free.
+			  	</h4>
+		  	</div>
+		  	<div class="col-sm-3" style="padding:0px;">
+		  	  <%= link_to request.referer.present? ? request.referer : default_path, class: "btn btn-lg btn-danger btn-danger-block-head", style: " " do %>
+		  	  	<div class="back-form">
+			      <h2><i class="fa fa-chevron-left" aria-hidden="true"></i></h2>
+			    </div>
+		  	  <% end %>
+		  	  <%= link_to band_album_path(@album.band, @album), class: "btn btn-lg btn-success btn-success-block-head", style: "padding-top: 40px;" do %>
+			    <div class="back-form">
+			      <h2><i class="fa fa-floppy-o" aria-hidden="true"></i></h2>
+			    </div>
+			  <% end %>
+			</div>
+		</div>
+	</div>
+<div class="row">
+	<div class="song-upload-img">
+		<img src="<%= @album.album_art.url(:medium) %>" class=" img-responsive cool-panel" style= "height:220px; width:100%; object-fit:cover;", class: " img-responsive album-bg-img" >
+	</div>
+	<div class="song-upload-deets cool-panel" style= "height:220px;">
 
-  <div class="row">
-    <div class="col-md-8 article-container cool-panel">
+		<h2><%= @album.name %></h2>
+		<h3><%= @album.band.group_name %></h3>
+		<p><%= @album.description %></p>
+		<br/>
+		<div style="padding:0px; position: absolute; top:0px; right:0px; height: 100px; width:100px;">
+	  	  
+	  	  <%= link_to edit_band_album_path(@album.band.id, @album), class: "btn btn-lg btn-info btn-info-block-head-sm" do %>
+		    <div class="back-form">
+		      <h2><i class="fa fa-gear" aria-hidden="true"></i></h2>
+		    </div>
+		  <% end %>
+		</div>
+	</div>
+</div>
+<div class="row" style="margin-top:15px; ">
+	<div class="col-sm-6  main-form-panel " style="padding:0px; padding-right: 15px; margin-bottom: 15px;">
+		<div class=" cool-panel" style="padding:20px; ">
+		<% if @album.songs.any? %>
+			<h3> Songs </h3>
+				<table class="table table-hover table-borderless">
+				  	<% @album.songs.each_with_index do |album_song, i| %>
+				  
+					    <tr class="clickable-row song-list cool-panel" >
+					      	<td style="padding-top:18px;"><%= album_song.track_number %></td>
+					      	<td><strong><%= album_song.title %></strong><br/> <%= album_song.album.name %></td>
+					      	<td style="padding-top:18px;"><%= album_song.album.released %></td>
+					      	<td style="padding-top:18px;"><span id="duration-<%= i %>"></span></td>
+					    </tr>
+					    
+				  		<audio id="my-audio-<%= i %>" src="<%= album_song.audio_file.url %>"></audio>
 
-<%= render 'form' %>
+						<script>
+							$("#my-audio-<%= i %>").on("canplaythrough", function(e){
+							    var seconds = e.currentTarget.duration;
+							    var duration = moment.duration(seconds, "seconds");
+							    
+							    var time = "";
+							    var hours = duration.hours();
+							    if (hours > 0) { time = hours + ":" ; }
+							    
+							    time = time + duration.minutes() + ":" + duration.seconds();
+							    $("#duration-<%= i %>").text(time);
+							});
 
-<%= link_to 'Back', songs_path %>
+							$("#file").change(function(e){
+							  var file = e.currentTarget.files[0];
+
+							  var reader = new FileReader();
+							  
+							  reader.onLoad = function(encodedFile){
+							    $("#my-audio").prop(src, encodedFile);
+							  };
+							  
+							  reader.readAsDataURL(file);
+							});
+						</script>
+				  	<% end %>
+				</table>
+		<% else %>
+			<h3> Songs will show up here </h3>
+		<% end %>
+		</div>
+	</div>
+    <div class="col-sm-6  cool-panel side-form-panel">
+    <div style="padding:0px; position: absolute; top:0px; right:0px; height: 100px; width:100px;">
+    <button class="btn btn-lg btn-success btn-success-block-head-sm">
+      	
+      	<div class="back-form">
+      		<h2><i class="fa fa-cloud-upload" aria-hidden="true"></i></h2>
+    	</div>
+    </button>
+    </div>
+      <br/>
+          <h3> Add Song </h3>
+        	<%= form_for([ @album, @song]) do |f| %>
+			  	<% if @song.errors.any? %>
+				    <div id="error_explanation">
+					     <h2><%= pluralize(@song.errors.count, "error") %> prohibited this song from being saved:</h2>
+
+					     <ul>
+					       <% @song.errors.full_messages.each do |message| %>
+					        	<li><%= message %></li>
+					        <% end %>
+					    </ul>
+
+				    </div>
+			 	<% end %>
+
+	            <div class="field">
+			    	<%= f.label :title %><br>
+			    	<%= f.text_field :title, class: "form-control"  %>
+			  	</div>
+			  	<div class="field">
+			    	<%= f.label :track_number %><br>
+			    	<%= f.number_field :track_number, class: "form-control"  %>
+			  	</div>
+			  	<div class="field">
+			    	<%= f.label :description %><br>
+			    	<%= f.text_field :description, class: "form-control"  %>
+			  	</div>
+
+			  	<div class="field" id="fileupload">
+			    	<%= f.label :audio_file %>
+			    	<%= f.file_field :audio_file, class: "form-control dropzone" %>
+			    	<div class="dz-message needsclick">
+					    Drop files or click above to upload.<br>
+					    <span class="note help-block">.mp3 Files only. <a href="#">Click here to find out why.</a></span>
+					</div>
+			    </div>
+			<% end %>
+        <div class="actions">
+          <br/>
+        </div>
+    </div>
+
+</div>
+
+
 <% else %>
 <div class="col-xs-6 col-xs-offset-3 error-message">
 	<div class="error-message-inner">

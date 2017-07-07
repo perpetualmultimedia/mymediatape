@@ -1,21 +1,90 @@
-<% if user_signed_in? && current_user.admin? || user_signed_in? && current_user.id == @song.album.band.user_id %>
-	<h1>Editing Song</h1>
+<style>
+body{
+	margin-top: 120px;
+}
+</style>
+<% if user_signed_in? %>
+<div class="row">
+	<div class="col-sm-3">
+		<img src="<%= @album.album_art.url(:medium) %>" class="audio-art-img-page albumArt img-responsive cool-panel" style= "width:100%; object-fit:cover;", class: " img-responsive album-bg-img" >
+	</div>
+	<div class="col-sm-9">
 
-	<%= render 'form' %>
+		<h2><%= @album.name %></h2>
+		<h3><%= @album.band.group_name %></h3>
+		<p><%= @album.description %></p>
+		<br/>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-6 pull-left">
+		<table class="table table-hover table-borderless">
+		  	<% @album.songs.each do |album_song| %>
+		  
+			    <tr data-href="<%= band_album_song_url(album_song.album.band_id, album_song.album, album_song) %>" id="show-song" class="clickable-row song-list">
+			      	<td style="padding-top:18px;"><%= album_song.track_number %></td>
+			      	<td><strong><%= album_song.title %></strong><br/> <%= album_song.album.name %></td>
+			      	<td style="padding-top:18px;"><%= album_song.album.released %></td>
+			    </tr>
+		  
+		  	<% end %>
+		</table>
+	</div>
+    <div class="col-md-5 pull-right cool-panel side-form-panel">
+      <br/>
+          <h3> Add Songs </h3>
+        	<%= form_for([ @album, @song]) do |f| %>
+			  	<% if @song.errors.any? %>
+				    <div id="error_explanation">
+					     <h2><%= pluralize(@song.errors.count, "error") %> prohibited this song from being saved:</h2>
 
-	<%= link_to 'Show', @song %> |
-	<%= link_to 'Back', songs_path %>
+					     <ul>
+					       <% @song.errors.full_messages.each do |message| %>
+					        	<li><%= message %></li>
+					        <% end %>
+					    </ul>
+
+				    </div>
+			 	<% end %>
+	            <div class="field">
+			    	<%= f.label :title %><br>
+			    	<%= f.text_field :title, class: "form-control"  %>
+			  	</div>
+			  	<div class="field">
+			    	<%= f.label :track_number %><br>
+			    	<%= f.number_field :track_number, class: "form-control"  %>
+			  	</div>
+			  	<div class="field">
+			    	<%= f.label :description %><br>
+			    	<%= f.text_field :description, class: "form-control"  %>
+			  	</div>
+
+			  	<div class="field" id="fileupload">
+			    	<%= f.label :audio_file %>
+			    	<%= f.file_field :audio_file, class: "form-control dropzone" %>
+			         <button class="btn btn-primary start">
+			          	<i class="glyphicon glyphicon-upload"></i>
+			          	<span>Start</span>
+			        </button>
+			    </div>
+			<% end %>
+        <div class="actions">
+          <br/>
+        </div>
+    </div>
+
+</div>
+
+
 <% else %>
 <div class="col-xs-6 col-xs-offset-3 error-message">
 	<div class="error-message-inner">
-		<h3> You Don't Have Access To This Page.</h3>
-		<% unless user_signed_in? %>
+		<h3> To Continue You Must Have An Account. </h3>
 		<br/>
-			<div class="btn-group btn-group-justified  vote pull-right" role="group" aria-label="...">
-			<%= link_to "Sign Up", new_user_registration_path, class: "btn btn-lg btn-default" %> 
-			<%= link_to "Sign In", :user_session, class: "btn btn-lg btn-default" %>
-			</div>
-		<% end %>
+		<div class="btn-group btn-group-justified  vote pull-right" role="group" aria-label="...">
+		<%= link_to "Sign Up", new_user_registration_path, class: "btn btn-lg btn-default" %> 
+		<%= link_to "Sign In", :user_session, class: "btn btn-lg btn-default" %>
+		</div>
 	</div>
 </div>
 <% end %>

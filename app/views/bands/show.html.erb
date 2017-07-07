@@ -10,33 +10,32 @@ small{
 }
 </style>
 <div class="w">
-  <div class="blurry-stock ">
-    <img src="<%= @band.band_avatar.url %>" class="blurry-image" style="object-fit: cover; filter: blur(10px) opacity(0.5); height:100%;  background-color: #888;"/>
-  </div>
+
   <div class="artist-header" >
-    <div class="row">
+    <div class="row" style="margin-left: 0px;">
       <h1><span data.color> </span>
-      <div class="col-sm-4 col-md-2 col-lg-2">
-        <img src="<%= @band.band_avatar.url %>" style= " object-fit:cover;" class="artist-bg-img img-responsive"  />
+      <div class="band-head-img">
+        <img src="<%= @band.band_avatar.url %>" style= " object-fit:cover; height:220px; width:220px;" class=" img-responsive"  />
 
       </div>
-      <div class="col-sm-6 col-md-10 col-lg-10" style="padding-top:30px;">
+      <div class="band-head-deets" style="padding-top:40px; height:220px; background-color: #213143; color:#FFF; border-top: solid; border-top-color: #691D22; border-top-width: 40px; >
         <div class="h3-centered-sm"><h2>  <%= @band.group_name %>   </h2></div>
       </div>
     </div>
   </div>
-  <div class="artist-deets" >
+  <div class="artist-deets" style="margin-top: -10px;" >
     <div class=" container">
       <div class="row">
-        <div class="col-md-3 cool-panel" style="padding:20px;">
-               <div class="audio-player-vote-page" style="height: 93px; margin-top:-0px;">
+        <div class="col-md-3 deets-cool-cont" >
+          <div class="cool-panel deets-cool" style="padding:20px; padding-top: 0px; border-top: solid; border-top-color: #442933; border-top-width: 20px;">
+          <div class="audio-player-vote-page" style="height: 93px; margin-top:-0px; ">
                 <h3><%= pluralize @band.reputation_for(:votes).to_i, "vote" %></h3>
             <% if user_signed_in? %>
             <div class="btn-group btn-group-justified  vote pull-right" role="group" aria-label="...">
               <%= link_to vote_band_path(@band, type: "up"), method: "post", class: "btn btn-lg btn-success", remote: true, id: "vote-pjax-up" do %><i class="fa fa-chevron-up" aria-hidden="true"></i><% end %>
                <%= link_to vote_band_path(@band, type: "down"), method: "post", class: "btn btn-lg btn-danger",  remote: true, id: "vote-pjax-down" do %><i class="fa fa-chevron-down" aria-hidden="true"></i><% end %>
-               </div>
             </div>
+          </div>
         <div id="follow_form">
         <% if current_user.following?(@band) %>
           <%= render 'unfollow' %>
@@ -93,23 +92,65 @@ small{
           });
           </script>
         </div>
-
-        <div class="col-md-9 cool-panel artist-deets-right" style="padding:20px; ">
+        </div>
+        <div class="col-md-9 artist-deets-right" style="padding: 0px; ">
           <% if @band.albums.any? %>
-            <h3><strong>Top Songs</strong></h3>
+            <div class="cool-panel " style="padding:20px; padding-top: 0px; border-top: solid; border-top-color: #5C7064; border-top-width: 20px;">
+            <h3><strong>Top Songs</strong>
+              <div style="padding:0px; position: absolute; top:0px; right:0px; height: 100px; width:100px;">
+              <% if current_user.id == @band.user_id %>
+              <%= link_to new_band_album_path(@band), class: "btn btn-lg btn-success btn-success-block-head-sm" do %>
+                  
+                  <div class="back-form">
+                    <h2><i class="fa fa-plus" aria-hidden="true"></i></h2>
+                </div>
+              <% end %>
+              <% end %>
+              </div>
+            </h3>
             <br/>
               <table class="table table-hover" data-no-turbolink>
-              <% @band.songs.each do |album_song| %>
+              <% @topsongs.limit(5).each_with_index do |album_song, i| %>
               
                   <tr data-href="<%= band_album_song_url(album_song.album.band_id, album_song.album, album_song) %>" id="show-song" class="clickable-row">
-                  
+                  <td style="padding-top:18px;" ><span><%= i+1 %></span></td>
                   <td><strong><%= album_song.title %></strong><br/> <%= album_song.album.name %></td>
-                  <td style="padding-top:18px;" ><span class="pull-right"><%= album_song.album.released %></span></td>
+                  <td style="padding-top:18px;" ><span class="pull-right" style="float: right;"><%= album_song.album.released %></span></td>
+                  <td style="padding-top:16px;"><span id="duration-<%= i %>" style="float: right;"></span></td>
                 </tr>
+                <audio id="my-audio-<%= i %>" src="<%= album_song.audio_file.url %>"></audio>
+
+                <script>
+                  $("#my-audio-<%= i %>").on("canplaythrough", function(e){
+                      var seconds = e.currentTarget.duration;
+                      var duration = moment.duration(seconds, "seconds");
+                      
+                      var time = "";
+                      var hours = duration.hours();
+                      if (hours > 0) { time = hours + ":" ; }
+                      
+                      time = time + duration.minutes() + ":" + duration.seconds();
+                      $("#duration-<%= i %>").text(time);
+                  });
+
+                  $("#file").change(function(e){
+                    var file = e.currentTarget.files[0];
+
+                    var reader = new FileReader();
+                    
+                    reader.onLoad = function(encodedFile){
+                      $("#my-audio").prop(src, encodedFile);
+                    };
+                    
+                    reader.readAsDataURL(file);
+                  });
+                </script>
               <% end %>
             </table>
-            <hr>
-              <h3><strong>Albums</strong></h3>
+            </div>
+            <div class="cool-panel" style="padding:20px; margin-top: 15px; padding-top: 0px; border-top: solid; border-top-color: #5C7064; border-top-width: 20px;">
+              <h3><strong>Albums</strong>
+              </h3>
               <hr>
               <div class="row">
                 <% @band.albums.each do |album| %>
@@ -137,8 +178,9 @@ small{
               <h3 class="h3-centered" style="font-size: 30px;">This band haven't added any music.</h3>
             </div>
           <% end %>
-          <hr>
+          </div>
           <% unless @band.events.blank? %>
+          <div class="cool-panel" style="padding:20px; margin-top: 15px;">
             <h3><strong>Shows</strong></h3>
             <hr>
             <div class="row">
@@ -162,9 +204,10 @@ small{
                 <% end %>
               <% end %>
             </div>
-            <hr>
+            <div class="cool-panel" style="padding:20px; margin-top: 15px;">
           <% end %>
           <% if @articles.present? %>
+          <div class="cool-panel" style="padding:20px; margin-top: 15px;">
             <h3><strong>News</strong></h3>
             <hr>
             <div class="row">
@@ -176,7 +219,7 @@ small{
                         <div class="col-xs-12">
                           <h4><strong><%= article.title %></strong></h4>
                           <p>
-                            <%= article.body.truncate(190).html_safe %>
+                            <%= strip_tags(article.body.truncate(190)) %>
                           </p>
                         </div>
                       </div>
@@ -185,7 +228,7 @@ small{
                 <% end %>
               <% end %>
             </div>
-            <hr>
+            </div>
           <% end %>
           
         </div>

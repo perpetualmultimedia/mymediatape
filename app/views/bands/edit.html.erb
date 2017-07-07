@@ -6,7 +6,7 @@ body{
 <% if user_signed_in? && current_user.admin? || user_signed_in? && current_user.id == @band.user_id %>
 
 <%= form_for(@band) do |f| %>
-  <div class="cool-panel top-form-panel" style="background-color: #213143;">
+  <div class="cool-panel top-form-panel" style="background-color: #213143; margin-bottom: 15px;">
   	<div class="row">
 	  	<div class="col-sm-9 top-text-form-panel">
 			<h2>Editing Band</h2> 
@@ -33,7 +33,8 @@ body{
 	</div>
   </div>
   <div class="row">
-    <div class="col-md-8 article-container cool-panel main-form-panel">
+    <div class="col-md-8 deets-cool-cont">
+      <div class="cool-panel" style="padding:20px;">
       <% if @band.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(@band.errors.count, "error") %> prohibited this band from being saved:</h2>
@@ -47,8 +48,7 @@ body{
       <% end %>
 
       <div class="field">
-      <br/>
-      <h3> Group Members </h3>
+      <h3> Group Details </h3>
         <%= f.label :group_name %><br>
         <%= f.text_field :group_name, class: "form-control" %>
       </div>
@@ -76,6 +76,7 @@ body{
         <%= f.label :website %><br>
         <%= f.text_field :website, class: "form-control" %>
         <br/>
+      </div>
       </div>
     </div>
     <div class="col-md-4 article-container cool-panel side-form-panel">

@@ -34,7 +34,7 @@
             <p><%= album.description %></p>
             <p><%= album.band.group_name %> </p>
             | <%= link_to 'Show', band_album_url(@band, album) %> 
-            | <%= link_to 'Edit', edit_band_album_url(@band, album) %>
+            | <%= link_to 'Edit', new_album_song_path(album) %>
             | <%= link_to 'Destroy', album_path(album), method: :delete, data: { confirm: 'Are you sure?' } %>
           </div>
         </div>

@@ -1,9 +1,9 @@
 <% if Event.find(activity.trackable.id).present? %>
-<div class=" panel cool-panel event-activity-<%=activity.trackable.id%>">
+<div class="  event-activity-<%=activity.trackable.id%>">
   <div class="row activity">
   <% if controller_name == "articles" && action_name == "show" ||  controller_name == "static_pages" && action_name == "national"||  controller_name == "bands" && action_name == "index" %>
 
-    <div class="col-md-12">	
+    <div class="cool-panel">	
     	
         	<h4><%= link_to band_url(activity.trackable.band.id) do %><strong><%= activity.trackable.band.group_name %></strong><% end %> added a <strong>Show</strong> <small class="pull-right"><%= time_ago_in_words activity.trackable.created_at %> ago</small></h4>
           <hr>
