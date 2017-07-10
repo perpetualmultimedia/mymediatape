@@ -29,7 +29,8 @@
     </div>
   <% else %>
 
-    <div class="activity panel cool-panel album-activity-<%=activity.trackable.id%>" style="padding-top:20px; padding-bottom:20px;">
+    <div class="activity album-activity-<%=activity.trackable.id%>" >
+      <div class="cool-panel" style=" margin-left:-20px; margin-right:-20px; padding:20px;">
         <div class="row">
           <div class="col-md-8"> 
                 <h4><%= link_to article_url(activity.trackable.id) do %><strong><%= activity.trackable.band.group_name %></strong><% end %> has some  <strong>News</strong> <small class="pull-right"><%= time_ago_in_words activity.trackable.created_at %> ago</small></h4>
@@ -53,6 +54,7 @@
             <% end %>
           </div>
         </div>
+      </div>
     </div>
   <% end %>
 <% end %>

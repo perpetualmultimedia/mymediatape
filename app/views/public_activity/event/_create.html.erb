@@ -1,6 +1,4 @@
 <% if Event.find(activity.trackable.id).present? %>
-<div class="  event-activity-<%=activity.trackable.id%>">
-  <div class="row activity">
   <% if controller_name == "articles" && action_name == "show" ||  controller_name == "static_pages" && action_name == "national"||  controller_name == "bands" && action_name == "index" %>
 
     <div class="cool-panel">	
@@ -22,6 +20,9 @@
     </div>
 
   <% else %>
+  <div class="activity" >
+    <div class="cool-panel" style=" margin-left:-20px; margin-right:-20px; padding:20px;">
+      <div class=" row">
         <div class="col-md-8">  
       
           <h4><%= link_to band_url(activity.trackable.band.id) do %><strong><%= activity.trackable.band.group_name %></strong><% end %> added a <strong>Show</strong> <small class="pull-right"><%= time_ago_in_words activity.trackable.created_at %> ago</small></h4>
@@ -38,9 +39,10 @@
       <%= link_to band_event_url(activity.trackable.band.id, activity.trackable.id) do %>
 
         <img src="<%= activity.trackable.flyer.url %>" style= " object-fit:cover;" class="albumArt img-responsive"  />
+            </div>
+          </div>
+        </div>
+      </div>
       <% end %>
-    </div>
   <% end %>
-  </div>
-</div>
 <% end %>
