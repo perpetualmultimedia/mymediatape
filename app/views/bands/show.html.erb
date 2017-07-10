@@ -17,7 +17,29 @@ small{
 
       </div>
       <div class="band-head-deets cool-panel" style="padding-top:50px; background-color: #213143; color:#FFF; border-top: solid; border-top-color: #691D22; border-top-width: 60px; ">
-        <div class="h3-centered-sm"><h2>  <%= @band.group_name %>   </h2></div>
+        <div class="h3-centered-sm"><h2>  <%= @band.group_name %>   </h2>
+        </div>
+        <div class="band-votes" style="height: 60px; margin-top:-0px; ">
+          <socail><%= @band.reputation_for(:votes).to_i %></socail>
+            <% if user_signed_in? %>
+            <div class="btn-group btn-group-justified  vote pull-right" role="group" aria-label="...">
+              <%= link_to vote_band_path(@band, type: "up"), method: "post", class: "btn btn-lg btn-success", remote: true, id: "vote-pjax-up" do %><i class="fa fa-chevron-up" aria-hidden="true"></i><% end %>
+               <%= link_to vote_band_path(@band, type: "down"), method: "post", class: "btn btn-lg btn-danger",  remote: true, id: "vote-pjax-down" do %><i class="fa fa-chevron-down" aria-hidden="true"></i><% end %>
+            </div>
+          </div>
+          <div id="follow_form">
+            <% if current_user.following?(@band) %>
+              <%= render 'unfollow' %>
+            <% else %>
+              <%= render 'follow' %>
+            <% end %>
+          </div>
+          <% end %>
+          <% if user_signed_in? %>
+          <% else %>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
@@ -26,26 +48,8 @@ small{
       <div class="row">
         <div class="col-md-3 deets-cool-cont" >
           <div class="cool-panel deets-cool" style="padding:20px; padding-top: 0px; border-top: solid; border-top-color: #442933; border-top-width: 20px;">
-          <div class="audio-player-vote-page" style="height: 93px; margin-top:-0px; ">
-                <h3><%= pluralize @band.reputation_for(:votes).to_i, "vote" %></h3>
-            <% if user_signed_in? %>
-            <div class="btn-group btn-group-justified  vote pull-right" role="group" aria-label="...">
-              <%= link_to vote_band_path(@band, type: "up"), method: "post", class: "btn btn-lg btn-success", remote: true, id: "vote-pjax-up" do %><i class="fa fa-chevron-up" aria-hidden="true"></i><% end %>
-               <%= link_to vote_band_path(@band, type: "down"), method: "post", class: "btn btn-lg btn-danger",  remote: true, id: "vote-pjax-down" do %><i class="fa fa-chevron-down" aria-hidden="true"></i><% end %>
-            </div>
-          </div>
-        <div id="follow_form">
-        <% if current_user.following?(@band) %>
-          <%= render 'unfollow' %>
-        <% else %>
-          <%= render 'follow' %>
-        <% end %>
-        </div>
-      <% end %>
-      <% if user_signed_in? %>
-      <% else %>
-      </div>
-      <% end %>
+
+      
           <h3 > About </h3>
           <hr>
           <div class="about">

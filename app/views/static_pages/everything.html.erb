@@ -35,7 +35,7 @@
           <% end %>
         <% end %>
       </div>
-      <div class="col-lg-6 col-sm-6 col-md-6 add-pad top-2">
+      <div class="col-lg-6 col-sm-6 col-md-6 add-pad top-2" style="padding-left: 17px;">
       	        <% @topbands.with_reputation(:votes).order("votes DESC").each_with_index do |top_band, i| %>
           <% if i == 0 %>
             <%= link_to band_path(top_band)do %>
@@ -90,10 +90,10 @@
     </div>
   </div>
     <div class="row activities-row">
-    	<div class="col-md-8">
+    	<div class="col-md-8" style="padding-right: 0px;">
     		<div class="cool-panel top-form-panel" style=" background-color: #213143; margin:17px; text-align: center; ">
-				<h3><strong>Recent NEWS</strong></h3>
-			</div>
+				<h3><strong>Recent News</strong></h3>
+			 </div>
 	    	<% if @activities.present? %>
 				<div class="activities">
 					<%= render_activities(@activities) %>
@@ -130,7 +130,7 @@
       		</div>
     	</div>
     	<div class="cool-panel" style=" background-color: #FFF; margin-left:-15px; margin-right:0px; margin-top:-12px;">
-			<div class="top-form-panel" style=" background-color: #5C7064; margin-top:30px; text-align: center; margin-left:0px; margin-right:0px;">
+			<div class="top-form-panel" style=" background-color: #5C7064; margin-top:33px; text-align: center; margin-left:0px; margin-right:0px;">
 
     			<h3><strong> Top Albums </strong></h3>
     		</div>

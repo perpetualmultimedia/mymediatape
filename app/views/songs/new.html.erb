@@ -97,17 +97,17 @@ body{
 		</div>
 	</div>
     <div class="col-sm-6  cool-panel side-form-panel">
-    <div style="padding:0px; position: absolute; top:0px; right:0px; height: 100px; width:100px;">
-    <button class="btn btn-lg btn-success btn-success-block-head-sm">
-      	
-      	<div class="back-form">
-      		<h2><i class="fa fa-cloud-upload" aria-hidden="true"></i></h2>
-    	</div>
-    </button>
-    </div>
-      <br/>
+    <br/>
           <h3> Add Song </h3>
         	<%= form_for([ @album, @song]) do |f| %>
+        	<div style="padding:0px; position: absolute; top:0px; right:0px; height: 100px; width:100px;">
+        	    <button class="btn btn-lg btn-success btn-success-block-head-sm">
+			      	
+			      	<div class="back-form">
+			      		<h2><i class="fa fa-cloud-upload" aria-hidden="true"></i></h2>
+			    	</div>
+			    </button>
+			</div>
 			  	<% if @song.errors.any? %>
 				    <div id="error_explanation">
 					     <h2><%= pluralize(@song.errors.count, "error") %> prohibited this song from being saved:</h2>
