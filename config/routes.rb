@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   
 
+  resources :playlist_items
+  resources :playlists
   resources :article_photos
   resources :articles do 
     resources :article_comments

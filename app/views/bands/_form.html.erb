@@ -3,7 +3,7 @@
     <div class="col-md-8 article-container cool-panel">
       <% if @band.errors.any? %>
         <div id="error_explanation">
-          <h2><%= pluralize(@band.errors.count, "error") %> prohibited this band from being saved:</h2>
+          <h3><%= pluralize(@band.errors.count, "error") %> prohibited this artist from being saved:</h3>
 
           <ul>
           <% @band.errors.full_messages.each do |message| %>

@@ -8,14 +8,14 @@
 	}
 </style>
   <div class="top-of-fold">
-    <div class="row top-of-fold-row" style="padding-left:15px; padding-right: 15px;">
-      <div class="col-lg-3 col-sm-6 col-md-6 add-pad">
+    <div class="row top-of-fold-row" style="padding-left: 4px; padding-right: 4px; margin-left: auto;">
+      <div class="col-lg-6 col-xs-12 col-md-6">
         <% @topbands.with_reputation(:votes).order("votes DESC").each_with_index do |top_band, i| %>
           <% if i == 0 %>
             <%= link_to band_path(top_band)do %>
             <div class="row top-of-fold-content" >
               <div class="blur-art-sm">
-                <img src="<%= top_band.band_avatar.url(:medium) %>"  style= "object-fit:cover;" class= "blurry-image-sm"  >
+                <img src="<%= top_band.band_avatar.url(:medium) %>"  style= "object-fit:fill;" class= "blurry-image-sm"  >
               </div>
                 <div class="art-top">
                   <div class="clear-art-sm">
@@ -24,8 +24,12 @@
                 </div>
                 <div class="details-bottom">
                   <div class="album-details-sm">
-                    <h4 class="h3-centered"> Top Band: <%= top_band.group_name %> </h4>
+                    <h3> Top Artist: <%= top_band.group_name %> </h3>
+                    <p>
+                        <%= truncate( top_band.description, length: 290, separator: ' ') %>
+                      </p>
                     <div class="add-deets">
+               
                       joined <%= top_band.created_at.strftime("%b %d, %Y") %>
                     </div>
                   </div>
@@ -35,50 +39,29 @@
           <% end %>
         <% end %>
       </div>
-      <div class="col-lg-6 col-sm-6 col-md-6 add-pad top-2" style="padding-left: 17px;">
-      	        <% @topbands.with_reputation(:votes).order("votes DESC").each_with_index do |top_band, i| %>
+      
+      <div class="col-lg-6 col-xs-12 col-md-6">
+      	<% @albums.with_reputation(:votes).order("votes DESC").each_with_index do |album, i| %>
           <% if i == 0 %>
-            <%= link_to band_path(top_band)do %>
-            <div class="row top-of-fold-content" >
-              <div class="blur-art-lg">
-                <img src="<%= top_band.band_avatar.url(:medium) %>"  style= "object-fit:cover;" class= "blurry-image-lg"  >
-              </div>
-                <div class="art-top">
-                  <div class="clear-art-lg">
-                    <img src="<%= top_band.band_avatar.url(:medium) %>"  style= "object-fit:cover;" class= "clear-image ">
-                  </div>
-                </div>
-                <div class="details-bottom">
-                  <div class="album-details-sm">
-                    <h4 class="h3-centered"> Top Band: <%= top_band.group_name %> </h4>
-                    <div class="add-deets">
-                      joined <%= top_band.created_at.strftime("%b %d, %Y") %>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            <% end %>
-          <% end %>
-        <% end %>
-      </div>
-      <div class="col-lg-3 col-sm-6 col-md-6 add-pad top-2">
-      	<% @topbands.with_reputation(:votes).order("votes DESC").each_with_index do |top_band, i| %>
-          <% if i == 0 %>
-            <%= link_to band_path(top_band)do %>
+            <%= link_to band_album_path(album.band_id, album)do %>
             <div class="row top-of-fold-content" >
               <div class="blur-art-sm">
-                <img src="<%= top_band.band_avatar.url(:medium) %>"  style= "object-fit:cover;" class= "blurry-image-sm"  >
+                <img src="<%= album.album_art.url(:medium) %>"  style= "object-fit:fill;" class= "blurry-image-sm"  >
               </div>
                 <div class="art-top">
                   <div class="clear-art-sm">
-                    <img src="<%= top_band.band_avatar.url(:medium) %>"  style= "object-fit:cover;" class= "clear-image ">
+                    <img src="<%= album.album_art.url(:medium) %>"  style= "object-fit:cover;" class= "clear-image ">
                   </div>
                 </div>
                 <div class="details-bottom">
                   <div class="album-details-sm">
-                    <h4 class="h3-centered"> Top Band: <%= top_band.group_name %> </h4>
+                    <h3> Top Album: <%= album.name %> </h3>
+                    <p>
+                        <%= truncate( album.description, length: 290, separator: ' ') %>
+                      </p>
                     <div class="add-deets">
-                      joined <%= top_band.created_at.strftime("%b %d, %Y") %>
+                      
+                      released <%= album.created_at.strftime("%b %d, %Y") %>
                     </div>
                   </div>
                 </div>
@@ -90,10 +73,11 @@
     </div>
   </div>
     <div class="row activities-row">
-    	<div class="col-md-8" style="padding-right: 0px;">
-    		<div class="cool-panel top-form-panel" style=" background-color: #213143; margin:17px; text-align: center; ">
+    	<div class="col-md-8 " style="padding-right: 0px;">
+
+    		<div class="cool-panel blue-grad" style=" background-color: #213143; text-align: center; ">
 				<h3><strong>Recent News</strong></h3>
-			 </div>
+			 
 	    	<% if @activities.present? %>
 				<div class="activities">
 					<%= render_activities(@activities) %>
@@ -103,16 +87,17 @@
 				<h4>No Activities</h4>
 				<h4><%= link_to "Find Some Artists To Like", bands_path %></h4>
 			</div>
+      <% end %>
+      </div>
 		</div>
-	<% end %>
-    </div>
+	
     <div class="col-md-4">
-		<div class="cool-panel" style=" background-color: #FFF; margin-left:-15px; margin-right:0px; margin-top:-12px;">
-			<div class="top-form-panel" style=" background-color: #5C7064; margin-top:30px; text-align: center; margin-left:0px; margin-right:0px;">
+		<div class="cool-panel sidebar" style="">
+			<div class="top-form-panel red-grad" style="padding-top: 30px; text-align: center; margin-left:0px; margin-right:0px;">
 
     			<h3><strong> Top Artists </strong></h3>
     		</div>
-      		<div class="" style="padding:20px; margin-top:35px; ">
+      		<div class="sidebar-deets">
 		      	<% @topbands.each_with_index do |top_band, i| %>
 		        <p>
 			        <%= link_to top_band do %>
@@ -129,12 +114,12 @@
 	      		<% end %>
       		</div>
     	</div>
-    	<div class="cool-panel" style=" background-color: #FFF; margin-left:-15px; margin-right:0px; margin-top:-12px;">
-			<div class="top-form-panel" style=" background-color: #5C7064; margin-top:33px; text-align: center; margin-left:0px; margin-right:0px;">
+    	<div class="cool-panel sidebar" style="">
+			<div class="top-form-panel red-grad" style="padding-top: 30px; text-align: center; margin-left:0px; margin-right:0px;">
 
     			<h3><strong> Top Albums </strong></h3>
     		</div>
-      		<div class="" style="padding:20px; margin-top:35px; ">
+      		<div class="sidebar-deets">
 		      	<% @albums.each_with_index do |top_album, i| %>
 			        <%= link_to top_album do %>
 			        	<div class="row">
@@ -155,8 +140,8 @@
 	      		<% end %>
       		</div>
     	</div>
-    	<div class="cool-panel" style=" background-color: #FFF; margin-left:-15px; margin-right:0px; margin-top:-12px;">
-			<div class="top-form-panel" style=" background-color: #5C7064; margin-top:30px; text-align: center; margin-left:0px; margin-right:0px;">
+    	<div class="cool-panel sidebar">
+			<div class="top-form-panel red-grad" style="padding-top: 30px; text-align: center; margin-left:0px; margin-right:0px;">
 
     			<h3><strong> Top Songs </strong></h3>
     		</div>

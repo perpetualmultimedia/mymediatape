@@ -195,11 +195,14 @@ $(document).ready(function(){
   						<hr>
   						<% if current_user.bands.any? %>
   							<% current_user.bands.each do |band|%>
-  								<li role="presentation">
-  									<%= link_to edit_band_path(band) do %>
-  										<%= band.group_name %>
-  									<% end %>
-  								</li>
+                  <% if band.id.present? %>
+    								<li role="presentation">
+
+    									<%= link_to edit_band_path(band.id) do %>
+    										<%= band.group_name %>
+    									<% end %>
+    								</li>
+                  <% end %>
   							<% end %>
   						<% end %>
   	                </ul>

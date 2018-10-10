@@ -19,6 +19,6 @@ class Band < ActiveRecord::Base
   validates_associated :members
   accepts_nested_attributes_for :events, allow_destroy: true
   accepts_nested_attributes_for :albums, allow_destroy: true
-  accepts_nested_attributes_for :members, allow_destroy: true
+  accepts_nested_attributes_for :members, allow_destroy: true, reject_if: :all_blank
 
 end

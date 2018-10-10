@@ -16,11 +16,11 @@ small{
         <img src="<%= @band.band_avatar.url %>" style= " object-fit:cover; height:100%; width:100%;" class="cool-panel img-responsive"  />
 
       </div>
-      <div class="band-head-deets cool-panel" style="padding-top:50px; background-color: #213143; color:#FFF; border-top: solid; border-top-color: #691D22; border-top-width: 60px; ">
+      <div class="band-head-deets cool-panel" style="padding-top:20px; background-color: #213143; color:#FFF; border-top: solid; border-top-color: transparent; border-top-width: 60px; ">
         <div class="h3-centered-sm"><h2>  <%= @band.group_name %>   </h2>
         </div>
+        <socail><%= @band.reputation_for(:votes).to_i %></socail>
         <div class="band-votes" style="height: 60px; margin-top:-0px; ">
-          <socail><%= @band.reputation_for(:votes).to_i %></socail>
             <% if user_signed_in? %>
             <div class="btn-group btn-group-justified  vote pull-right" role="group" aria-label="...">
               <%= link_to vote_band_path(@band, type: "up"), method: "post", class: "btn btn-lg btn-success", remote: true, id: "vote-pjax-up" do %><i class="fa fa-chevron-up" aria-hidden="true"></i><% end %>
@@ -28,7 +28,7 @@ small{
             </div>
           </div>
           <div id="follow_form">
-            <% if current_user.following?(@band) %>
+            <% if user_signed_in? && current_user.following?(@band) %>
               <%= render 'unfollow' %>
             <% else %>
               <%= render 'follow' %>
@@ -166,7 +166,7 @@ small{
                   <% end %>
                 <% end %>
               </div>
-          <% elsif @band.user_id == current_user.id %>
+          <% elsif if user_signed_in? && @band.user_id == current_user.id %>
             <div class="row">
               <h1 class="h3-centered" style="font-size: 70px;"> <i class="fa fa-music" aria-hidden="true"></i> </h1>
               <h3 class="h3-centered" style="font-size: 30px;">You haven't added any music.</h3>
@@ -177,7 +177,7 @@ small{
           <% else %>
             <div class="row">
               <h1 class="h3-centered" style="font-size: 70px;"> <i class="fa fa-music" aria-hidden="true"></i> </h1>
-              <h3 class="h3-centered" style="font-size: 30px;">This band haven't added any music.</h3>
+              <h3 class="h3-centered" style="font-size: 30px;">This artist hasn't added any music.</h3>
             </div>
           <% end %>
           </div>
@@ -232,7 +232,7 @@ small{
             </div>
             </div>
           <% end %>
-          
+          <% end %>
         </div>
       </div>
     </div>

@@ -1,0 +1,30 @@
+<%= form_for [@playlist], :remote => true do |f| %>
+
+  <div class="field">
+    <%= f.hidden_field :song_id, value: "#{album_song.id}" %>
+  </div>
+
+  <div class="field">
+    <%= f.hidden_field :title, value: "#{album_song.title}" %>
+  </div>
+
+  <div class="field">
+    <% if @imgs.present? %>
+      <%= f.hidden_field :image, value: "#{@imgs.first}" %>
+    <% else %>
+      <%= f.hidden_field :image, value: "https://s3-us-west-2.amazonaws.com/perpetualmultimedia/No+Images%402x.png" %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= f.hidden_field :address_full, value: "#{@listing['address']['deliveryLine']}" %>
+  </div>
+
+  <div class="field">
+    <%= f.hidden_field :address_city_state, value: "#{@listing['address']['city']}, #{@listing['address']['state']}" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Watch", onclick: "this.value='Watching'", class: "btn btn-default btn-lg btn-block clearfix", style: "color:#FFF;" %>
+  </div>
+<% end %>

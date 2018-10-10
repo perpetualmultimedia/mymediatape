@@ -5,31 +5,20 @@
 }
 </style>
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-<div class="row ">
-  <div class=" cool-panel form-cont col-md-6 col-md-offset-3">
-    <div class="cool-panel" style="padding:20px; padding-bottom:40px; margin:-15px; background-color: #213143; color:#fff;">
-    <div class="row">
-      <div class="col-sm-7">
-      <h2>Sign in</h2> 
-      <h4> 
-       Sign in unless you still need to <%= link_to "click here to sign up", new_registration_path(resource_name) %>.
-        </h4>
-      </div>
-      <div class="col-sm-5" style="padding:0px;">
-        <%= link_to root_path, class: "btn btn-lg btn-danger btn-danger-block-head", style: " " do %>
-          <div class="back-form">
-          <h2><i class="fa fa-close" aria-hidden="true"></i></h2>
+<div class="row">
+  <div class="form-cont cool-panel col-md-8 col-md-offset-2">
+    <div class="cool-panel title-panel">
+      <div class="row">
+        <div class="col-sm-12">
+        <h2>Sign in</h2> 
+        <h4> 
+         Sign in unless you need to <%= link_to "click here to sign up", new_user_registration_path %>.
+          </h4>
         </div>
-        <% end %>
-        <%= button_tag(type: 'submit', class: "btn btn-lg btn-success btn-success-block-head", style: " ") do %>
-        <div class="back-form">
-          <h2><i class="fa fa-check" aria-hidden="true"></i></h2>
-        </div>
-      <% end %>
+        
     </div>
   </div>
-</div>
-<div class="cool-panel row" style="padding:20px;">
+  <div class="row deets-panel" style="padding:20px;">
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, class: "form-control" %>
@@ -47,12 +36,21 @@
       <%= f.label :remember_me %>
     </div>
   <% end -%>
-
-  <div class="actions">
-  <br/>
-    <br/>
+      <div class="btn btn-group btn-group-justified btn-group-lg" role="group" style="padding: 0px;">
+        <div class="btn-group btn-group-lg" role="group">
+          <%= link_to root_path, class: "btn btn-danger", style: " " do %>
+            <i class="fa fa-close" aria-hidden="true"></i>
+          <% end %>
+        </div>
+          <div class="btn-group btn-group-lg" role="group">
+          <%= button_tag(type: 'submit', class: "btn btn-success", style: " ") do %>
+            <i class="fa fa-check" aria-hidden="true"></i>
+          <% end %>
+        </div>
+      </div>
   </div>
 </div>
+
 <% end %>
 
   </div>

@@ -116,6 +116,10 @@
         <% end %>
       </table>
       </p>
+      <% @album.songs.each_with_index do |album_song, i| %>
+        <%= album_song %>
+        <%= render :partial => 'playlists/quick_add' %>
+      <% end %>
       </div>
       <div class="cool-panel" style="padding:20px;">
       <h3> Comments </h3>

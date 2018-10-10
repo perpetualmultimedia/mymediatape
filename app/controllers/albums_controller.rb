@@ -15,6 +15,7 @@ class AlbumsController < ApplicationController
     @album.album_comments.build
     @band = @album.band.id
     @album.songs = @album.songs.sort_by &:track_number
+    @playlist = Playlist.new
   end
   def add_songs_to_album
     set_album
