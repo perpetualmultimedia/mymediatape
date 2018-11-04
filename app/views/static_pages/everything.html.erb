@@ -1,3 +1,6 @@
+<% content_for :head do %>
+  <meta name="turbolinks-cache-control" content="no-cache">
+<% end %>
 <style type="text/css">
 	body{
 		margin-top: 110px;
@@ -19,7 +22,7 @@
               </div>
                 <div class="art-top">
                   <div class="clear-art-sm">
-                    <img src="<%= top_band.band_avatar.url(:medium) %>"  style= "object-fit:cover;" class= "clear-image ">
+                    <img src="<%= top_band.band_avatar.url(:medium) %>"  style= "object-fit:cover;" class= "clear-image band-image">
                   </div>
                 </div>
                 <div class="details-bottom">
@@ -73,9 +76,9 @@
     </div>
   </div>
     <div class="row activities-row">
-    	<div class="col-md-8 " style="padding-right: 0px;">
+    	<div class="col-md-8 col-md-offset-0 col-sm-10 col-sm-offset-1" style="padding-right: 0px;">
 
-    		<div class="cool-panel blue-grad" style=" background-color: #213143; text-align: center; ">
+    		<div class="cool-panel blue-grad" style=" text-align: center; ">
 				<h3><strong>Recent News</strong></h3>
 			 
 	    	<% if @activities.present? %>
@@ -91,7 +94,7 @@
       </div>
 		</div>
 	
-    <div class="col-md-4">
+    <div class="col-md-4 col-md-offset-0 col-sm-10 col-sm-offset-1">
 		<div class="cool-panel sidebar" style="">
 			<div class="top-form-panel red-grad" style="padding-top: 30px; text-align: center; margin-left:0px; margin-right:0px;">
 
@@ -168,3 +171,6 @@
     	</div>
   	</div>
 </div>
+<script type="text/javascript">
+  jQuery(document).on('turbolinks:before-cache', $('.scroller').slick('unslick'))
+</script>

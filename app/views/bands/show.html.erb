@@ -13,32 +13,39 @@ small{
     <div class="row" style="margin-left: 0px; margin-right: 0px;">
       <h1><span data.color> </span>
       <div class="band-head-img">
-        <img src="<%= @band.band_avatar.url %>" style= " object-fit:cover; height:100%; width:100%;" class="cool-panel img-responsive"  />
+        <img src="<%= @band.band_avatar.url %>" style= " object-fit:cover; height:100%; width:100%; border-radius: 3px;" class="cool-panel img-responsive"  />
 
       </div>
-      <div class="band-head-deets cool-panel" style="padding-top:20px; background-color: #213143; color:#FFF; border-top: solid; border-top-color: transparent; border-top-width: 60px; ">
-        <div class="h3-centered-sm"><h2>  <%= @band.group_name %>   </h2>
-        </div>
-        <socail><%= @band.reputation_for(:votes).to_i %></socail>
-        <div class="band-votes" style="height: 60px; margin-top:-0px; ">
-            <% if user_signed_in? %>
-            <div class="btn-group btn-group-justified  vote pull-right" role="group" aria-label="...">
-              <%= link_to vote_band_path(@band, type: "up"), method: "post", class: "btn btn-lg btn-success", remote: true, id: "vote-pjax-up" do %><i class="fa fa-chevron-up" aria-hidden="true"></i><% end %>
-               <%= link_to vote_band_path(@band, type: "down"), method: "post", class: "btn btn-lg btn-danger",  remote: true, id: "vote-pjax-down" do %><i class="fa fa-chevron-down" aria-hidden="true"></i><% end %>
-            </div>
+      <div class="band-head-deets cool-panel blue-grad" style=" padding: 0px; border-radius: 3px;">
+        <h3 style="padding-left: 20px;"><strong><%= @band.group_name %></strong></h3>
+        <socail><%= @band.reputation_for(:votes).to_i %> Points</socail>
+        <div class="sidebar-deets" style="height: 100%; padding: 15px;">
+          <p>
+              <%= @band.description %>
+            </p>
+          <div class="h3-centered-sm"><h2>     </h2>
           </div>
-          <div id="follow_form">
-            <% if user_signed_in? && current_user.following?(@band) %>
-              <%= render 'unfollow' %>
+          
+          <div class="band-votes" style="height: 60px; margin-top:-0px; ">
+              <% if user_signed_in? %>
+              <div class="btn-group btn-group-justified  vote pull-right" role="group" aria-label="...">
+                <%= link_to vote_band_path(@band, type: "up"), method: "post", class: "btn btn-lg btn-success", remote: true, id: "vote-pjax-up" do %><i class="fa fa-chevron-up" aria-hidden="true"></i><% end %>
+                 <%= link_to vote_band_path(@band, type: "down"), method: "post", class: "btn btn-lg btn-danger",  remote: true, id: "vote-pjax-down" do %><i class="fa fa-chevron-down" aria-hidden="true"></i><% end %>
+              </div>
+            </div>
+            <div id="follow_form">
+              <% if user_signed_in? && current_user.following?(@band) %>
+                <%= render 'unfollow' %>
+              <% else %>
+                <%= render 'follow' %>
+              <% end %>
+            </div>
+            <% end %>
+            <% if user_signed_in? %>
             <% else %>
-              <%= render 'follow' %>
+              </div>
             <% end %>
           </div>
-          <% end %>
-          <% if user_signed_in? %>
-          <% else %>
-            </div>
-          <% end %>
         </div>
       </div>
     </div>
@@ -47,46 +54,41 @@ small{
     <div class=" container">
       <div class="row">
         <div class="col-md-3 deets-cool-cont" >
-          <div class="cool-panel deets-cool" style="padding:20px; padding-top: 0px; border-top: solid; border-top-color: #442933; border-top-width: 20px;">
+          <div class="cool-panel red-grad" style="background: #6C1B44; padding: 0px; border-radius: 3px;">
 
       
-          <h3 > About </h3>
-          <hr>
-          <div class="about">
-            <p>
-              <strong>Genre:</strong>
-              <%= @band.genre %>
-            </p>
-
-            <p>
-              <strong>City:</strong>
-              <%= @band.city %>
-            </p>
-
-            <p>
-              <strong>State:</strong>
-              <%= @band.state %>
-            </p>
-
-            <p>
-              <strong>Description:</strong>
-              <%= @band.description %>
-            </p>
-
-            <p>
-              <strong>Website:</strong>
-              <%= @band.website %>
-            </p>
-            <hr>
-            <label>Members</label>
-            <% @band.members.each do |member| %>
+          <h3 style="padding-left: 20px;"><strong>About</strong>  </h3>
+          <div class="sidebar-deets" style="height: 100%;">
+            <div class="about">
               <p>
-              <%= member.first_name %> <%= member.last_name %>
+                <strong>Genre:</strong>
+                <%= @band.genre %>
               </p>
-            <% end %>
-            <hr>
+
+              <p>
+                <strong>City:</strong>
+                <%= @band.city %>
+              </p>
+
+              <p>
+                <strong>State:</strong>
+                <%= @band.state %>
+              </p>
+
+              <p>
+                <strong>Website:</strong>
+                <%= @band.website %>
+              </p>
+              <hr>
+              <label>Members</label>
+              <% @band.members.each do |member| %>
+                <p>
+                <%= member.first_name %> <%= member.last_name %>
+                </p>
+              <% end %>
+              <hr>
+            </div>
           </div>
-          <hr>
           <script>
           $("#hideshow").click(function() { 
             // assumes element with id='button'
@@ -97,8 +99,8 @@ small{
         </div>
         <div class="col-md-9 artist-deets-right" style="padding: 0px; ">
           <% if @band.albums.any? %>
-            <div class="cool-panel " style="padding:20px; padding-top: 0px; border-top: solid; border-top-color: #5C7064; border-top-width: 20px;">
-            <h3><strong>Top Songs</strong>
+            <div class="cool-panel blue-grad" style=" padding: 0px; border-radius: 3px;">
+            <h3 style="padding-left: 20px;"><strong>Top Songs</strong>
               <div style="padding:0px; position: absolute; top:0px; right:0px; height: 100px; width:100px;">
               <% if user_signed_in? && current_user.id == @band.user_id %>
               <%= link_to new_band_album_path(@band), class: "btn btn-lg btn-success btn-success-block-head-sm" do %>
@@ -110,7 +112,7 @@ small{
               <% end %>
               </div>
             </h3>
-            <br/>
+            <div class="sidebar-deets" style="height: 100%;">
               <table class="table table-hover" data-no-turbolink>
               <% @topsongs.limit(5).each_with_index do |album_song, i| %>
               
@@ -149,22 +151,24 @@ small{
                 </script>
               <% end %>
             </table>
+          </div>
             </div>
-            <div class="cool-panel" style="padding:20px; margin-top: 15px; padding-top: 0px; border-top: solid; border-top-color: #5C7064; border-top-width: 20px;">
-              <h3><strong>Albums</strong>
+            <div class="cool-panel blue-grad" style=" padding: 0px; border-radius: 3px; margin-top: 15px;">
+              <h3 style="padding-left: 20px;"><strong>Albums</strong>
               </h3>
-              <hr>
-              <div class="row">
-                <% @band.albums.each do |album| %>
-                  <%= link_to band_album_url(@band, album) do %>
-                    <div class="col-xs-4 col-md-3">
+              <div class="sidebar-deets" style="height: 100%;">
+                <div class="row">
+                  <% @band.albums.each do |album| %>
+                    <%= link_to band_album_url(@band, album) do %>
+                      <div class="col-xs-4 col-md-3">
 
-                        <%= image_tag album.album_art.url(:medium), style: "width:100%; object-fit:cover; border-radius:2px; margin-bottom:10px;", class: "img-responsive audio-art-img-page"%>
-                        <p><%= album.name %></p>
-                        <small><%= album.released %></small>
-                    </div>
+                          <%= image_tag album.album_art.url(:medium), style: "width:100%; object-fit:cover; border-radius:2px; margin-bottom:10px;", class: "img-responsive audio-art-img-page"%>
+                          <p class="album_name_sm"><%= album.name %></p>
+                          <small class="album_rd_sm"><%= album.released %></small>
+                      </div>
+                    <% end %>
                   <% end %>
-                <% end %>
+                </div>
               </div>
           <% elsif if user_signed_in? && @band.user_id == current_user.id %>
             <div class="row">

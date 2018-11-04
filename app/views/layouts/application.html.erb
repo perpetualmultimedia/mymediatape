@@ -5,9 +5,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0">
   <title>My Media Tape</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
+  <% if content_for?(:head) %>
+    <%= yield(:head) %>
+  <% end %>
 </head>
 
 <body class=" animated fadeIn container-container">
@@ -154,7 +158,7 @@ $(document).ready(function(){
 });
 </script>
 <div class="navbar-holder">
-  <%= link_to root_path,  class: "toggle-logo" do %>
+  <%= link_to root_path,  class: "toggle-logo", "data-no-turbolink" => true do %>
     <img alt="Brand" src="https://s3-us-west-2.amazonaws.com/mymediatape/static_assets/logo.png", class="navbar-img">
   <% end %>
   <%= link_to root_path,  class: "toggle-logo-sm" do %>
@@ -313,6 +317,8 @@ $(function(){
 
 
 <% end %>-->
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
 
 </body>
 

@@ -88,9 +88,7 @@
 	box-shadow: 0px 0px 20px #000;
 }
 
-.clear-art-sm{
 
-}
 .album-details-sm{
 	
 	padding: 15px;
@@ -143,12 +141,7 @@
 	z-index: 10;
 	padding-left: 0px;
 }
-.clear-art-sm{
-	margin-left: -18.3%;
-	height:180px;
-	width:180px;
-	border-radius: 3px;
-}
+
 .add-deets{
 	bottom: 25px;
 }
@@ -160,23 +153,35 @@
 }
 .red-grad{
 	border-top-left-radius: 3px;
-	border-top-right-radius: 0px;
+	border-top-right-radius: 3px;
 	background: #6C1B44;
 	background: -moz-linear-gradient(45deg, #6C1B44 0%, #591738 100%);
 	background: -webkit-linear-gradient(45deg, #6C1B44 0%,#591738 100%);
 	background: linear-gradient(45deg, #6C1B44 0%,#591738 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6C1B44', endColorstr='#591738',GradientType=1 );
 }
+.cool-panel.red-grad{
+	 margin:0px;
+	margin-bottom: 0px;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	padding-top: 0px;
+	overflow: hidden;
+}
 .cool-panel.blue-grad{
 	 margin:0px;
 	margin-bottom: 0px;
 	border-top-left-radius: 3px;
 	border-top-right-radius: 3px;
-	padding-top: 20px;
+	padding-top: 0px;
 	overflow: hidden;
 }
 .cool-panel.blue-grad h3{
-	padding-bottom: 20px;
+	padding-bottom: 12px;
+	color: #fff;
+}
+.cool-panel.red-grad h3{
+	padding-bottom: 12px;
 	color: #fff;
 }
 .activities-row{
@@ -202,7 +207,10 @@
 	box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.0)!important;
 }
 .top-form-panel{
-
+	padding: 20px!important;
+	padding-top: 1px !important;
+	padding-bottom: 12px !important;
+	margin-top: 0px;
 }
 .sidebar{
 	overflow: hidden;
@@ -237,6 +245,281 @@
 	text-align: left;
 	padding-left: 10px;
 }
+.top-of-fold-row{
+	margin-left: auto;
+	width: 100%!important;
+	position: absolute!important;
+	left: 0!important;
+	padding: 0px!important;
+}
+
+
+
+.top-of-fold-content{
+	margin-left: auto;
+	margin-right: auto;
+	left:0;
+	right:0;
+}
+@media only screen and (min-width : 320px) {
+	h3 strong{
+    		font-size: 20px;
+    		text-transform: uppercase;
+    	}
+	.top-of-fold-content{
+		/*width: 75%!important;*/
+	}
+	.slick-slide{
+		height:380px!important;
+	}
+	.clear-art-sm{
+		margin-left: -18.3%;
+		height:80px;
+		width:80px;
+		border-radius: 3px;
+	}
+	.blur-art-sm {
+		width: 22%;
+	}
+	.details-bottom{
+		width: 78%;
+	}
+	.band-image{
+		border-radius: 128px;
+	}
+	.blurry-image-sm{
+		filter: blur(20px);
+	}
+	.top-of-fold{
+		height: 380px;
+	}
+	.activities-row{
+		margin-top: -40px;
+		margin-left: 0px!important;
+		margin-right: -17px!important;
+	}
+	.album-details-sm{
+		padding: 5px;
+		padding-left: 20px;
+
+	}
+
+}
+@media only screen and (min-width : 410px) {
+	.top-of-fold-content{
+		/*width: 75%!important;*/
+	}
+	.slick-slide{
+		height:380px!important;
+	}
+	.clear-art-sm{
+		margin-left: -18.3%;
+		height:100px;
+		width:100px;
+		border-radius: 3px;
+	}
+	.blur-art-sm {
+		width: 18%;
+	}
+	.details-bottom{
+		width: 82%;
+	}
+	.band-image{
+		border-radius: 128px;
+	}
+	.blurry-image-sm{
+		filter: blur(20px);
+	}
+	.top-of-fold{
+		height: 380px;
+	}
+	.activities-row{
+		margin-top: -40px;
+	}
+	.album-details-sm{
+		padding: 10px;
+		padding-left: 45px;
+		
+	}
+
+}
+/* Extra Small Devices, Phones */ 
+@media only screen and (min-width : 480px) {
+	.top-of-fold-content{
+		/*width: 75%!important;*/
+	}
+	.slick-slide{
+		height:380px!important;
+	}
+	.clear-art-sm{
+		margin-left: -18.3%;
+		height:128px;
+		width:128px;
+		border-radius: 3px;
+	}
+	.blur-art-sm {
+		width: 18%;
+	}
+	.details-bottom{
+		width: 82%;
+	}
+	.band-image{
+		border-radius: 128px;
+	}
+	.blurry-image-sm{
+		filter: blur(50px);
+	}
+	.album-details-sm{
+		padding: 15px;
+		padding-left: 60px;
+		
+	}
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+/*	.top-of-fold-content{
+	width: 600px!important;
+}*/
+	.slick-slide{
+		height:380px!important;
+	}
+	.clear-art-sm{
+		margin-left: -18.3%;
+		height:140px;
+		width:140px;
+		border-radius: 3px;
+	}
+	band-image{
+		border-radius: 130px;
+	}
+	.activities-row{
+		margin-right: -15px!important;
+	}
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+	.slick-slide{
+		max-width: 480px;
+	}
+	.slick-track{
+		max-width: 974px;
+	}
+	.clear-art-sm{
+		margin-left: -18.3%;
+		height:130px;
+		width:130px;
+		border-radius: 3px;
+	}
+	.blur-art-sm {
+		width: 23%;
+	}
+	.details-bottom{
+		width: 77%;
+	}
+	.band-image{
+		border-radius: 130px;
+	}
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+	.slick-slide{
+		max-width: 580px;
+	}
+	.slick-track{
+		max-width: 1160px;
+	}
+	.blur-art-sm {
+		width: 26%;
+	}
+	.details-bottom{
+		width: 74%;
+	}
+	.band-image{
+		border-radius: 180px;
+	}
+	.clear-art-sm{
+		margin-left: -18.3%;
+		height:180px;
+		width:180px;
+		border-radius: 3px;
+	}
+
+}
+
+/* ARTIST PAGE */
+.deets-cool{
+	background: #FFF;
+}
+.band-head-deets{
+	padding-top:0px!important;
+}
+.album_name_sm{
+	font-size: 14px;
+	font-weight: 600;
+	margin-bottom: 0px;
+}
+.album_rd_sm{
+	font-size: 14px;
+}
+socail{
+	top:30px;
+	right:20px;
+	left: auto;
+	color: #fff;
+	text-transform: uppercase;
+	font-size: 20px;
+	width:auto;
+}
+.about p{
+	font-size: 16px;
+}
+
+/* ALBUM PAGE */
+.page-head{
+	margin-top:82px;
+}
+h3 small{
+	color:inherit;
+	font-size: 18px;
+	text-transform: uppercase;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-left: 20px;
+}
+.h3-sm{
+	margin-top: -10px;
+}
+.h3-str{
+	margin-bottom: 0px;
+	padding-bottom: 0px!important;
+}
+.album-blur{
+	margin:-10px;
+	position: absolute;
+	top:0px;
+	left: 0px;
+	filter: blur(50px);
+}
+.album-clear{
+	position: relative;
+	top:0px;
+	left: 0px;
+	z-index: 10;
+}
+
+@media only screen and (min-width : 320px) {
+
+	.album-desc{
+		display: none;
+	}
+}
+@media only screen and (min-width : 410px) {
+
+
+}
 /* Extra Small Devices, Phones */ 
 @media only screen and (min-width : 480px) {
 
@@ -244,15 +527,18 @@
 
 /* Small Devices, Tablets */
 @media only screen and (min-width : 768px) {
-
+	
 }
 
 /* Medium Devices, Desktops */
 @media only screen and (min-width : 992px) {
-
+	.album-desc{
+		display: block;
+	}
 }
 
 /* Large Devices, Wide Screens */
 @media only screen and (min-width : 1200px) {
+
 
 }
