@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '5.0.0'
+gem 'rails', '5.0.1'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 3.2'
 # Use Uglifier as compressor for JavaScript assets
@@ -22,7 +22,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise'
 gem 'ransack', github: 'activerecord-hackery/ransack'
 gem 'geocoder'
-gem 'pg'
+gem 'pg', '~> 0.20'
 gem 'bootstrap-sass', '~> 3.3.5'
 gem 'aws-sdk', '~> 2.3'
 gem "paperclip", "~> 5.0.0"
