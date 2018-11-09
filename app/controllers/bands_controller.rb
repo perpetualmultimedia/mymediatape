@@ -30,6 +30,9 @@ class BandsController < ApplicationController
     @event = @band.events
     @articles = Article.where(band_id: @band.id).where(public: true)
     @band.state = State.find(@band.state).name
+    if user_signed_in? 
+      @vote = current_user.evaluations('rating').where(target_type: Band, target_id: @band.id).first
+    end
   end
 
   # GET /bands/new
@@ -83,7 +86,7 @@ class BandsController < ApplicationController
     end
   end
   def vote
-    value = params[:type] == "up" ? 1 : -1
+    value = params[:type] == "up" ? 1 : 0
     @band = Band.find(params[:id])
     @band.add_or_update_evaluation(:votes, value, current_user)
     redirect_to :back, notice: "Thank you for voting!"

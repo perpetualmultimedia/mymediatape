@@ -71,7 +71,7 @@
         </h4>
       </div>
         <audio id="audio-player" autoplay="autoplay">
-        	<source src="<%= @song.audio_file.url %>">
+        	<source src="<%= @song.audio_file.url(:mp3) %>">
         </audio>
     </div>
   </div>

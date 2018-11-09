@@ -23,6 +23,7 @@ gem 'devise'
 gem 'ransack', github: 'activerecord-hackery/ransack'
 gem 'geocoder'
 gem 'pg', '~> 0.20'
+gem 'paperclip-wav-mp3', '~> 0.1'
 gem 'bootstrap-sass', '~> 3.3.5'
 gem 'aws-sdk', '~> 2.3'
 gem "paperclip", "~> 5.0.0"

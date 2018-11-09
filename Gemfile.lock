@@ -153,6 +153,8 @@ GEM
     paperclip-av-transcoder (0.6.4)
       av (~> 0.9.0)
       paperclip (>= 2.5.2)
+    paperclip-wav-mp3 (0.1.1)
+      paperclip (>= 4.3.6)
     pg (0.21.0)
     pjax_rails (0.3.4)
       jquery-rails
@@ -272,6 +274,7 @@ DEPENDENCIES
   momentjs-rails (>= 2.9.0)
   paperclip (~> 5.0.0)
   paperclip-av-transcoder
+  paperclip-wav-mp3 (~> 0.1)
   pg (~> 0.20)
   pjax_rails
   pry

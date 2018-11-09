@@ -16,6 +16,9 @@ class AlbumsController < ApplicationController
     @band = @album.band.id
     @album.songs = @album.songs.sort_by &:track_number
     @playlist = Playlist.new
+    if user_signed_in? 
+      @vote = current_user.evaluations('rating').where(target_type: Album, target_id: @album.id).first
+    end
   end
   def add_songs_to_album
     set_album
@@ -77,7 +80,7 @@ class AlbumsController < ApplicationController
     end
   end
   def vote
-    value = params[:type] == "up" ? 1 : -1
+    value = params[:type] == "up" ? 1 : 0
     @album = Album.find(params[:id])
     @album.add_or_update_evaluation(:votes, value, current_user)
     redirect_to :back, notice: "Thank you for voting!"

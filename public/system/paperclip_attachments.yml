@@ -1,0 +1,25 @@
+---
+:User:
+  :avatar:
+  - :medium
+  - :thumb
+:Album:
+  :album_art:
+  - :medium
+  - :thumb
+:ArticlePhoto:
+  :image:
+  - :large
+  - :medium
+  - :thumb
+:Band:
+  :band_avatar:
+  - :medium
+  - :thumb
+:Event:
+  :flyer:
+  - :medium
+  - :thumb
+:Song:
+  :audio_file:
+  - :mp3
