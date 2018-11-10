@@ -4,47 +4,42 @@ body{
 }
 </style>
 <% if user_signed_in? && current_user.admin? || user_signed_in? &&  current_user.id == @album.band.user_id %>
-<%= form_for([@band, @album]) do |f| %>
-  <div class="cool-panel top-form-panel" style="background-color: #213143;">
-  	<div class="row">
-	  	<div class="col-sm-9 top-text-form-panel">
-			<h2>Edit Album</h2> 
-			<h4> 
-			 These songs will be distributed and availible for download for free.
-		  	</h4>
-	  	</div>
-	  	<div class="col-sm-3" style="padding:0px;">
-	  	  <%= link_to request.referer.present? ? request.referer : default_path, class: "btn btn-lg btn-danger btn-danger-block-head", style: " " do %>
-	  	  	<div class="back-form">
-		      <h2><i class="fa fa-close" aria-hidden="true"></i></h2>
-		    </div>
-	  	  <% end %>
-	  	  <%= button_tag(type: 'submit', class: "btn btn-lg btn-success btn-success-block-head") do %>
-		    <div class="back-form">
-		      <h2><i class="fa fa-check" aria-hidden="true"></i></h2>
-		    </div>
-		  <% end %>
-		</div>
-	</div>
+<div class="cool-panel top-form-panel blue-grad admin-title-panel" style=" margin-bottom: 15px;">
+    <div class="row">
+      <div class="col-sm-9 top-text-form-panel">
+      <h2><strong>Edit '<%= @album.name %>'</strong></h2> 
+      
+      </div>
+      <div class="col-sm-3 page-head-btn">
+        <%= link_to edit_band_path(@album.band), class: "btn btn-link pull-right desktop-only" do %>
+            <h3><strong><i class="fa fa-times" aria-hidden="true"></i></strong></h3>
+        <% end %>
+        <%= link_to edit_band_path(@album.band), class: "btn btn-default btn-block pull-right mobile-only", style: "padding: 0px; color:#000;" do %>
+            <h3><strong><i class="fa fa-times" aria-hidden="true"></i> Cancel</strong></h3>
+        <% end %>
+      </div>
+    </div>
   </div>
-	
-	  <div class="row">
-		<div class="col-md-7 cool-panel main-form-panel">
-		  <% if @album.errors.any? %>
-		    <div id="error_explanation">
-		      <h2><%= pluralize(@album.errors.count, "error") %> prohibited this album from being saved:</h2>
+<%= form_for([@band, @album]) do |f| %>
+	  <div class="row" >
+		<div class="col-md-7 ">
+			<div class="red-grad cool-panel">
+				<div class="panel-head">
+					<h3><strong>Release Details</strong></h3>
+				</div>
+				<div class="panel-content">
+			  <% if @album.errors.any? %>
+			    <div id="error_explanation">
+			      <h2><%= pluralize(@album.errors.count, "error") %> prohibited this album from being saved:</h2>
 
-		      <ul>
-		      <% @album.errors.full_messages.each do |message| %>
-		        <li><%= message %></li>
-		      <% end %>
-		      </ul>
-		    </div>
-		  <% end %>
-		  <br/>
-		  <h3> Album Details </h3>
+			      <ul>
+			      <% @album.errors.full_messages.each do |message| %>
+			        <li><%= message %></li>
+			      <% end %>
+			      </ul>
+			    </div>
+			  <% end %>
 		    <div class="field">
-		    	<br/>
 		      <label>Album Title</label><br>
 		      <%= f.text_field :name, class: "form-control"  %>
 		    </div>
@@ -69,10 +64,30 @@ body{
 		      <%= f.text_area :description, class: "form-control"  %>
 		      <br/>
 		    </div>
+		    <div class="field">
+		    	<div class="btn btn-group btn-group-justified btn-group-lg">
+		          <div class="btn-group btn-group-lg">
+		            <%= link_to request.referer.present? ? request.referer : default_path, class: "btn btn-danger", style: " " do %>
+		                <i class="fa fa-close" aria-hidden="true"></i>
+		            <% end %>
+		          </div>
+		          <div class="btn-group btn-group-lg">
+		            <%= button_tag(type: 'submit', class: "btn btn-success", style: " ") do %>
+		               <i class="fa fa-check" aria-hidden="true"></i>
+		            <% end %>
+		          </div>
+
+		        </div>
+		    </div>
 		  </div>
-		  <div class="col-md-5 cool-panel side-form-panel">
-		  <br/>
-	      	<h3> Edit Songs </h3>
+		</div>
+	</div>
+		  <div class="col-md-5">
+		  <div class="blue-grad cool-panel">
+				<div class="panel-head">
+					<h3><strong>Edit Songs</strong></h3>
+				</div>
+				<div class="panel-content">
 	    	<%= f.fields_for :songs do |builder| %>
 	      
 	        <%= render 'song_fields', :f => builder %>
@@ -83,6 +98,7 @@ body{
 	      	<br/>
 	      </div>
 	    </div>
+	  </div>
 	<% end %>
 
 

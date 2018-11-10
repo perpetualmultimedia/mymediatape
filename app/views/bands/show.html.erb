@@ -34,14 +34,14 @@ margin-top: 5px;"><strong><%= @band.group_name %></strong></h3>
                 <% if @vote.present? %>
                 
                   <% if @vote.value == 0.0 %>
-                  <%= link_to vote_band_path(@band, type: "up"), method: "post", class: "btn btn-lg btn-success-block-head-sm", id: "vote-pjax-up", style: "padding: 0px;" do %><h2><i class="fa fa-star-o" aria-hidden="true"></i></h2><% end %>
+                  <%= link_to vote_band_path(@band, type: "up"), method: "post", class: "btn btn-lg btn-success-block-head-sm", id: "vote-pjax-up", style: "padding: 0px;" do %><h2><i class="fa fa-star-o" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i></h2><% end %>
                   <% elsif @vote.value == 1.0 %>
                   <style>
                     .band-votes{
                       width:100px!important;
                     }
                   </style>
-                   <%= link_to vote_band_path(@band, type: "down"), method: "post", class: "btn btn-lg btn-success-block-head-sm",  id: "vote-pjax-down", style: "padding: 0px; width: 78px;" do %><h2><i class="fa fa-star" aria-hidden="true"></i></h2><% end %>
+                   <%= link_to vote_band_path(@band, type: "down"), method: "post", class: "btn btn-lg btn-success-block-head-sm",  id: "vote-pjax-down", style: "padding: 0px; width: 78px;" do %><h2><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i></h2><% end %>
                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="right: 0px; float: right; height: 78px; border-bottom-right-radius: 0px; padding-left: 8px; background: -moz-linear-gradient(45deg, #4B5465 0%, #3E4553 100%); background: -webkit-linear-gradient(45deg, #4B5465 0%, #3E4553 100%); background: linear-gradient(45deg, #4B5465 0%, #3E4553 100%); background: #4B5465;">
                     <span class="caret"></span>
                     <span class="sr-only">Toggle Dropdown</span>
@@ -59,7 +59,7 @@ margin-top: 5px;"><strong><%= @band.group_name %></strong></h3>
                   </ul>
                    <% end %>
                 <% else %>
-                <%= link_to vote_band_path(@band, type: "up"), method: "post", class: "btn btn-lg btn-success-block-head-sm", id: "vote-pjax-up", style: "padding: 0px;" do %><h2><i class="fa fa-star-o" aria-hidden="true"></i></h2><% end %>
+                <%= link_to vote_band_path(@band, type: "up"), method: "post", class: "btn btn-lg btn-success-block-head-sm", id: "vote-pjax-up", style: "padding: 0px;" do %><h2><i class="fa fa-star-o" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i></h2><% end %>
                  <% end %>
               </div>
             </div>
@@ -83,7 +83,10 @@ margin-top: 5px;"><strong><%= @band.group_name %></strong></h3>
           <div class="cool-panel red-grad" style="background: #6C1B44; padding: 0px; border-radius: 3px;">
 
       
-          <h3 style="padding-left: 20px;"><strong>About</strong>  </h3>
+          <h3 style="padding-left: 20px;"><strong>About</strong>  </h3> 
+          <% if @band.store.present? %>
+            <a href="http://www.<%= @band.store %>" class="btn btn-lg btn-success-block-head-sm" style="padding: 0px; width: 78px; position: absolute; top:0px; right:50px; color:#FFF; background-color: #521534;"><h2><i class="fa fa-shopping-cart" aria-hidden="true"></i></h2></a>
+          <% end %>
           <div class="sidebar-deets" style="height: 100%;">
             <div class="about">
               <p>

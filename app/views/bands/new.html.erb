@@ -43,11 +43,18 @@ body{
         <% end %>
         <h3> Group Details </h3> <h5>* = Required Fields</h5>
         <div class="field">
-          <%= f.label "Group Name*" %><br>
+          <%= f.label "Artist Name*" %><br>
           <%= f.text_field :group_name, class: "form-control" %>
         </div>
         <div class="field">
-          <%= f.label "Group Picture" %>
+          <%= f.label "Artist Handle*" %><br>
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">@</span>
+            <%= f.text_field :handle, "aria-describedby": "basic-addon1", "placeholder": "artistname", class: "form-control" %>
+          </div>
+        </div>
+        <div class="field">
+          <%= f.label "Artist Picture" %>
           <%= f.file_field :band_avatar, class: "form-control" %>
         </div>
         <div class="field">

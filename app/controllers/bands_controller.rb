@@ -1,5 +1,5 @@
 class BandsController < ApplicationController
-  before_action :set_band, only: [:show, :edit, :update, :destroy]
+  before_action :set_band, only: [:edit, :update, :destroy]
 
   # GET /bands
   # GET /bands.json
@@ -23,7 +23,7 @@ class BandsController < ApplicationController
   # GET /bands/1
   # GET /bands/1.json
   def show
-    @band = Band.find(params[:id])
+    @band = Band.friendly.find(params[:id])
     @topsongs = @band.songs.with_reputation(:votes).reorder("votes DESC")
     @user = current_user
     @album = @band.albums
@@ -94,11 +94,11 @@ class BandsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_band
-      @band = Band.find(params[:id])
+      @band = Band.friendly.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def band_params
-      params.require(:band).permit(:group_name, :band_avatar, :genre, :city, :state, :user_id, :description, :website, members_attributes: [:first_name, :last_name, :email, :band_id, :id, :_destroy])
+      params.require(:band).permit(:group_name, :handle, :store, :band_avatar, :genre, :city, :state, :user_id, :description, :website, members_attributes: [:first_name, :last_name, :email, :band_id, :id, :_destroy])
     end
 end

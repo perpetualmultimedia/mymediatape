@@ -1,4 +1,6 @@
 class Band < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :handle, use: :slugged
   has_merit
   has_reputation :votes, source: :user, aggregated_by: :sum
   belongs_to :user
@@ -15,10 +17,10 @@ class Band < ActiveRecord::Base
                                    foreign_key: "followed_id",
                                    dependent:   :destroy  
   has_many :followers, through: :passive_relationships, source: :follower                                                              
-  validates_presence_of :group_name, :city, :state
+  validates_presence_of :group_name, :city, :state, :handle
+  validates_uniqueness_of :handle
   validates_associated :members
   accepts_nested_attributes_for :events, allow_destroy: true
   accepts_nested_attributes_for :albums, allow_destroy: true
   accepts_nested_attributes_for :members, allow_destroy: true, reject_if: :all_blank
-
 end

@@ -1,32 +1,33 @@
- <h3 style="font-size: 22px;"><strong>Song</strong></h3>
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title, class: "form-control"  %>
-  </div>
-  <div class="field">
-    <%= f.label :track_number %><br>
-    <%= f.number_field :track_number, class: "form-control"  %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_field :description, class: "form-control"  %>
-  </div>
+<div class="well"> 
+  <h3 style="font-size: 22px; color: #000; text-align: left;"><strong>Edit Song</strong></h3>
+    <div class="field">
+      <%= f.label :title %><br>
+      <%= f.text_field :title, class: "form-control"  %>
+    </div>
+    <div class="field">
+      <%= f.label :track_number %><br>
+      <%= f.number_field :track_number, class: "form-control"  %>
+    </div>
+    <div class="field">
+      <%= f.label :description %><br>
+      <%= f.text_field :description, class: "form-control"  %>
+    </div>
 
-  <div class="field" id="fileupload">
-    <%= f.label :audio_file %>
-        <p class="size" data-dz-size></p>
-        <div class="progress progress-success progress-striped active fade">
-          <div class="bar" style="width:0%;"></div>
-        </div>
-    <%= f.file_field :audio_file, class: "form-control dropzone", id: "fileupload"  %>
-          <button class="btn btn-primary start">
-          <i class="glyphicon glyphicon-upload"></i>
-          <span>Start</span>
-      </button>
+    <div class="field" id="fileupload">
+      <%= f.label :audio_file %>
+          <p class="size" data-dz-size></p>
+          <div class="progress progress-success progress-striped active fade">
+            <div class="bar" style="width:0%;"></div>
+          </div>
+      <%= f.file_field :audio_file, class: "form-control dropzone", id: "fileupload"  %>
+            <button class="btn btn-primary start">
+            <i class="glyphicon glyphicon-upload"></i>
+            <span>Start</span>
+        </button>
+    </div>
+    <div class=" checkbox">
+      <label>
+      <%= f.check_box :_destroy, class: "form-checkbox " %><strong><div class="delete-checkbox-info">Delete Song?</div> </strong>
+      </label>
+    </div>
   </div>
-  <div class=" checkbox">
-    <label>
-    <%= f.check_box :_destroy, class: "form-checkbox " %><strong><div class="delete-checkbox-info">Delete Song?</div> </strong>
-    </label>
-  </div>
-<hr>

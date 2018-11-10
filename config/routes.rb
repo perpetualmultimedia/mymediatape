@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   get 'static_pages/become_a_writer'
   get 'static_pages/everything'
 
-  resources :bands do
+  resources :bands, :path => "artist" do
     member { post :vote }
     get :following, :followers
     resources :albums, :except => [:update, :destroy] do

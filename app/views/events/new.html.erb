@@ -3,6 +3,22 @@ body{
 	padding-top:110px;
 }
 </style>
+<div class="cool-panel top-form-panel blue-grad admin-title-panel" style=" margin-bottom: 15px;">
+    <div class="row">
+      <div class="col-sm-9 top-text-form-panel">
+      <h2><strong>'<%= @band.group_name %>' New Event</strong></h2> 
+      
+      </div>
+      <div class="col-sm-3 page-head-btn">
+        <%= link_to edit_band_path(@album.band), class: "btn btn-link pull-right desktop-only" do %>
+            <h3><strong><i class="fa fa-times" aria-hidden="true"></i></strong></h3>
+        <% end %>
+        <%= link_to edit_band_path(@album.band), class: "btn btn-default btn-block pull-right mobile-only", style: "padding: 0px; color:#000;" do %>
+            <h3><strong><i class="fa fa-times" aria-hidden="true"></i> Cancel</strong></h3>
+        <% end %>
+      </div>
+    </div>
+  </div>
 <%= form_for  ([@band, @event]) do |f| %>
 <div class="col-md-8 col-md-offset-2" style="padding-bottom:15px;">	
 	<div class="cool-panel" style="padding:20px; padding-bottom:25px; margin-left:-15px; margin-right:-15px; background-color: #213143; color:#fff;">

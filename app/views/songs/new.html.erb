@@ -5,38 +5,35 @@ body{
 
 </style>
 <% if user_signed_in? %>
-	<div class="cool-panel top-form-panel" style="background-color: #213143; margin-bottom: 15px;">
-	  	<div class="row">
-		  	<div class="col-sm-9 top-text-form-panel">
-				<h2>Add Songs To Album</h2> 
-				<h4> 
-				 These songs will be distributed and available for download for free.
-			  	</h4>
-		  	</div>
-		  	<div class="col-sm-3" style="padding:0px;">
-		  	  <%= link_to request.referer.present? ? request.referer : default_path, class: "btn btn-lg btn-danger btn-danger-block-head", style: " " do %>
-		  	  	<div class="back-form">
-			      <h2><i class="fa fa-chevron-left" aria-hidden="true"></i></h2>
-			    </div>
-		  	  <% end %>
-		  	  <%= link_to band_album_path(@album.band, @album), class: "btn btn-lg btn-success btn-success-block-head", style: "padding-top: 40px;" do %>
-			    <div class="back-form">
-			      <h2><i class="fa fa-floppy-o" aria-hidden="true"></i></h2>
-			    </div>
-			  <% end %>
-			</div>
-		</div>
-	</div>
-<div class="row">
+<div class="cool-panel top-form-panel blue-grad admin-title-panel" style=" margin-bottom: 15px;">
+    <div class="row">
+      <div class="col-sm-9 top-text-form-panel">
+      <h2><strong>'<%= @album.band.group_name %>' New Release</strong></h2> 
+      
+      </div>
+      <div class="col-sm-3 page-head-btn">
+        <%= link_to edit_band_path(@album.band), class: "btn btn-link pull-right desktop-only" do %>
+            <h3><strong><i class="fa fa-check" aria-hidden="true"></i></strong></h3>
+        <% end %>
+        <%= link_to edit_band_path(@album.band), class: "btn btn-default btn-block pull-right mobile-only", style: "padding: 0px; color:#000;" do %>
+            <h3><strong><i class="fa fa-check" aria-hidden="true"></i> Done</strong></h3>
+        <% end %>
+      </div>
+    </div>
+  </div>
+	
+<div class="row" style="margin-left: 0px; margin-right: 0px;">
 	<div class="song-upload-img">
 		<img src="<%= @album.album_art.url(:medium) %>" class=" img-responsive cool-panel" style= "height:220px; width:100%; object-fit:cover;", class: " img-responsive album-bg-img" >
 	</div>
-	<div class="song-upload-deets cool-panel" style= "height:220px;">
-
-		<h2><%= @album.name %></h2>
-		<h3><%= @album.band.group_name %></h3>
-		<p><%= @album.description %></p>
-		<br/>
+	<div class="song-upload-deets red-grad cool-panel" style= "height:220px; padding-left: 0px; padding-right: 0px; border-radius: 3px; overflow: hidden;">
+		<div class="panel-head">
+			<h3 class="h3-str" style=""><strong><%= @album.name %></strong></h3>
+      <h3 class="h3-sm"><small style="padding-left: 0px;"> <%= @album.band.group_name %></small></h3>
+		</div>
+		<div class="panel-content" style="height: 112px; overflow-x: auto;">
+			<p><%= @album.description %></p>
+		</div>
 		<div style="padding:0px; position: absolute; top:0px; right:0px; height: 100px; width:100px;">
 	  	  
 	  	  <%= link_to edit_band_album_path(@album.band.id, @album), class: "btn btn-lg btn-info btn-info-block-head-sm" do %>
@@ -47,67 +44,69 @@ body{
 		</div>
 	</div>
 </div>
-<div class="row" style="margin-top:15px; ">
-	<div class="col-sm-6  main-form-panel " style="padding:0px; padding-right: 15px; margin-bottom: 15px;">
-		<div class=" cool-panel" style="padding:20px; ">
-		<% if @album.songs.any? %>
-			<h3> Songs </h3>
-				<table class="table table-hover table-borderless">
-				  	<% @album.songs.each_with_index do |album_song, i| %>
-				  
-					    <tr class="clickable-row song-list cool-panel" >
-					      	<td style="padding-top:18px;"><%= album_song.track_number %></td>
-					      	<td><strong><%= album_song.title %></strong><br/> <%= album_song.album.name %></td>
-					      	<td style="padding-top:18px;"><%= album_song.album.released %></td>
-					      	<td style="padding-top:18px;"><span id="duration-<%= i %>"></span></td>
-					    </tr>
-					    
-				  		<audio id="my-audio-<%= i %>" src="<%= album_song.audio_file.url %>"></audio>
+<div class="" style="margin-top: 15px;">
+	<div class="col-sm-6 song-list-uploaded" style="padding:0px; margin-bottom: 15px;">
+		<div class="cool-panel blue-grad">
+			<div class="panel-head">
+				<h3><strong> Songs </strong></h3>
+			</div>
+			<div class="panel-content" style="padding:20px; ">
+			<% if @album.songs.any? %>
+					<table class="table table-hover table-borderless">
+					  	<% @album.songs.each_with_index do |album_song, i| %>
+					  
+						    <tr class="clickable-row song-list cool-panel" >
+						      	<td style="padding-top:18px;"><%= album_song.track_number %></td>
+						      	<td><strong><%= album_song.title %></strong><br/> <%= album_song.album.name %></td>
+						      	<td style="padding-top:18px;"><%= album_song.album.released %></td>
+						      	<td style="padding-top:18px;"><span id="duration-<%= i %>"></span></td>
+						    </tr>
+						    
+					  		<audio id="my-audio-<%= i %>" src="<%= album_song.audio_file.url %>"></audio>
 
-						<script>
-							$("#my-audio-<%= i %>").on("canplaythrough", function(e){
-							    var seconds = e.currentTarget.duration;
-							    var duration = moment.duration(seconds, "seconds");
-							    
-							    var time = "";
-							    var hours = duration.hours();
-							    if (hours > 0) { time = hours + ":" ; }
-							    
-							    time = time + duration.minutes() + ":" + duration.seconds();
-							    $("#duration-<%= i %>").text(time);
-							});
+							<script>
+								$("#my-audio-<%= i %>").on("canplaythrough", function(e){
+								    var seconds = e.currentTarget.duration;
+								    var duration = moment.duration(seconds, "seconds");
+								    
+								    var time = "";
+								    var hours = duration.hours();
+								    if (hours > 0) { time = hours + ":" ; }
+								    
+								    time = time + duration.minutes() + ":" + duration.seconds();
+								    $("#duration-<%= i %>").text(time);
+								});
 
-							$("#file").change(function(e){
-							  var file = e.currentTarget.files[0];
+								$("#file").change(function(e){
+								  var file = e.currentTarget.files[0];
 
-							  var reader = new FileReader();
-							  
-							  reader.onLoad = function(encodedFile){
-							    $("#my-audio").prop(src, encodedFile);
-							  };
-							  
-							  reader.readAsDataURL(file);
-							});
-						</script>
-				  	<% end %>
-				</table>
-		<% else %>
-			<h3> Songs will show up here </h3>
-		<% end %>
+								  var reader = new FileReader();
+								  
+								  reader.onLoad = function(encodedFile){
+								    $("#my-audio").prop(src, encodedFile);
+								  };
+								  
+								  reader.readAsDataURL(file);
+								});
+							</script>
+					  	<% end %>
+					</table>
+			<% else %>
+				<div class="well">
+					<h3><strong> Songs will show up here </strong></h3>
+				</div>
+			<% end %>
+			</div>
 		</div>
 	</div>
-    <div class="col-sm-6  cool-panel side-form-panel">
-    <br/>
-          <h3> Add Song </h3>
+  <div class="col-sm-6" style="padding: 0px;">
+  	<div class="cool-panel blue-grad">
+			<div class="panel-head">
+        <h3><strong> Add Song </strong></h3>
+      </div>
+      <div class="panel-content" style="padding:20px; ">
         	<%= form_for([ @album, @song]) do |f| %>
-        	<div style="padding:0px; position: absolute; top:0px; right:0px; height: 100px; width:100px;">
-        	    <button class="btn btn-lg btn-success btn-success-block-head-sm">
-			      	
-			      	<div class="back-form">
-			      		<h2><i class="fa fa-cloud-upload" aria-hidden="true"></i></h2>
-			    	</div>
-			    </button>
-			</div>
+        	
 			  	<% if @song.errors.any? %>
 				    <div id="error_explanation">
 					     <h2><%= pluralize(@song.errors.count, "error") %> prohibited this song from being saved:</h2>
@@ -142,12 +141,16 @@ body{
 					    <span class="note help-block">.wav and .mp3 Files only. <a href="#">Click here to find out why.</a></span>
 					</div>
 			    </div>
+			    <div class="field">
+        	    <button class="btn btn-primary btn-block">
+			      		<i class="fa fa-cloud-upload" aria-hidden="true"></i> <uppercase>Upload</uppercase>
+			    </button>
 			<% end %>
         <div class="actions">
           <br/>
         </div>
     </div>
-
+  </div>
 </div>
 
 

@@ -2,96 +2,211 @@
 body{
 	padding-top:110px;
 }
+.slick-slide{
+    height:100%!important;
+}
+
 </style>
 <% if user_signed_in? && current_user.admin? || user_signed_in? && current_user.id == @band.user_id %>
-
-<%= form_for(@band) do |f| %>
-  <div class="cool-panel top-form-panel" style="background-color: #213143; margin-bottom: 15px;">
-  	<div class="row">
-	  	<div class="col-sm-9 top-text-form-panel">
-			<h2>Editing Band</h2> 
-			<h4> 
-			<% if user_signed_in? && @user = @band.user_id %><%= link_to 'Add Music', new_band_album_path(@band) %> | 
-		  	<%= link_to 'Add An Event', new_band_event_path(@band) %> |
-		  	<%= link_to 'Manage Albums', band_albums_path(@band) %> |
-        <%= link_to 'Manage Event', band_events_path(@band) %> |
-		  	<%= link_to 'Edit', edit_band_path(@band) %>  <% end %> 
-		  	</h4>
-	  	</div>
-	  	<div class="col-sm-3" style="padding:0px;">
-	  	  <%= link_to request.referer.present? ? request.referer : default_path, class: "btn btn-lg btn-danger btn-danger-block-head", style: " " do %>
-	  	  	<div class="back-form">
-		      <h2><i class="fa fa-close" aria-hidden="true"></i></h2>
-		    </div>
-	  	  <% end %>
-	  	  <%= button_tag(type: 'submit', class: "btn btn-lg btn-success btn-success-block-head", style: " ") do %>
-		    <div class="back-form">
-		      <h2><i class="fa fa-check" aria-hidden="true"></i></h2>
-		    </div>
-		  <% end %>
-		</div>
-	</div>
-  </div>
-  <div class="row">
-    <div class="col-md-8 deets-cool-cont">
-      <div class="cool-panel" style="padding:20px;">
-      <% if @band.errors.any? %>
-        <div id="error_explanation">
-          <h3><%= pluralize(@band.errors.count, "error") %> prohibited this artist from being saved:</h3>
-
-          <ul>
-          <% @band.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-          </ul>
-        </div>
-      <% end %>
-
-      <div class="field">
-      <h3> Group Details </h3>
-        <%= f.label :group_name %><br>
-        <%= f.text_field :group_name, class: "form-control" %>
+<div class="cool-panel top-form-panel blue-grad admin-title-panel" style=" margin-bottom: 15px;">
+    <div class="row">
+      <div class="col-sm-9 top-text-form-panel">
+      <h2><strong><%= @band.group_name %> Admin Page</strong></h2> 
+      
       </div>
-      <div class="field">
-        <%= f.label "Group Picture" %>
-        <%= f.file_field :band_avatar, class: "form-control" %>
-      </div>
-      <div class="field">
-        <%= f.label :genre %><br>
-        <%= f.text_field :genre, class: "form-control" %>
-      </div>
-      <div class="field">
-        <%= f.label :city %><br>
-        <%= f.text_field :city, class: "form-control" %>
-      </div>
-      <div class="field">
-        <%= f.label :state %><br>
-        <%= f.collection_select :state, State.order(:name), :id, :name, {include_blank: true} %>
-      </div>
-      <div class="field">
-        <%= f.label :description %><br>
-        <%= f.text_area :description, class: "form-control" %>
-      </div>
-      <div class="field">
-        <%= f.label :website %><br>
-        <%= f.text_field :website, class: "form-control" %>
-        <br/>
-      </div>
+      <div class="col-sm-3 page-head-btn">
+        <%= link_to band_path(@band), class: "btn btn-link pull-right desktop-only" do %>
+            <h3><strong><i class="fa fa-globe" aria-hidden="true"></i></strong></h3>
+        <% end %>
+        <%= link_to band_path(@band), class: "btn btn-default btn-block pull-right mobile-only", style: "padding: 0px; color:#000;" do %>
+            <h3><strong><i class="fa fa-globe" aria-hidden="true"></i> View Page</strong></h3>
+        <% end %>
       </div>
     </div>
-    <div class="col-md-4 article-container cool-panel side-form-panel">
-    <br/>
-      <h3> Group Members </h3> <h5>(Leave any extras blank)</h5>
-      <%= f.fields_for :members do |builder| %>
-          
-        <%= render 'member_fields', :f => builder %>
+  </div>
+<%= form_for(@band) do |f| %>
+  
+    <div class="col-md-8 deets-cool-cont">
+      <div class="cool-panel red-grad" style="padding:0px;">
+        <div class="panel-head">
+          <h3> <strong>Edit Artist Details </strong></h3>
+        </div>
+        <div class="panel-content">
 
-      <% end %>
-      <%= link_to_add_fields "Add more members", f, :members %>
-      <br/>
+          <h3 style="color:#000;"> <strong><% if @band.errors.any? %><i class="fa fa-exclamation-triangle" aria-hidden="true"></i><% end %> General Artist Details </strong></h3>
+          <button class="btn btn-link pull-right" type="button" data-toggle="collapse" data-target="#general" aria-expanded="false" aria-controls="general">
+            <h3><strong><i class="fa fa-pencil" aria-hidden="true"></i></strong></h3>
+          </button>
+          <div class="collapse" id="general">
+            <% if @band.errors.any? %>
+              <div id="error_explanation">
+                <h3><strong><%= pluralize(@band.errors.count, "error") %> prohibited this artist from being saved:</strong></h3>
+
+                <ul>
+                <% @band.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+                </ul>
+              </div>
+              <br/>
+            <% end %>
+
+            <div class="field">
+              <%= f.label "Artist Name*" %><br>
+              <%= f.text_field :group_name, class: "form-control" %>
+            </div>
+            <div class="field">
+              <%= f.label "Artist Handle*" %><br>
+              <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">@</span>
+                <%= f.text_field :handle, "aria-describedby": "basic-addon1", "placeholder": "artistname", class: "form-control" %>
+              </div>
+            </div>
+            <div class="field">
+              <%= f.label "Artist Picture" %>
+              <%= f.file_field :band_avatar, class: "form-control" %>
+            </div>
+            <div class="field">
+              <%= f.label :genre %><br>
+              <%= f.text_field :genre, class: "form-control" %>
+            </div>
+            <div class="field">
+              <%= f.label :city %><br>
+              <%= f.text_field :city, class: "form-control" %>
+            </div>
+            <div class="field">
+              <%= f.label :state %><br>
+              <%= f.collection_select :state, State.order(:name), :id, :name, {include_blank: true} %>
+            </div>
+            <div class="field">
+              <%= f.label :description %><br>
+              <%= f.text_area :description, class: "form-control" %>
+            </div>
+            <div class="field">
+              <%= f.label :website %><br>
+              <div class="input-group">
+                <span class="input-group-addon" id="website-addon">http://www.</span>
+                <%= f.text_field :website, "aria-describedby": "website-addon",class: "form-control" %>
+              </div>
+            </div>
+            <div class="field">
+              <%= f.label :store %><br> 
+              <div class="input-group">
+                <span class="input-group-addon" id="store-addon">http://www.</span>
+                <%= f.text_field :store, "aria-describedby": "store-addon", class: "form-control" %>
+              </div>
+              <br/>
+            </div>
+            <div class="btn btn-group btn-group-justified btn-group-lg">
+          <div class="btn-group btn-group-lg">
+            <%= link_to request.referer.present? ? request.referer : default_path, class: "btn btn-danger", style: " " do %>
+                <i class="fa fa-close" aria-hidden="true"></i>
+            <% end %>
+          </div>
+          <div class="btn-group btn-group-lg">
+            <%= button_tag(type: 'submit', class: "btn btn-success", style: " ") do %>
+               <i class="fa fa-check" aria-hidden="true"></i>
+            <% end %>
+          </div>
+
+        </div>
+          </div>
+        <hr>
+
+        <h3 style="color:#000;"> <strong>Artist's Members</strong> </h3> 
+        <button class="btn btn-link pull-right" type="button" data-toggle="collapse" data-target="#members" aria-expanded="false" aria-controls="members">
+            <h3><strong><i class="fa fa-pencil" aria-hidden="true"></i></strong></h3>
+        </button>
+        <div class="collapse" id="members">
+
+        <h5>(Leave any extras blank)</h5>
+        <%= f.fields_for :members do |builder| %>
+            
+          <%= render 'member_fields', :f => builder %>
+
+        <% end %>
+        <%= link_to_add_fields "Add more members", f, :members %>
+        <br/>
+          <div class="btn btn-group btn-group-justified btn-group-lg">
+            <div class="btn-group btn-group-lg">
+              <%= link_to request.referer.present? ? request.referer : default_path, class: "btn btn-danger", style: " " do %>
+                  <i class="fa fa-close" aria-hidden="true"></i>
+              <% end %>
+            </div>
+            <div class="btn-group btn-group-lg">
+              <%= button_tag(type: 'submit', class: "btn btn-success", style: " ") do %>
+                 <i class="fa fa-check" aria-hidden="true"></i>
+              <% end %>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 deets-cool-cont" style="padding-right:0px;">
+    <div class="cool-panel blue-grad" style="padding:0px;">
+      <div class="panel-head">
+        <h3> <strong>Edit Releases </strong></h3>
+        <%= link_to new_band_album_path(@band), class: "btn btn-link pull-right" do %>
+            <h3><strong><i class="fa fa-plus" aria-hidden="true"></i></strong></h3>
+        <% end %>
+      </div>
+      <div class="panel-content">
+        <% if @band.albums.any? %>
+          <div class="edit-albums">
+            <% @band.albums.each do |album| %>
+              <div class="existing-album">
+                <%= link_to edit_band_album_path(album.band, album) do %>
+                  <img src="<%= album.album_art.url(:medium) %>" style="object-fit:cover;" class="edit-album-image" >
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="well">
+            <h3><strong>No Releases</strong></h3>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="cool-panel blue-grad" style="padding:0px; margin-top: 15px;">
+      <div class="panel-head">
+        <h3> <strong>Edit Events </strong></h3>
+        <%= link_to new_band_event_path(@band), class: "btn btn-link pull-right" do %>
+            <h3><strong><i class="fa fa-plus" aria-hidden="true"></i></strong></h3>
+        <% end %>
+      </div>
+      <div class="panel-content">
+        <% if @band.events.any? %>
+          <div class="edit-albums">
+            <% @band.events.each do |event| %>
+              <div class="existing-album">
+                <%= link_to edit_band_event_path(album.band, event) do %>
+                  <img src="<%= event.flyer.url(:medium) %>" style="object-fit:cover;" class="edit-album-image" >
+                <% end %>
+              </div>
+            <% end %>
+        </div>
+        <% else %>
+          <div class="well well-lg">
+            <h3><strong>No Events</strong></h3>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 <% end %>
+<script type="text/javascript">
+  $(document).ready(function(){
+  $('.edit-albums').slick({
+    infinite: false,
+    slidesToShow: 3,
+    slidesToScroll: 3,
+    arrows: false
+  });
+});
+</script>
 <script type="text/javascript">
   $(function() {
   $('#band_state').selectize({
@@ -114,3 +229,15 @@ body{
 	</div>
 </div>
 <% end %>
+<script type="text/javascript">
+  $('#band_genre').selectize({
+    delimiter: ',',
+    persist: false,
+    create: function(input) {
+        return {
+            value: input,
+            text: input
+        }
+    }
+});
+</script>

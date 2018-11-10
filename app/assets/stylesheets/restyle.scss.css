@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald');
+
+
 /* FORMS */
 .cool-panel{
 	background-color: #FFF;
@@ -568,6 +571,133 @@ socail{
 		
 		display:none;
 	}
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+
+
+}
+/* ARTIST ADMIN*/
+
+.selectize-control.multi .selectize-input > div{
+	color:#FFF!important;
+}
+.panel-content{
+	background: #FFF;
+	padding: 15px;
+	border-bottom-right-radius: 3px;
+	border-bottom-left-radius: 3px;
+}
+.panel-head{
+	padding-left:15px;
+}
+h2 strong{
+    		font-size: 25px;
+    		text-transform: uppercase;
+    	}
+button h3{
+	color:#000!important; 
+	padding:0px; 
+	margin: 0px;
+}
+.panel-head .btn-link{
+	margin-top: -86px;
+
+}
+.panel-content .btn-link{
+	margin-top: -66px;
+
+}
+.edit-album-image{
+	width:90%!important;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 3px;
+}
+.existing-albums{
+	height: 100px;
+}
+.well h3 {
+	text-align: center;
+}
+.well h3 strong{
+	color:#000;
+}
+.page-head-btn .btn-link{
+	position: relative;
+	font-size: 30px;
+}
+.page-head-btn .btn-link h3 {
+	margin: 0px;
+	padding: 13px;
+	padding-right: 0px;
+	padding-bottom: 8px;
+}
+.page-head-btn .btn-link {
+	padding-right: 6px;
+}
+.btn-default h3 {
+	padding:0px;
+	margin: 3px;
+}
+.btn-default h3 strong{
+	color:#000;
+}
+.admin-title-panel{
+	border-radius: 3px;
+}
+@media only screen and (min-width : 320px) {
+	.desktop-only{
+		display: none;
+	}
+	.mobile-only{
+		display: block;
+	}
+	.top-text-form-panel{
+		padding-top: 0px;
+		padding-bottom: 0px;
+	}
+	.page-head-btn{
+		padding: auto;
+	}
+	.song-list-uploaded{
+		padding-right: 0px!important;
+	}
+}
+@media only screen and (min-width : 410px) {
+
+
+}
+/* Extra Small Devices, Phones */ 
+@media only screen and (min-width : 480px) {
+
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+	.desktop-only{
+		display: block;
+	}
+	.mobile-only{
+		display: none;
+	}
+	.top-text-form-panel{
+		padding-top: inherit;
+		padding-bottom: auto;
+	}
+	.page-head-btn{
+		padding: 0px;
+	}
+	.song-list-uploaded{
+		padding-right: 15px!important;
+	}
+
 }
 
 /* Medium Devices, Desktops */
